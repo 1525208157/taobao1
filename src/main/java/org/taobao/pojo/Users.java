@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -113,7 +114,7 @@ public class Users {
 		this.carts = carts;
 	}
 	
-	@OneToMany
+	@ManyToMany
 	@JoinColumn(name="userId")
 	public List<Goods> getFavoritesGoods() {
 		return favoritesGoods;
@@ -122,7 +123,7 @@ public class Users {
 		this.favoritesGoods = favoritesGoods;
 	}
 	
-	@OneToMany
+	@ManyToMany
 	@JoinColumn(name="userId")
 	public List<Shops> getFavoritesShops() {
 		return favoritesShops;

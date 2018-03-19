@@ -12,8 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.taobao.dao.BaseDao;
 
+//主功能实现类
 public class BaseDaoImpl<T> implements BaseDao<T>{
-	
 	@Resource
 	private SessionFactory sf;
 	private Class<T> cls;
@@ -34,20 +34,22 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 
 	@Override
 	public T selectOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sf.getCurrentSession();
+		T t = session.get(cls, id);
+		return t;
 	}
 
 	@Override
 	public void saveOrUpdate(T t) {
-		// TODO Auto-generated method stub
-		
+		Session session = sf.getCurrentSession();
+		session.saveOrUpdate(t);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
+		Session session = sf.getCurrentSession();
+		T t = session.get(cls, id);
+		session.delete(t);
 	}
 
 }
