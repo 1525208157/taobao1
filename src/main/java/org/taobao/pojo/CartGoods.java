@@ -5,12 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
-	private Goods goods; //商品 一对一
+	private Goods goods; //商品 多对一
 	private Integer cartGoodNum; //物品数量
 	
 	@Id
@@ -22,7 +22,7 @@ public class CartGoods {
 		this.cartGoodId = cartGoodId;
 	}
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="goodsId")
 	public Goods getGoods() {
 		return goods;
