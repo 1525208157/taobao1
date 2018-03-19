@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -24,9 +23,6 @@ public class Users {
 	private double balance; //账户余额
 	private List<Orders> orders; //订单  一对多
 	private List<Address> addresses;  //收货地址 一对多
-	private Carts carts; //购物车 一对一
-	private List<Goods> favoritesGoods; //关注商品  多对多
-	private List<Shops> favoritesShops; //关注店铺 多对多
 	private Shops shops; //店铺 一对一
 	private List<Appraises> appraises;
 	
@@ -103,33 +99,6 @@ public class Users {
 	}
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
-	}
-	
-	@OneToOne
-	@JoinColumn(name="cartId")
-	public Carts getCarts() {
-		return carts;
-	}
-	public void setCarts(Carts carts) {
-		this.carts = carts;
-	}
-	
-	@ManyToMany
-	@JoinColumn(name="userId")
-	public List<Goods> getFavoritesGoods() {
-		return favoritesGoods;
-	}
-	public void setFavoritesGoods(List<Goods> favoritesGoods) {
-		this.favoritesGoods = favoritesGoods;
-	}
-	
-	@ManyToMany
-	@JoinColumn(name="userId")
-	public List<Shops> getFavoritesShops() {
-		return favoritesShops;
-	}
-	public void setFavoritesShops(List<Shops> favoritesShops) {
-		this.favoritesShops = favoritesShops;
 	}
 	
 	@OneToOne

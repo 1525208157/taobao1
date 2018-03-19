@@ -7,25 +7,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+//关注商品
 @Entity
-public class OrderGoods { //订单商品表
-	private Integer ogId;
-	private Goods goods; //一对一 商品
-	private Integer goodsNum; //商品数量
+public class FavoritesGoods {
+	private Integer fgId;
+	private Users users;
+	private Goods goods;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getOgId() {
-		return ogId;
+	public Integer getFgId() {
+		return fgId;
 	}
-	public void setOgId(Integer ogId) {
-		this.ogId = ogId;
+	public void setFgId(Integer fgId) {
+		this.fgId = fgId;
 	}
-	public Integer getGoodsNum() {
-		return goodsNum;
+	
+	@ManyToOne
+	@JoinColumn(name="userId")
+	public Users getUsers() {
+		return users;
 	}
-	public void setGoodsNum(Integer goodsNum) {
-		this.goodsNum = goodsNum;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 	
 	@ManyToOne
