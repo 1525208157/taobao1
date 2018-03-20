@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
-	private Goods goods; //商品 多对一
+	private Goods goods; //商品 1多对一
 	private Integer cartGoodNum; //物品数量
 	
 	@Id
