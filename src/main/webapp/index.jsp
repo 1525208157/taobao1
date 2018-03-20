@@ -23,8 +23,8 @@
 <!-- bootstrap-table的汉化文件，汉化默认样式中的内容，必须在bootstarp-table.js之后导入 -->
 <script type="text/javascript"
 	src="js/bootstarp-table-1.11.1/bootstrap-table-zh-CN.min.js"></script>
-	
 </head>
 <body>
+
 </body>
 </html>
