@@ -25,6 +25,7 @@ public class Goods { //商品表
 	private List<Appraises> appraises; //评价 一对多
 	private List<GoodsColor> goodsColor; //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
+	private List<GoodsPicture> goodsPicture; //商品图片
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -114,6 +115,15 @@ public class Goods { //商品表
 	}
 	public void setGoodsIntroduce(GoodsIntroduce goodsIntroduce) {
 		this.goodsIntroduce = goodsIntroduce;
+	}
+	
+	@OneToMany
+	@JoinColumn(name="goodsId")
+	public List<GoodsPicture> getGoodsPicture() {
+		return goodsPicture;
+	}
+	public void setGoodsPicture(List<GoodsPicture> goodsPicture) {
+		this.goodsPicture = goodsPicture;
 	}
 	
 }
