@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Address { //收货地址表
 	private Integer addressId; //收货地址ID
 	private String userName; //真实姓名
-	private Integer userPhone; //收货人电话
+	private long userPhone; //收货人电话
 	private String userAddress; //收货地址
 	private Integer isDefault; //是否默认地址  0  1
 	
@@ -27,10 +27,10 @@ public class Address { //收货地址表
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Integer getUserPhone() {
+	public long getUserPhone() {
 		return userPhone;
 	}
-	public void setUserPhone(Integer userPhone) {
+	public void setUserPhone(long userPhone) {
 		this.userPhone = userPhone;
 	}
 	public String getUserAddress() {

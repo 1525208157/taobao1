@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class OrderGoods { //订单商品表
 	private Integer ogId;
-	private Goods goods; //一对一 商品
+	private Specs specs; //多对一 规格
 	private Integer goodsNum; //商品数量
 	
 	@Id
@@ -29,12 +29,12 @@ public class OrderGoods { //订单商品表
 	}
 	
 	@ManyToOne
-	@JoinColumn(name="goodsId")
-	public Goods getGoods() {
-		return goods;
+	@JoinColumn(name="specsId")
+	public Specs getSpecs() {
+		return specs;
 	}
-	public void setGoods(Goods goods) {
-		this.goods = goods;
+	public void setSpecs(Specs specs) {
+		this.specs = specs;
 	}
 	
 }

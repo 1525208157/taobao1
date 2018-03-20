@@ -10,7 +10,9 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
-	private Goods goods; //商品 1多对一
+ 
+	private Specs specs; //多对一类型
+ 
 	private Integer cartGoodNum; //物品数量
 	
 	@Id
@@ -22,19 +24,20 @@ public class CartGoods {
 		this.cartGoodId = cartGoodId;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name="goodsId")
-	public Goods getGoods() {
-		return goods;
-	}
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
 	public Integer getCartGoodNum() {
 		return cartGoodNum;
 	}
 	public void setCartGoodNum(Integer cartGoodNum) {
 		this.cartGoodNum = cartGoodNum;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="specsId")
+	public Specs getSpecs() {
+		return specs;
+	}
+	public void setSpecs(Specs specs) {
+		this.specs = specs;
 	}
 	
 }
