@@ -13,8 +13,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Carts { //购物车表
 	private Integer cartId; //购物车ID
-	private Users user; // 用户
-	private List<CartGoods> CartGoods; //一对多 购物车商品
+ 
+	private Users user; //用户
+	private List<Specs> specs; //一对多 购物车商品
+ 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,11 +29,11 @@ public class Carts { //购物车表
 	
 	@OneToMany
 	@JoinColumn(name="cartId")
-	public List<CartGoods> getCartGoods() {
-		return CartGoods;
+	public List<Specs> getSpecs() {
+		return specs;
 	}
-	public void setCartGoods(List<CartGoods> cartGoods) {
-		CartGoods = cartGoods;
+	public void setSpecs(List<Specs> specs) {
+		this.specs = specs;
 	}
 	
 	@OneToOne
