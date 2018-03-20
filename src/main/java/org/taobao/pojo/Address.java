@@ -1,4 +1,4 @@
-package org.taobao.pojo;
+  package org.taobao.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
