@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
+import org.taobao.pojo.Orders;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
+import org.taobao.service.OrderService;
 import org.taobao.service.UserService;
 
 @Controller
@@ -19,6 +21,8 @@ public class MyTaobaoController {
 	private AddressService as;
 	@Resource
 	private UserService us;
+	@Resource
+	private OrderService os;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -35,6 +39,12 @@ public class MyTaobaoController {
 		return "ok";
 	}
 	
-	
+	@RequestMapping("/selectOrders")
+	@ResponseBody
+	public List<Orders> selectOrders() {
+		String sql = "select * from orders";
+		List<Orders> orders = os.selectOrders(sql);
+		return orders;
+	}
 	
 }

@@ -17,15 +17,14 @@ public class Goods { //商品表
 	private String goodsName; //商品名称
 	private String goodsImg; //商品图片路径
 	private Integer isRecom; //是否推荐
-	private String goodsDesc; //商品描述
 	private Integer saleNum; //商品总销量
 	private String saleTime; //上架时间
 	private Type lastType; //最后一级商品分类  多对一
-	private List<Specs> specs; //规格 一对多
 	private List<Appraises> appraises; //评价 一对多
 	private List<GoodsColor> goodsColor; //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
 	private List<GoodsPicture> goodsPicture; //商品图片
+	private List<Specs> specs; //一对多 规格 双向
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -53,12 +52,6 @@ public class Goods { //商品表
 	public void setIsRecom(Integer isRecom) {
 		this.isRecom = isRecom;
 	}
-	public String getGoodsDesc() {
-		return goodsDesc;
-	}
-	public void setGoodsDesc(String goodsDesc) {
-		this.goodsDesc = goodsDesc;
-	}
 	public Integer getSaleNum() {
 		return saleNum;
 	}
@@ -79,15 +72,6 @@ public class Goods { //商品表
 	}
 	public void setLastType(Type lastType) {
 		this.lastType = lastType;
-	}
-	
-	@OneToMany
-	@JoinColumn(name="goodsId")
-	public List<Specs> getSpecs() {
-		return specs;
-	}
-	public void setSpecs(List<Specs> specs) {
-		this.specs = specs;
 	}
 	
 	@OneToMany
@@ -124,6 +108,15 @@ public class Goods { //商品表
 	}
 	public void setGoodsPicture(List<GoodsPicture> goodsPicture) {
 		this.goodsPicture = goodsPicture;
+	}
+	
+	@OneToMany(mappedBy="sGoods")
+	@JoinColumn(name="goodsId")
+	public List<Specs> getSpecs() {
+		return specs;
+	}
+	public void setSpecs(List<Specs> specs) {
+		this.specs = specs;
 	}
 	
 }
