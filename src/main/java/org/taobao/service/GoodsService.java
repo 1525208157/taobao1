@@ -6,4 +6,5 @@ import org.taobao.pojo.Goods;
 
 public interface GoodsService {
     List<Goods> queryAll(String sql);
+    
 }

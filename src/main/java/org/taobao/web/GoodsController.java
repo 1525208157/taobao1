@@ -17,7 +17,33 @@ private GoodsService gs;
 @RequestMapping("/queryAll")
 @ResponseBody
 public String queryAll(){
-	String sql="select * from goods where 1=1";
+	String sql="select * from goods";
+	List<Goods> gl=gs.queryAll(sql);
+	return "Goods";
+}
+@RequestMapping("/queryForBrandId")
+@ResponseBody
+public String queryForBrandId(Integer brandId){
+	String sql="select * from goods where1=1";
+	if (brandId!=null&&!brandId.equals("")) {
+		sql=sql+" and  brandId ="+brandId;
+	}
+	List<Goods> gl=gs.queryAll(sql);
+	return "Goods";
+}
+@RequestMapping("/querySaleNum")
+@ResponseBody
+public String querySaleNum(){
+	String sql="select * from goods order by saleNum desc;";
+	
+	List<Goods> gl=gs.queryAll(sql);
+	return "Goods";
+}
+@RequestMapping("/querySaleNum")
+@ResponseBody
+public String querySaleNum(){
+	String sql="select * from goods order by saleNum desc;";
+	
 	List<Goods> gl=gs.queryAll(sql);
 	return "Goods";
 }
