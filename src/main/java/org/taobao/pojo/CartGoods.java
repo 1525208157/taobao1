@@ -10,7 +10,9 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
+	
 	private Specs specs; //多对一类型
+	
 	private Integer cartGoodNum; //物品数量
 	private String cgDate; //添加时间
 	
