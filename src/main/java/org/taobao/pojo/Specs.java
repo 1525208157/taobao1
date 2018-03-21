@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Specs { //规格表
 	private Integer specsId; //规格编号
@@ -44,6 +46,7 @@ public class Specs { //规格表
 	
 	@ManyToOne
 	@JoinColumn(name="goodsId")
+	@JsonIgnoreProperties("specs")
 	public Goods getsGoods() {
 		return sGoods;
 	}

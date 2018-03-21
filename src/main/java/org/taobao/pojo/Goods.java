@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Goods { //商品表
 	private Integer goodsId; //商品编号
@@ -76,6 +78,7 @@ public class Goods { //商品表
 	
 	@OneToMany
 	@JoinColumn(name="goodsId")
+	
 	public List<Appraises> getAppraises() {
 		return appraises;
 	}
@@ -110,8 +113,9 @@ public class Goods { //商品表
 		this.goodsPicture = goodsPicture;
 	}
 	
-	@OneToMany(mappedBy="sGoods")
+	@OneToMany
 	@JoinColumn(name="goodsId")
+	@JsonIgnoreProperties("sGoods")  //双向关系转json时，查规格后规格不再查询到商品
 	public List<Specs> getSpecs() {
 		return specs;
 	}
