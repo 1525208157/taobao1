@@ -12,6 +12,7 @@ public class CartGoods {
 	private Integer cartGoodId; //ID
 	private Specs specs; //多对一类型
 	private Integer cartGoodNum; //物品数量
+	private String cgDate; //添加时间
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -36,6 +37,13 @@ public class CartGoods {
 	}
 	public void setSpecs(Specs specs) {
 		this.specs = specs;
+	}
+	
+	public String getCgDate() {
+		return cgDate;
+	}
+	public void setCgDate(String cgDate) {
+		this.cgDate = cgDate;
 	}
 	
 }
