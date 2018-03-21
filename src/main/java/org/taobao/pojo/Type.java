@@ -1,4 +1,4 @@
-package org.taobao.pojo;
+ package org.taobao.pojo;
 
 import java.util.List;
 
@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Type { //商品类型表

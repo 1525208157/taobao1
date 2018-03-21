@@ -6,15 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
-
 	private Specs specs; //多对一类型
- 
 	private Integer cartGoodNum; //物品数量
 	private String cgDate; //添加时间
+	private GoodsColor gColor; //颜色
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -46,6 +46,15 @@ public class CartGoods {
 	}
 	public void setCgDate(String cgDate) {
 		this.cgDate = cgDate;
+	}
+	
+	@OneToOne
+	@JoinColumn(name="gcId")
+	public GoodsColor getgColor() {
+		return gColor;
+	}
+	public void setgColor(GoodsColor gColor) {
+		this.gColor = gColor;
 	}
 	
 }
