@@ -10,10 +10,16 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
+<<<<<<< HEAD
  
+=======
+>>>>>>> branch 'master' of https://github.com/1525208157/taobao1.git
  
 	private Specs specs; //多对一类型
+<<<<<<< HEAD
  
+=======
+>>>>>>> branch 'master' of https://github.com/1525208157/taobao1.git
  
 	private Integer cartGoodNum; //物品数量
 	private String cgDate; //添加时间
