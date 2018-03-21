@@ -1,7 +1,4 @@
 package org.taobao.util;
-
-
-
 public class Shopcarts {//购物车用的购物实体
 	private Integer shopId;//店铺id
 	private String shopName;//店铺名称
@@ -15,7 +12,7 @@ public class Shopcarts {//购物车用的购物实体
 	private Integer cartGoodNum;//商品数量
 	private Double TotalPrice;//商品总价格
 	private String cgDate;//添加购物车时间
-	public Integer getShopId() {
+	public Integer getShopId() { 
 		return shopId;
 	}
 	public void setShopId(Integer shopId) {
