@@ -39,9 +39,9 @@ public String querySaleNum(){
 	List<Goods> gl=gs.queryAll(sql);
 	return "Goods";
 }
-@RequestMapping("/querySaleNum")
+@RequestMapping("/query")
 @ResponseBody
-public String querySaleNum(){
+public String query(){
 	String sql="select * from goods order by saleNum desc;";
 	
 	List<Goods> gl=gs.queryAll(sql);
