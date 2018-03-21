@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 public class OrderGoods { //订单商品表
 	private Integer ogId;
 	private Specs specs; //多对一 规格
-	private Integer goodsNum; //商品数量
+	private Integer goodsNum; //商品数量  
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
