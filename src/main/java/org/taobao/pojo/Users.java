@@ -24,7 +24,7 @@ public class Users {
 	private List<Orders> orders; //订单  一对多
 	private List<Address> addresses;  //收货地址 一对多
 	private Shops shops; //店铺 一对一
-	private List<Appraises> appraises;
+	private List<Appraises> appraises; //我的评价
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

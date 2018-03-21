@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Goods { //商品表
@@ -22,6 +23,9 @@ public class Goods { //商品表
 	private Type lastType; //最后一级商品分类  多对一
 	private List<Specs> specs; //规格 一对多
 	private List<Appraises> appraises; //评价 一对多
+	private List<GoodsColor> goodsColor; //颜色，一对多
+	private GoodsIntroduce goodsIntroduce; //商品介绍
+	private List<GoodsPicture> goodsPicture; //商品图片
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -84,6 +88,42 @@ public class Goods { //商品表
 	}
 	public void setSpecs(List<Specs> specs) {
 		this.specs = specs;
+	}
+	
+	@OneToMany
+	@JoinColumn(name="goodsId")
+	public List<Appraises> getAppraises() {
+		return appraises;
+	}
+	public void setAppraises(List<Appraises> appraises) {
+		this.appraises = appraises;
+	}
+	
+	@OneToMany
+	@JoinColumn(name="goodsId")
+	public List<GoodsColor> getGoodsColor() {
+		return goodsColor;
+	}
+	public void setGoodsColor(List<GoodsColor> goodsColor) {
+		this.goodsColor = goodsColor;
+	}
+	
+	@OneToOne
+	@JoinColumn(name="introduceId")
+	public GoodsIntroduce getGoodsIntroduce() {
+		return goodsIntroduce;
+	}
+	public void setGoodsIntroduce(GoodsIntroduce goodsIntroduce) {
+		this.goodsIntroduce = goodsIntroduce;
+	}
+	
+	@OneToMany
+	@JoinColumn(name="goodsId")
+	public List<GoodsPicture> getGoodsPicture() {
+		return goodsPicture;
+	}
+	public void setGoodsPicture(List<GoodsPicture> goodsPicture) {
+		this.goodsPicture = goodsPicture;
 	}
 	
 }
