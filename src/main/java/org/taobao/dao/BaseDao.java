@@ -10,5 +10,4 @@ public interface BaseDao<T> {
 	void saveOrUpdate(T t);
 	void delete(Integer id);
 	
-	
 }
