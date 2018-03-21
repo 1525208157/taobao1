@@ -14,12 +14,13 @@ import org.taobao.service.GoodsService;
 public class GoodsController {
 @Resource
 private GoodsService gs;
+
 @RequestMapping("/queryAll")
 @ResponseBody
-public String queryAll(){
+public List<Goods> queryAll(){
 	String sql="select * from goods";
 	List<Goods> gl=gs.queryAll(sql);
-	return "Goods";
+	return gl;
 }
 @RequestMapping("/queryForBrandId")
 @ResponseBody
