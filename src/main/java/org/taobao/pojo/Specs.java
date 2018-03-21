@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Specs { //规格表
@@ -11,6 +15,7 @@ public class Specs { //规格表
 	private String specsName; //规格名称
 	private double smoney; //单价
 	private Integer gStock; //该规格商品库存
+	private Goods sGoods; //多对一 商品
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,5 +43,15 @@ public class Specs { //规格表
 	public void setgStock(Integer gStock) {
 		this.gStock = gStock;
 	}
-
+	
+	@ManyToOne
+	@JoinColumn(name="goodsId")
+	@JsonIgnoreProperties("specs")
+	public Goods getsGoods() {
+		return sGoods;
+	}
+	public void setsGoods(Goods sGoods) {
+		this.sGoods = sGoods;
+	}
+	
 }
