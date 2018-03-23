@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.FavoritesGoodDao;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.service.FavoritesGoodService;
-
+@Service
+@Transactional
 public class FavoritesGoodServiceImpl implements FavoritesGoodService{
 	@Resource
 	private FavoritesGoodDao fd;
