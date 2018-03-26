@@ -10,7 +10,7 @@ public class Shopcarts {//购物车用的购物实体
 	private String goodsName;//商品名称
 	private String goodsImg;//商品图片
 	private Integer cartGoodNum;//商品数量
-	private Double TotalPrice;//商品总价格
+	private Double totalPrice;//商品总价格
 	private String cgDate;//添加购物车时间
 	public Integer getShopId() { 
 		return shopId;
@@ -77,7 +77,7 @@ public class Shopcarts {//购物车用的购物实体
 		return  smoney*cartGoodNum;
 	}
 	public void setTotalPrice(Double totalPrice) {
-		TotalPrice = totalPrice;
+		this.totalPrice = totalPrice;
 	}
 	public String getCgDate() {
 		return cgDate;

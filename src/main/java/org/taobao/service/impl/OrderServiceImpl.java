@@ -21,5 +21,5 @@ public class OrderServiceImpl implements OrderService{
 		List<Orders> orders = od.selectAll(sql);
 		return orders;
 	}
-	
+
 }

@@ -10,6 +10,7 @@ import org.taobao.service.ShopsService;
 
 @Controller
 public class ShopsController {
+
 @Resource
 private ShopsService ss;
 public List<Shops> queryAll(String shopName){
@@ -21,4 +22,5 @@ public List<Shops> queryAll(String shopName){
 	List<Shops> sl=ss.queryAll(sql);
 	return sl;
 }
+
 }
