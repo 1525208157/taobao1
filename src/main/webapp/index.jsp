@@ -25,6 +25,6 @@
 	src="js/bootstarp-table-1.11.1/bootstrap-table-zh-CN.min.js"></script>
 </head>
 <body>
- <a>查询商品表</a>
+ <a href="odersGoods/selectordergoods">查询商品表</a>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.taobao.pojo.Goods;
 import org.taobao.service.GoodsService;
 
 @Controller
+@RequestMapping("/goods")
 public class GoodsController {
 @Resource
 private GoodsService gs;
