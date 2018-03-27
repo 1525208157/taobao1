@@ -17,13 +17,13 @@ public class AddressServiceImpl implements AddressService{
 	private AddressDao ad;
 	
 	@Override
-	public List<Address> selectAll(String sql) {
+	public List<Address> selectAddress(String sql) {
 		List<Address> address = ad.selectAll(sql);
 		return address;
 	}
 
 	@Override
-	public void saveOrUpdate(Address address) {
+	public void saveOrUpdateAddress(Address address) {
 		ad.saveOrUpdate(address);
 	}
 

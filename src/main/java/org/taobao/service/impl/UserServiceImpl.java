@@ -1,5 +1,7 @@
 package org.taobao.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +26,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void saveOrUpdate(Users u) {
 		ud.saveOrUpdate(u);
+	}
+
+	@Override
+	public List<Users> selectUser(String sql) {
+		List<Users> users = ud.selectAll(sql);
+		return users;
 	}
 
 }
