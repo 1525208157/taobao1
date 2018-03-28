@@ -17,7 +17,7 @@ public class Orders { //订单信息表
 	private Integer orderId; //订单Id
 	private double totalMoney; //订单总金额
 	private Address address; //收货地址  一对一 
-	private Integer orderStatus; // 订单状态 ---1：待付款 、2：待发货、3：待收货、4：待评价
+	private Integer orderStatus; // 订单状态 ---1：待发货、2：待收货、3：待评价、4：已完成
 	private Integer isAppraise; //是否点评  0 1
 	private String receiveTime; //收货时间
 	private Courier courier; //快递公司ID  外键 多对一

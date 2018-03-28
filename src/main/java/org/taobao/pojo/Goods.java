@@ -27,6 +27,7 @@ public class Goods { //商品表
 	private GoodsIntroduce goodsIntroduce; //商品介绍
 	private List<GoodsPicture> goodsPicture; //商品图片
 	private List<Specs> specs; //一对多 规格 双向
+	private Shops shop; //多对一 店铺
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -78,7 +79,6 @@ public class Goods { //商品表
 	
 	@OneToMany
 	@JoinColumn(name="goodsId")
-	
 	public List<Appraises> getAppraises() {
 		return appraises;
 	}
@@ -121,6 +121,16 @@ public class Goods { //商品表
 	}
 	public void setSpecs(List<Specs> specs) {
 		this.specs = specs;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="shopId")
+	@JsonIgnoreProperties("goods")
+	public Shops getShop() {
+		return shop;
+	}
+	public void setShop(Shops shop) {
+		this.shop = shop;
 	}
 	
 }
