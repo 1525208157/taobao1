@@ -21,7 +21,6 @@ public class Goods { //商品表
 	private Integer isRecom; //是否推荐
 	private Integer saleNum; //商品总销量
 	private String saleTime; //上架时间
-	private Type lastType; //最后一级商品分类  多对一
 	private List<Appraises> appraises; //评价 一对多
 	private List<GoodsColor> goodsColor; //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
@@ -66,15 +65,6 @@ public class Goods { //商品表
 	}
 	public void setSaleTime(String saleTime) {
 		this.saleTime = saleTime;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="typeId")
-	public Type getLastType() {
-		return lastType;
-	}
-	public void setLastType(Type lastType) {
-		this.lastType = lastType;
 	}
 	
 	@OneToMany
