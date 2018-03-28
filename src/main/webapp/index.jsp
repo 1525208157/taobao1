@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
+
  <link rel="stylesheet" href="layui/css/layui.css" media="all">
 	 <link rel="stylesheet" href="css/bootstrap.min.css" />
 	 <script type="text/javascript" src="js/jquery.min.js" ></script>
@@ -96,8 +96,5 @@ layui.use('carousel', function(){
 </script>
 	
 		</center>
-
-<h1>1234</h1>
-<a href="carts/showCarts">321</a>
 </body>
 </html>
