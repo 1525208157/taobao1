@@ -1,23 +1,18 @@
 package org.taobao.pojo;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 //¹Ø×¢µêÆÌ
 @Entity
 public class FavoritesShops {
 	private Integer fsId;
-	private List<Shops> shops;
+	private Users users;
+	private Shops shops;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,12 +23,21 @@ public class FavoritesShops {
 		this.fsId = fsId;
 	}
 	
-	@OneToMany
-	@JoinColumn(name="fsId")
-	public List<Shops> getShops() {
+	@ManyToOne
+	@JoinColumn(name="userId")
+	public Users getUsers() {
+		return users;
+	}
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="shopId")
+	public Shops getShops() {
 		return shops;
 	}
-	public void setShops(List<Shops> shops) {
+	public void setShops(Shops shops) {
 		this.shops = shops;
 	}
 	

@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 public class Users {
 	private Integer userId; //用户ID
@@ -27,8 +25,6 @@ public class Users {
 	private List<Address> addresses;  //收货地址 一对多
 	private Shops shops; //店铺 一对一
 	private List<Appraises> appraises; //我的评价
-	private FavoritesGoods favoritesGoods; //关注商品 一对一
-	private FavoritesShops favoritesShops; //关注店铺 一对一
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -121,24 +117,6 @@ public class Users {
 	}
 	public void setAppraises(List<Appraises> appraises) {
 		this.appraises = appraises;
-	}
-	
-	@OneToOne
-	@JoinColumn(name="userId")
-	public FavoritesGoods getFavoritesGoods() {
-		return favoritesGoods;
-	}
-	public void setFavoritesGoods(FavoritesGoods favoritesGoods) {
-		this.favoritesGoods = favoritesGoods;
-	}
-	
-	@OneToOne
-	@JoinColumn(name="userId")
-	public FavoritesShops getFavoritesShops() {
-		return favoritesShops;
-	}
-	public void setFavoritesShops(FavoritesShops favoritesShops) {
-		this.favoritesShops = favoritesShops;
 	}
 	
 }

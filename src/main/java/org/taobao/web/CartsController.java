@@ -98,8 +98,8 @@ public class CartsController {
 	    Sign si=new Sign();
 	    if(fagood1==null){
 	    FavoritesGoods fagood=new FavoritesGoods();
-	   /* fagood.setUsers(user);
-	    fagood.setGoods(good);*/
+	    fagood.setUsers(user);
+	    fagood.setGoods(good);
 	    favgood.insertFavoritesGood(fagood);
 	    si.setBiaoji("ok");
 	    }else{
