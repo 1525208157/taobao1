@@ -1,19 +1,20 @@
 package org.taobao.web;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.MidiChannel;
+
 
 import org.apache.catalina.User;
 import org.aspectj.weaver.Shadow;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Carts;
 import org.taobao.pojo.FavoritesGoods;
@@ -21,9 +22,10 @@ import org.taobao.pojo.Goods;
 import org.taobao.pojo.Users;
 import org.taobao.service.CartsService;
 import org.taobao.service.FavoritesGoodService;
+import org.taobao.util.Jihe;
 import org.taobao.util.Shopcarts;
 import org.taobao.util.Sign;
-import org.w3c.dom.ls.LSInput;
+
 
 @Controller
 @RequestMapping("/carts")
@@ -43,7 +45,7 @@ public class CartsController {
 	@RequestMapping("/goodAll")
 	@ResponseBody
 	public List<List<Shopcarts>> getCartsGoods(Integer userId){
-		String sql="select s.shopId,s.shopName,sp.specsId,sp.specsName,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
+		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 					+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 				    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
 				    + " and c.userId="+userId+" order by ca.cgDate desc";
@@ -75,6 +77,7 @@ public class CartsController {
 		    			   catrs.setCgDate(list.get(j).getCgDate());//购物商品时间
 		    			   catrs.setGoodsName(list.get(j).getGoodsName());//手机名称
 		    			   catrs.setSpecsName(list.get(j).getSpecsName());//型号名称
+		    			   catrs.setCartGoodId(list.get(j).getCartGoodId());//购物商品id
 		    			  list3.add(catrs);
 		    		   }  
 		    	   }
@@ -87,16 +90,23 @@ public class CartsController {
 	}
 	
 	
-	@RequestMapping("/setFavoritesGood")
+	@RequestMapping("/setFavoritesGood")//单次添加关注
 	@ResponseBody
-	public Sign setFavoritesGood(HttpServletRequest request,Goods good){//单次添加关注
+	public Sign setFavoritesGood(HttpServletRequest request,Goods good){
+	
+		
 		HttpSession see=request.getSession();
-		Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("user");
+		if(user==null){
+			user=new Users();
+			user.setUserId(1);
+		}
+		
 	   
 	    String sql="select * from favoritesgoods where userId="+user.getUserId()+" and goodsId="+good.getGoodsId();
-	    FavoritesGoods fagood1=favgood.selectFavoritesGoods(sql).get(0);
+	   List<FavoritesGoods> fagood1=favgood.selectFavoritesGoods(sql);
 	    Sign si=new Sign();
-	    if(fagood1==null){
+	    if(fagood1.isEmpty()){
 	    FavoritesGoods fagood=new FavoritesGoods();
 	    fagood.setUsers(user);
 	    fagood.setGoods(good);
@@ -108,5 +118,75 @@ public class CartsController {
 		return si;
 		
 	}
-
-}
+	
+	@RequestMapping("/deleteCartGood")
+	public String deleteFavoritesGood(Integer cartGoodId){//删除
+		System.out.println("删除商品");
+		 ca.deleteCartGood(cartGoodId);
+		 return "mycart";
+	}
+	
+	@RequestMapping("/setFavoritesGoods")//批量添加关注
+	@ResponseBody//
+	public Sign setFavoritesGoods(HttpServletRequest request,@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList){//批量添加关注
+		System.out.println("添加关注");
+		HttpSession see=request.getSession();
+	    
+		 Users user=(Users) see.getAttribute("user");
+		if(user==null){
+			user=new Users();
+			user.setUserId(1);
+		}
+		 
+		Sign si=new Sign();
+		if(idList!=null){//这里在后台判断是不是空了 直接写idList.size()!=0不能这样写，如果是空时idlist就是空， 虽然前台new了一个集合
+		List<Integer> li=new ArrayList<>();
+		for (int i=0;i<idList.size();i++) {//通过循环购物车id，查找商品id，并将商品id，添加进集合
+			System.out.println("选中的id:"+idList.get(i));
+			String hql="select go.goodsId from cartgoods ca,specs sp,goods go where ca.specsId=sp.specsId and "
+					   +"sp.goodsId=go.goodsId and cartGoodId="+idList.get(i);
+			Integer a=(Integer) favgood.getObjet(hql).get(0);
+			li.add(a);	
+		}
+		
+		for (Integer integer : li) {//循环数组 把商品添加进关注
+	    String sql="select * from favoritesgoods where userId="+user.getUserId()+" and goodsId="+integer;//循环查询关注的商品里有没有该商品
+	    List<FavoritesGoods> fagood1=favgood.selectFavoritesGoods(sql);
+	   
+	    if(fagood1.isEmpty()){
+	    FavoritesGoods fagood=new FavoritesGoods();
+	    fagood.setUsers(user);
+	    Goods good=new Goods();
+	    good.setGoodsId(integer);
+	    fagood.setGoods(good);
+	    favgood.insertFavoritesGood(fagood);
+	   
+	    }
+	
+	}
+		 si.setBiaoji("ok");
+		}else {
+			System.out.println("选择的为空");
+		si.setBiaoji("checkednull");
+	}
+		return si;
+	}
+	
+	@RequestMapping("/deleteCartGoods")
+	public String deleteFavoritesGoods(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList){//批量删除购物车里的上品
+		//System.out.println("删除商品");
+		//这里直接在前台判断是不是空了
+		for (Integer integer : idList) {
+			System.out.println("批量删除："+integer);
+		}
+		for (Integer integer : idList) {
+			ca.deleteCartGood(integer);
+		}
+		 
+		 return "mycart";
+	}
+	
+	
+	
+	}
+ 

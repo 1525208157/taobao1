@@ -6,5 +6,6 @@ import org.taobao.util.Shopcarts;
 
 public interface CartsService {
 	List<Shopcarts> getCarts(String sql);
+	void deleteCartGood(Integer cartGoodId);
 
 }

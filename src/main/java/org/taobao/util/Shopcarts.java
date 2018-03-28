@@ -12,6 +12,7 @@ public class Shopcarts {//购物车用的购物实体
 	private Integer cartGoodNum;//商品数量
 	private Double totalPrice;//商品总价格
 	private String cgDate;//添加购物车时间
+	private Integer cartGoodId;//购物车里的id cartGoodId
 	public Integer getShopId() { 
 		return shopId;
 	}
@@ -84,6 +85,12 @@ public class Shopcarts {//购物车用的购物实体
 	}
 	public void setCgDate(String cgDate) {
 		this.cgDate = cgDate;
+	}
+	public Integer getCartGoodId() {
+		return cartGoodId;
+	}
+	public void setCartGoodId(Integer cartGoodId) {
+		this.cartGoodId = cartGoodId;
 	}
 	
 	
