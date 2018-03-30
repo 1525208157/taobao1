@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Courier { //快递表
 	private Integer courierId;  //快递ID
-	private Integer courierNo; //快递号
+	private Integer courierNo; //快递电话
 	private String courierName; //快递名称
 	
 	@Id

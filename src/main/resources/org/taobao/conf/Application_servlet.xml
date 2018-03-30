@@ -9,16 +9,24 @@
 
 	<!-- 扫描controller -->
 	<context:component-scan base-package="org.taobao.web"></context:component-scan>
-	
+
 	<!-- 组件 -->
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<!-- 视图解析器 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 	<!-- 静态资源放行 -->
-	<mvc:default-servlet-handler/>
-	
+	<mvc:default-servlet-handler />
+
+
+
+	<!-- 在spring mvc配置文件中增加配置，文件大小限制可根据项目情况调整： 不写上传会报错 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
 </beans>

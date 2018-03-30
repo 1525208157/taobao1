@@ -40,4 +40,13 @@
 	<!-- 扫描注解 -->
 	<context:component-scan base-package="org.taobao.dao,org.taobao.service"></context:component-scan>
 	
+	
+	
+	
+		
+	
+
+	
+	
+	
 </beans>
