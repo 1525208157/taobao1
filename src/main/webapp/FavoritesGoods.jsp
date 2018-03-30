@@ -145,7 +145,7 @@
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
 					data-name="home" data-spm="1581860521">
 					<div class="site-nav-menu-hd">
-						<a href="//www.taobao.com/" target="_top"> <span>淘宝网首页</span>
+						<a href="index.jsp" target="_top"> <span>淘宝网首页</span>
 						</a>
 
 					</div>
@@ -156,7 +156,7 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="//i.taobao.com/my_taobao.htm" target="_top"> <span>我的淘宝</span>
+						<a href="MyTaobao.jsp" target="_top"> <span>我的淘宝</span>
 						</a>
 
 					</div>
@@ -184,7 +184,7 @@
 					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavFavor" data-name="favor" data-spm="1997525053">
 					<div class="site-nav-menu-hd">
-						<a href="//shoucang.taobao.com/item_collect.htm" target="_top">
+						<a href="FavoritesGoods.jsp" target="_top">
 							<span class="site-nav-icon">&#xe604;</span> <span>收藏夹</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
@@ -193,9 +193,9 @@
 					<div class="site-nav-menu-bd site-nav-menu-list">
 						<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-							<a href="//shoucang.taobao.com/item_collect.htm" target="_top">收藏的宝贝</a>
+							<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a>
 
-							<a href="//shoucang.taobao.com/shop_collect_list.htm"
+							<a href="FavoritesShops.jsp"
 								target="_top">收藏的店铺</a>
 
 						</div>

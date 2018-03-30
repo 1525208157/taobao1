@@ -94,7 +94,9 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/updatePass")
 	@ResponseBody
-	public String updatePass(Users u) { //ĞŞ¸ÄÃÜÂë
+	public String updatePass(Integer userId,String password) { //ĞŞ¸ÄÃÜÂë
+		Users u = us.selectOne(userId);
+		u.setPassword(password);
 		us.saveOrUpdate(u);
 		return "ok";
 	}
@@ -174,10 +176,10 @@ public class MyTaobaoController {
 		HttpSession session = request.getSession();
 		String sql = "select * from users where account = "+account+" and password = "+password;
 		List<Users> users = us.selectUser(sql);
-		session.setAttribute("users", users);
 		String str = "";
 		if (users != null && users.size() != 0) {
 			str = "ok";
+			session.setAttribute("users", users.get(0));
 		} else {
 			str = "error";
 		}

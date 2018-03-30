@@ -177,7 +177,7 @@
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
 					data-name="home" data-spm="1581860521">
 					<div class="site-nav-menu-hd">
-						<a href="//www.taobao.com/" target="_top"> <span>淘宝网首页</span>
+						<a href="index.jsp" target="_top"> <span>淘宝网首页</span>
 						</a>
 
 					</div>
@@ -188,7 +188,7 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="//i.taobao.com/my_taobao.htm" target="_top"> <span>我的淘宝</span>
+						<a href="MyTaobao.jsp" target="_top"> <span>我的淘宝</span>
 						</a>
 
 					</div>
@@ -216,7 +216,7 @@
 					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavFavor" data-name="favor" data-spm="1997525053">
 					<div class="site-nav-menu-hd">
-						<a href="//shoucang.taobao.com/item_collect.htm" target="_top">
+						<a href="FavoritesGoods.jsp" target="_top">
 							<span class="site-nav-icon">&#xe604;</span> <span>收藏夹</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
@@ -225,9 +225,9 @@
 					<div class="site-nav-menu-bd site-nav-menu-list">
 						<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-							<a href="//shoucang.taobao.com/item_collect.htm" target="_top">收藏的宝贝</a>
+							<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a>
 
-							<a href="//shoucang.taobao.com/shop_collect_list.htm"
+							<a href="FavoritesShops.jsp"
 								target="_top">收藏的店铺</a>
 
 						</div>
@@ -275,40 +275,8 @@
 	<nav class="mt-nav">
 	<ul id="J_MtMainNav">
 		<li class="selected"><a
-			href="//i.taobao.com/my_taobao.htm?tracelog=mytaobaonavindex&amp;nekot=1470211439696"
+			href="MyTaobao.jsp"
 			data-spm="d1000352">首页</a> <i class="mt-arrow"></i></li>
-		<li class="J_MtNavSubTrigger"><a class="mt-nav-parent"
-			href="//member1.taobao.com/member/fresh/account_security.htm?tracelog=mytaobaonavsetup&amp;nekot=1470211439696"
-			data-spm="d1000356">账户设置<i><em></em><s></s></i></a> <i
-			class="mt-arrow"></i>
-			<div class="J_MtNavSub mt-nav-sub hide">
-				<div class="mt-nav-arr"></div>
-				<dl class="mt-nav-sub-col1">
-					<dt>安全设置</dt>
-					<dd>
-						<p>
-							<a data-spm="11"
-								href="//110.taobao.com/account/product_validate.htm?type=password">修改登录密码</a>
-						</p>
-						<p>
-							<a data-spm="13" href="//110.taobao.com/product/question_set.htm">密保问题设置</a>
-						</p>
-					</dd>
-				</dl>
-				<dl class="mt-nav-sub-col2">
-					<dt>个人资料</dt>
-					<dd>
-						<p>
-							<a data-spm="8"
-								href="//member1.taobao.com/member/fresh/deliver_address.htm">收货地址</a>
-						</p>
-						<p>
-							<a data-spm="14" href="//i.taobao.com/user/baseInfoSet.htm">修改头像、昵称</a>
-						</p>
-					</dd>
-				</dl>
-
-			</div></li>
 	</ul>
 	</nav> </article> </header>
 

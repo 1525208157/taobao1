@@ -62,18 +62,17 @@
 		}
 		
 		//验证账号密码是否正确
+		var userId = ${users.userId };
+		var account = ${users.account };
+		var password = ${users.password };
 		function validationUser() {
-			$.ajax({
-				url:"myTaobao/selectUser?account="+$("#account").val()+"&password="+$("#password").val(),
-				success:function(data){
-					if (data == "ok") {
-						$("#visDiv").attr("style","visibility:hidden;");
-						$("#hidDiv").attr("style","visibility:visible;");
-					} else if (data == "error"){
-						alert("账号或密码错误");
-					}
-				}
-			})
+			if ($("#account").val() == account && $("#password").val() == password) {
+				$("#visDiv").attr("style","visibility:hidden;");
+				$("#hidDiv").attr("style","visibility:visible;");
+			} else {
+				alert("账号或密码错误");
+			}
+			
 		};
 		
 		//判断账号密码是否为空
@@ -95,9 +94,11 @@
 					alert("两次密码不一致！");
 				} else {
 					$.ajax({
-						url:"myTaobao/updatePass?password=",
+						url:"myTaobao/updatePass?userId="+userId+"&password="+$("#update_password").val(),
 						success:function(data){
 							alert(data);
+							$("#updatePass").modal("hide");
+							location.reload();
 						}
 					});
 				}
@@ -128,8 +129,7 @@
 				<ul class="site-nav-bd-r" id="J_SiteNavBdR" data-spm-ab="2">
 					<li class="site-nav-menu site-nav-home" id="J_SiteNavHome" data-name="home" data-spm="1581860521">
 						<div class="site-nav-menu-hd">
-							<a href="//www.taobao.com/" target="_top">
-	
+							<a href="index.jsp" target="_top">
 								<span>淘宝网首页</span>
 							</a>
 
@@ -139,8 +139,7 @@
 
 					<li class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu" id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 						<div class="site-nav-menu-hd">
-							<a href="//i.taobao.com/my_taobao.htm" target="_top">
-
+							<a href="MyTaobao.jsp" target="_top">
 								<span>我的淘宝</span>
 							</a>
 
@@ -167,7 +166,7 @@
 
 					<li class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu" id="J_SiteNavFavor" data-name="favor" data-spm="1997525053">
 						<div class="site-nav-menu-hd">
-							<a href="//shoucang.taobao.com/item_collect.htm" target="_top">
+							<a href="FavoritesGoods.jsp" target="_top">
 								<span class="site-nav-icon">&#xe604;</span>
 								<span>收藏夹</span>
 							</a>
@@ -179,9 +178,9 @@
 						<div class="site-nav-menu-bd site-nav-menu-list">
 							<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-								<a href="//shoucang.taobao.com/item_collect.htm" target="_top">收藏的宝贝</a>
+								<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a>
 
-								<a href="//shoucang.taobao.com/shop_collect_list.htm" target="_top">收藏的店铺</a>
+								<a href="FavoritesShops.jsp" target="_top">收藏的店铺</a>
 
 							</div>
 						</div>
@@ -230,7 +229,7 @@
 				<nav class="mt-nav">
 					<ul id="J_MtMainNav">
 						<li class="selected">
-							<a href="//i.taobao.com/my_taobao.htm?tracelog=mytaobaonavindex&amp;nekot=1470211439696" data-spm="d1000352">首页</a>
+							<a href="MyTaobao.jsp" data-spm="d1000352">首页</a>
 							<i class="mt-arrow"></i>
 						</li>
 						<li class="J_MtNavSubTrigger">
@@ -244,19 +243,13 @@
 										<p>
 											<a data-spm="11" href="#" onclick="openUpdatePassModal()">修改登录密码</a>
 										</p>
-										<p>
-											<a data-spm="13" href="//110.taobao.com/product/question_set.htm">密保问题设置</a>
-										</p>
 									</dd>
 								</dl>
 								<dl class="mt-nav-sub-col2">
 									<dt>个人资料</dt>
 									<dd>
 										<p>
-											<a data-spm="8" href="//member1.taobao.com/member/fresh/deliver_address.htm">收货地址</a>
-										</p>
-										<p>
-											<a data-spm="14" href="//i.taobao.com/user/baseInfoSet.htm">修改头像、昵称</a>
+											<a data-spm="8" href="Address.jsp">收货地址</a>
 										</p>
 									</dd>
 								</dl>
@@ -310,10 +303,7 @@
 										<ul class="s-my-stuffs">
 
 											<li>
-												<a href="//member1.taobao.com/member/fresh/deliver_address.htm" target="_blank" data-spm="d4912033" class="J_DropTrigger i-trigger">我的收货地址</a>
-											</li>
-											<li>
-												<a href="//member1.taobao.com/member/fresh/deliver_address.htm" target="_blank" data-spm="d4912034" class="J_DropTrigger i-trigger">我的优惠信息</a>
+												<a href="Address.jsp" target="_blank" data-spm="d4912033" class="J_DropTrigger i-trigger">我的收货地址</a>
 											</li>
 										</ul>
 									</div>
@@ -432,23 +422,15 @@
 								</dd>
 								<dd class="mt-menu-sub fold J_MtSideTree">
 									<!--<b class="mt-indicator J_MtIndicator">-</b>-->
-									<a id="bought" href="//trade.taobao.com/trade/itemlist/list_bought_items.htm?nekot=1470211439694" data-spm="d1000368">已买到的宝贝</a>
+									<a id="bought" href="Order.jsp" data-spm="d1000368">已买到的宝贝</a>
 								</dd>
 								<dd id="favorite1">
-									<a href="//shoucang.taobao.com/collectList.htm?nekot=1470211439694" data-spm="d1000374">收藏商品</a>
+									<a href="FavoritesGoods.jsp" data-spm="d1000374">收藏商品</a>
 								</dd>
 								<dd id="favorite2">
-									<a href="//shoucang.taobao.com/collectList.htm?nekot=1470211439694" data-spm="d1000374">收藏店铺</a>
+									<a href="FavoritesShops.jsp" data-spm="d1000374">收藏店铺</a>
 								</dd>
-
-								<dd id="myRate">
-									<a href="//rate.taobao.com/myRate.htm?nekot=1470211439694" data-spm="d1000377">评价管理</a>
-								</dd>
-
-								<dd>
-									<a data-spm="d1000391" href="//www.taobao.com/markets/footmark/tbfoot" target="_blank" role="menuitem">我的足迹</a>
-								</dd>
-
+								
 							</dl>
 
 						</div>
@@ -481,7 +463,7 @@
 							<div class="row">
 								<div class="col-lg-3 col-sm-3" style="text-align: right"><font size="4" style="font-family: SimHei;">原密码:</font></div>
 								<div class="col-lg-9 col-sm-9">
-									<input type="text" id="password" style="width: 90%;height: 28px" onchange="isNull()">
+									<input type="password" id="password" style="width: 90%;height: 28px" onchange="isNull()">
 								</div>
 							</div>
 							<br><br>
@@ -494,19 +476,19 @@
 							<div class="row">
 								<div class="col-lg-3 col-sm-3" style="text-align: right"><font size="4" style="font-family: SimHei;">新密码:</font></div>
 								<div class="col-lg-9 col-sm-9">
-									<input type="text" id="update_password" style="width: 90%;height: 28px">
+									<input type="password" id="update_password" style="width: 90%;height: 28px">
 								</div>
 							</div>
 							<br><br>
 							<div class="row">
 								<div class="col-lg-3 col-sm-3" style="text-align: right"><font size="4" style="font-family: SimHei;">确认密码:</font></div>
 								<div class="col-lg-9 col-sm-9">
-									<input type="text" id="update_pass" style="width: 90%;height: 28px">
+									<input type="password" id="update_pass" style="width: 90%;height: 28px">
 								</div>
 							</div>
 							<br><br>
 							<div  style="text-align: center;">
-								<button type="button" class="btn btn-default" onclick="">提交</button>
+								<button type="button" class="btn btn-default" onclick="updatePass()">提交</button>
 							</div>
 						</div>
 					</div>
