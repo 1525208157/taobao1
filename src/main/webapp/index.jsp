@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-`
+
 <title>Insert title here</title>
 <link rel="stylesheet" href="layui/css/layui.css" media="all">
  <link rel="stylesheet" href="css/bootstrap.min.css" />
