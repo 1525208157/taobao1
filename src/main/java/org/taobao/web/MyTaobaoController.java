@@ -3,6 +3,8 @@ package org.taobao.web;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -168,9 +170,11 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/selectUser")
 	@ResponseBody
-	public String selectUser(String account,String password) { //按状态查询订单
+	public String selectUser(String account,String password,HttpServletRequest request) { //按状态查询订单
+		HttpSession session = request.getSession();
 		String sql = "select * from users where account = "+account+" and password = "+password;
 		List<Users> users = us.selectUser(sql);
+		session.setAttribute("users", users);
 		String str = "";
 		if (users != null && users.size() != 0) {
 			str = "ok";
