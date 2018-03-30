@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.taobao.pojo.FenZhuang;
 import org.taobao.pojo.Users;
 import org.taobao.service.UserService;
 
@@ -19,20 +18,7 @@ public class UserController {
 	@Resource
 	private UserService ur;
 
-	@RequestMapping("/selectUser")
-	@ResponseBody
-	public FenZhuang selectUser(Integer account, String password) {
-		Users user = ur.selectOne(account);
-		FenZhuang fz=new FenZhuang();
-		if (user!=null&&user.getPassword().equals(password)) {
-			fz.setFz("ok");
-			return fz;
-		}else{
-			fz.setFz("error");
-		return fz ;
-		}
-		
-	}
+	
 
 	/**
 	 * @param img
