@@ -51,16 +51,13 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	 <filter>
+	<filter>
 		<filter-name>characterEncodingFilter1</filter-name>
 		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>characterEncodingFilter1</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> 
-	
-	
-	 
+	</filter-mapping>
 	
 </web-app>

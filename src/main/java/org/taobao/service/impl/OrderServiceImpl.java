@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.OrderDao;
+import org.taobao.pojo.OrderGoods;
 import org.taobao.pojo.Orders;
 import org.taobao.service.OrderService;
 
@@ -21,5 +22,17 @@ public class OrderServiceImpl implements OrderService{
 		List<Orders> orders = od.selectAll(sql);
 		return orders;
 	}
-	
+
+	@Override
+	public List<OrderGoods> selectOrderGoods(String sql) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveOrUpdate(Orders o) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

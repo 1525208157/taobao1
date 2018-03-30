@@ -6,8 +6,9 @@ import org.taobao.pojo.Address;
 import org.taobao.pojo.Users;
 
 public interface AddressService {
-	List<Address> selectAll(String sql);
-	void saveOrUpdate(Address address);
+	List<Address> selectAddress(String sql);
+	void saveOrUpdateAddress(Address address);
 	void deleteAddress(Integer id);
+	Address selectOneAddress(Integer id);
 	
 }
