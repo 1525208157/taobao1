@@ -8,16 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.taobao.pojo.Address;
+import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.Shops;
 import org.taobao.service.GoodsService;
 
 @Controller
+@RequestMapping("/goods")
 public class GoodsController {
 @Resource
 private GoodsService gs;
 
 @RequestMapping("/queryAll")
-
 public String queryAll(ModelMap map){
 	String sql="select * from goods";
 	List<Goods> gl=gs.queryAll(sql);
@@ -53,4 +56,20 @@ public String query(String goodName){
 	return "Goods";
 
 }
+
+
+@RequestMapping("/abc")
+@ResponseBody
+public List<Goods> queryAll(){
+	String sql="select * from goods";
+	List<Goods> goods=gs.queryAll(sql);
+	return goods;
+}
+
+@RequestMapping("/insertGoods")
+public String insertFavoritesGood(Shops ss) { //ÃÌº”…Ã∆∑
+	gs.saveOrUpdate(ss);
+	return "redirect:/tianjia.jsp";
+}
+
 }
