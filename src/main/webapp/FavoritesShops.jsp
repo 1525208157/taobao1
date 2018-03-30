@@ -9,35 +9,16 @@
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-<!--
-        	作者：offline
-        	时间：2018-03-27
-        	描述：登录/注册 首页、我的淘宝 导航
-        -->
+<!-- 首页、我的淘宝、购物车 导航样式 -->
 <link rel="stylesheet"
 	href="//g.alicdn.com/??kg/global-util/1.0.6/index-min.css,kg/tb-nav/2.4.1/index-min.css">
 
-<!--
-        	作者：offline
-        	时间：2018-03-27
-        	描述：搜索框样式
-        -->
+<!-- 搜索框样式 -->
 <link rel="stylesheet"
 	href="//g.alicdn.com/tbc/search-suggest/1.4.5/??new_searchbox-min.css,new_suggest-min.css">
 
-<!--
-        	作者：offline
-        	时间：2018-03-27
-        	描述：除最上方导航外样式
-        -->
 <script
 	src="//g.alicdn.com/??kissy/k/1.4.16/seed-min.js,kg/kmd-adapter/0.1.5/index.js,kg/kmd-adapter/0.1.5/util.js,kg/global-util/1.0.7/index-min.js,tb/tracker/4.0.1/p/index/index.js,kg/tb-nav/2.5.4/index-min.js"></script>
-
-<!--
-        	作者：offline
-        	时间：2018-03-27
-        	描述：购物车、收藏夹、卖家中心展开js
-        -->
 <script>
 	KISSY.config({
 		modules : {
@@ -60,11 +41,7 @@
 	});
 </script>
 
-<!--
-        	作者：offline
-        	时间：2018-03-27
-        	描述：收藏夹导航样式
-        -->
+<!-- 收藏夹导航js -->
 <script src="//g.alicdn.com/kissy/k/1.4.16/import-style-min.js"
 	data-config="{combine:true}"></script>
 <script id="J_ConfigScript"
@@ -78,38 +55,38 @@
 	})
 </script>
 <script>
-	KISSY.importStyle('mercury/p/itemimglist/index');
+	KISSY.importStyle('mercury/p/shoplist/index');
 </script>
 
 </head>
 
-<script>
-	$(function(){
+<script type="text/javascript">
+	$(function() {
 		$.ajax({
-			url : "myTaobao/selectFavoritesGoods",
+			url : "myTaobao/selectFavoritesShops",
 			dataType : "json",
 			success : function(data) {
-				$("#fNum").append(data.length);
+				$("#sNum").append(data.length);
 				var num = 0;
 				for (i = 0; i < data.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
-						$("#favoritesGoodsDiv").append("<div class='row' id='d"+i+" '>"
+						$("#favoritesShopsDiv").append("<div class='row' id='d"+i+" '>"
 								+"<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a href='#'><img src='"+data[i].shops.shopImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].shops.shopName+"</font></a>"
 								+"</div>"
 								+"</div>");
 					}
 					if (i < 4) {
 						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a href='#'><img src='"+data[i].shops.shopImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].shops.shopName+"</font></a>"
 								+"</div>");
 					} else if (i % 4 != 0) {
 						$("d"+num).append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a href='#'><img src='"+data[i].shops.shopImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].shops.shopName+"</font></a>"
 								+"</div>");
 					}
 					
@@ -119,7 +96,7 @@
 	});
 </script>
 
-<body data-spm="6846577">
+<body data-spm="7385961">
 	<div class="site-nav" id="J_SiteNav"
 		data-component-config='{ "cart": "0.0.6","message": "3.4.6","umpp": "1.5.4","mini-login": "6.3.8","tb-ie-updater": "0.0.4","tbar": "2.1.0","tb-footer": "1.1.6","sidebar": "1.0.10" }'
 		data-tbar='{ "show":true, "miniCart": "2.12.2","paramsBlackList": "_wt,seeyouagain1722","my_activity": "https:&#x2F;&#x2F;market.m.taobao.com&#x2F;apps&#x2F;abs&#x2F;5&#x2F;38&#x2F;my12?psId=58386&amp;pcPsId=58388", "venueUrl": "https:&#x2F;&#x2F;1212.taobao.com?wh_weex=true&amp;data_prefetch=true&amp;wx_navbar_transparent=true", "helpUrl": "https://consumerservice.taobao.com/online-help", "validTime":{"startTime": 1512057599, "endTime": 1513094400}, "style": {"name": "171212", "path": "kg/sidebar-style-171212/0.0.5/" }, "page":[],"blackList":[],"navDataId":{"tceSid":1182567,"tceVid":0},"pluginVersion":{ "cart":"0.2.0","history":"0.2.0","redpaper":"0.0.8","gotop":"0.2.5","help":"0.2.1","ww":"0.0.3","pagenav":"0.0.27","myasset":"0.0.9","my1212":"0.0.1","my1111":"0.2.2"}}'>
@@ -234,37 +211,53 @@
 		</div>
 	</div>
 
-	<script src="//g.alicdn.com/tb/mercury/6.0.8/c/responsive/index.js"></script>
-	<script src="//g.alicdn.com/tb/mercury/0.5.27/_1v.js"></script>
-
-	<!-- /2016/top -->
-	<script>
-		
-	</script>
-	<div id="page" class="page-itemimglist">
+	<div id="page" class="page-shoplist">
 		<div id="content">
 			<div id="mercury" class="">
 
-				<!-- info.pageType 1 -->
+				<!-- info.pageType 0 -->
 
 				<div id="fav-tab">
 					<div id="fav-tab-bd">
-						<div data-spm="" id="fav-tab-menu" class="clearfix floatleft">
-							<a class="fav-logo" aria-label="您可以使用tab键寻找您的收藏" href="/"> <img
+						<div data-spm="1997985201" id="fav-tab-menu"
+							class="clearfix floatleft">
+
+							<a aria-label="您可以使用tab键寻找您的收藏" class="fav-logo" href="/"> <img
 								aria-label="欢迎访问淘宝收藏夹"
 								src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
-							</a> <a class="item-page current" href="/item_collect_n.htm"
-								data-spm="">宝贝收藏</a> <a class="shop-page "
-								href="FavoritesShops.jsp" data-spm="">店铺收藏</a>
+							</a> <a class="item-page " href="FavoritesGoods.jsp" data-spm="">商品收藏</a>
+
+							<a class="shop-page current" href="/shop_collect_list_n.htm"
+								data-spm="d4919065">店铺收藏</a>
+
+							<div class="more-list J_FavTabMore hidden">
+								<a class="buyed-page " target="_blank"
+									href="/bought_shop_list.htm?itemtype=0" data-spm=""> 购买过的店铺
+									<i class="i"></i>
+								</a>
+								<div class="more-popup">
+									<ul>
+										<li class="more-item"><a class="tab-link" target="_blank"
+											href="//trade.taobao.com/trade/itemlist/list_bought_items.htm"
+											data-spm="d4919077">已买到的宝贝</a></li>
+
+										<li class="more-item"><a class="tab-link" target="_blank"
+											href="//lu.taobao.com/newMyPath.htm" data-spm="d4919082">我的足迹</a>
+										</li>
+
+									</ul>
+								</div>
+							</div>
 
 						</div>
 
-						<div class="fav-search" data-spm="">
+						<div class="fav-search" data-spm="1975051493">
 							<div class="search " id="J_Search" role="search">
 								<div class="search-panel search-sns-panel-field">
 									<form class="search-panel-focused" id="J_TSearchForm"
-										name="search" action="//s.taobao.com/search" target="_top">
-										<input name="_tb_token_" type="hidden" value="5fda915b7b8b6">
+										name="search" action="//s.taobao.com/search?app=shopsearch"
+										target="_top">
+										<input name="_tb_token_" type="hidden" value="e148e8be71b75">
 										<div class="search-button">
 											<button type="submit" class="btn-search">搜 索</button>
 										</div>
@@ -287,57 +280,57 @@
 						<div class="fav-bar-height">
 							<div class="fav-bar-float">
 								<div class="fav-bar-float-layout clearfix">
-									<div class="fav-select" data-spm="">
+									<div class="fav-select" data-spm="1997985009">
 										<ul>
 											<li class="fav-sel-item fav-sel-item-first J_SelItemsTags ">
-
-												<span class="fav-sel-link fav-sel-select">全部商品 <em>(<font id="fNum"></font>)</em>
-
+												<span class="fav-sel-link fav-sel-select"> 全部店铺 <em>(<font id="sNum"></font>)</em>
 											</span>
-
 											</li>
-
 										</ul>
 									</div>
 
-									<div class="fav-search cleatfix">
-
-										<form class="fav-search-panel-focused" id="J_FavSearchForm"
-											name="favsearch" action="/item_collect_n.htm" target="_top">
-											<input name="_tb_token_" type="hidden" value="5fda915b7b8b6">
+									<div class="fav-search fav-search-in-shop cleatfix">
+										<form class="fav-search-panel-focused fav-search-in-shop-form"
+											id="J_FavSearchForm" name="favsearch" action="" target="_top">
+											<input name="_tb_token_" type="hidden" value="e148e8be71b75">
 											<input class="fav-search-panel-focused-timer" name="t"
 												type="hidden" value=""> <input id="" type="hidden"
-												name="spm" value=""> <input type="hidden"
-												name="type" value="10">
+												name="spm" value="a1z0k.7385961.1997985253.d4918985">
+											<input type="hidden" name="type" value="10">
 											<div class="fav-search-panel-fields">
 												<input id="fav-q" name="value" accesskey="s"
 													autocomplete="off" x-webkit-speech=""
-													x-webkit-grammar="builtin:translate" placeholder="宝贝搜索"
+													x-webkit-grammar="builtin:translate" placeholder="搜索店铺"
 													value="" aria-haspopup="true" aria-combobox="list"
 													role="combobox" class="search-combobox-input"
-													aria-label="输入关键词搜索收藏夹内的宝贝">
+													aria-label="输入关键词搜索收藏夹内的店铺">
 											</div>
 											<div class="fav-search-button">
-												<button type="button" class="fav-btn-search"
-													data-spm-click="gostr=/tbscj;locaid=d1selbtn">搜索</button>
+												<button type="button"
+													class="fav-btn-search fav-btn-search-s"
+													data-spm-click="gostr=/tbscj;locaid=d1selbtn">搜店铺</button>
 											</div>
 										</form>
-									</div>
 
+									</div>
 								</div>
 							</div>
 						</div>
-
 					</div>
-
-					<div id="favoritesGoodsDiv">
-						<div class="row" id="firstRow"></div>
+					
+					<div id="favoritesShopsDiv">
+						<div id="firstRow" class="row"></div>
 					</div>
-
+					
 				</div>
+
 
 			</div>
 		</div>
 	</div>
+
+	<script>
+		
+	</script>
 </body>
 </html>

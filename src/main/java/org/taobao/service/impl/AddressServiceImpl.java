@@ -31,5 +31,11 @@ public class AddressServiceImpl implements AddressService{
 	public void deleteAddress(Integer id) {
 		ad.delete(id);
 	}
+
+	@Override
+	public Address selectOneAddress(Integer id) {
+		Address address = ad.selectOne(id);
+		return address;
+	}
 	
 }
