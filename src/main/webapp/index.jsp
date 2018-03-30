@@ -4,6 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
+<title>Insert title here</title>
+<link rel="stylesheet" href="layui/css/layui.css" media="all">
+ <link rel="stylesheet" href="css/bootstrap.min.css" />
+	 <script type="text/javascript" src="js/jquery-3.2.0.min.js" ></script>
+	<script type="text/javascript" src="js/bootstrap.min.js" ></script>		
+=======
 <title>Insert title here</title>
 
  <link rel="stylesheet" href="layui/css/layui.css" media="all">
@@ -11,21 +18,17 @@
 	 <script type="text/javascript" src="js/jquery.min.js" ></script>
 	<script type="text/javascript" src="js/bootstrap.js" ></script>
 		
+>>>>>>> branch 'master' of https://github.com/1525208157/taobao1.git
 	<script type="text/javascript">
 		function fun1(){
 			var a= $("input[name='b2']").get(0).checked == true ? "s":"d";
-			alert(a);
 		if(a=="s"){
-		location.href="queryAll";
+			location.href="Goods/queryAll?goodsName="+$("#gname").val();
 		}
 		}
 	</script>
 </head>
-
-
-
 <body>
-
 <center>
 	<div class="container">
 	<div class="row" style="background-color: lavender; height: 40px; font-family: 'arial black';">
@@ -59,7 +62,7 @@
 	</tr>
   <tr>
   	<td><div class="form-group">
-    <input type="text" class="form-control" placeholder="请输入" style="height:40px; width: 400px;">
+    <input type="text" class="form-control" placeholder="请输入" style="height:40px; width: 400px;" id="gname">
   </div>
   <button type="button" class="btn btn-warning " style="height:40px; width: 100px;" onclick="fun1();">搜索</button></td>
   </tr>
