@@ -13,16 +13,18 @@ import org.apache.catalina.User;
 import org.aspectj.weaver.Shadow;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.taobao.pojo.CartGoods;
 import org.taobao.pojo.Carts;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.Goods;
 import org.taobao.pojo.Users;
 import org.taobao.service.CartsService;
 import org.taobao.service.FavoritesGoodService;
-import org.taobao.util.Jihe;
+
 import org.taobao.util.Shopcarts;
 import org.taobao.util.Sign;
 
@@ -120,7 +122,7 @@ public class CartsController {
 	}
 	
 	@RequestMapping("/deleteCartGood")
-	public String deleteFavoritesGood(Integer cartGoodId){//删除
+	public String deleteFavoritesGood(Integer cartGoodId){//单个删除
 		System.out.println("删除商品");
 		 ca.deleteCartGood(cartGoodId);
 		 return "mycart";
@@ -173,6 +175,7 @@ public class CartsController {
 	}
 	
 	@RequestMapping("/deleteCartGoods")
+	@ResponseBody
 	public String deleteFavoritesGoods(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList){//批量删除购物车里的上品
 		//System.out.println("删除商品");
 		//这里直接在前台判断是不是空了
@@ -183,7 +186,37 @@ public class CartsController {
 			ca.deleteCartGood(integer);
 		}
 		 
-		 return "mycart";
+		 return "{}";
+	}
+	
+	@RequestMapping("/jia_cartGoodNum")
+	@ResponseBody
+	public Sign jia_cartGoodNum(CartGoods good){//购物车里的数量加的效果
+	System.out.println("ddd:"+good.getCartGoodId());
+	   CartGoods c=ca.select_CartGoood_one(good.getCartGoodId());
+	   c.setCartGoodNum(c.getCartGoodNum()+1);
+	    
+	    ca.update(c);
+	    Sign bn=new Sign();
+	    bn.setBiaoji(String.valueOf(c.getCartGoodNum()));
+	    return bn;
+	
+		
+	}
+	
+	@RequestMapping("/jian_cartGoodNum")
+	@ResponseBody
+	public Sign jian_cartGoodNum(CartGoods good){//购物车里的数量加的效果
+	System.out.println("ddd:"+good.getCartGoodId());
+	   CartGoods c=ca.select_CartGoood_one(good.getCartGoodId());
+	   c.setCartGoodNum(c.getCartGoodNum()-1);
+	    
+	    ca.update(c);
+	    Sign bn=new Sign();
+	    bn.setBiaoji(String.valueOf(c.getCartGoodNum()));
+	    return bn;
+	
+		
 	}
 	
 	

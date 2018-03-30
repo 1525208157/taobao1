@@ -28,7 +28,7 @@ public class ShopCartsImpl extends BaseDaoImpl<Shopcarts> implements CartDao {
 	}
 
 	@Override
-	public List<Object> getObject(String sql) {//用于批量删除时通过购物车里的cartGoodId 查找goodId
+	public List<Object> getObject(String sql) {//用于批量添加关注时通过购物车里的cartGoodId 查找goodId
 		//用原生sql写的 如果要用求的最后是object的话要么用原生的sql,要么要用hql
 		Session session=sdf.getCurrentSession();
 	   SQLQuery query=session.createSQLQuery(sql);
@@ -36,5 +36,8 @@ public class ShopCartsImpl extends BaseDaoImpl<Shopcarts> implements CartDao {
 		
 		return list;
 	}
+
+	
+	
 
 }
