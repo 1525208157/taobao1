@@ -70,7 +70,7 @@ a:hover {
 			} else {
 				$.ajax({
 
-					url : "${pageContext.request.contextPath}/user/login",
+					url : "${pageContext.request.contextPath}/user/selectUser",
 					data : {
 						"account" : Trim($("#denglu_uname").val()),
 						"password" : Trim($("#denglu_password").val())
@@ -287,7 +287,7 @@ a:hover {
 	<tr>
 	<td>
 	<div class="code" id="checkCode"></div> <a href="#"
-	onclick="createCode()" style="size: auto;">看不清换一张</a>
+	onclick="createCode()" style="size: auto;"><br>看不清换一张</a>
 </td>
 </tr>
 </table>

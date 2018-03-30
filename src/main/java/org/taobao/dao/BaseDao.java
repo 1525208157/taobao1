@@ -8,7 +8,4 @@ public interface BaseDao<T> {
 	T selectOne(Integer id);
 	void saveOrUpdate(T t);
 	void delete(Integer id);
-	/*void       f(String sql,Object obj);*/
-	
-	
 }
