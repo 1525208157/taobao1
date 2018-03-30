@@ -1,7 +1,5 @@
 package org.taobao.dao.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 import org.taobao.dao.GoodsDao;
 import org.taobao.pojo.Goods;

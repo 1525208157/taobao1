@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Shops { //µÍ∆Ã±Ì
 	private Integer 	shopId; //µÍ∆ÃId
@@ -49,6 +51,7 @@ public class Shops { //µÍ∆Ã±Ì
 	
 	@OneToMany
 	@JoinColumn(name="shopId")
+	@JsonIgnoreProperties("shop")
 	public List<Coupons> getCoupons() {
 		return coupons;
 	}

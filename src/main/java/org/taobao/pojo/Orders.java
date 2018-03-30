@@ -16,14 +16,11 @@ import javax.persistence.OneToOne;
 public class Orders { //订单信息表
 	private Integer orderId; //订单Id
 	private double totalMoney; //订单总金额
-	private Address address; //收货地址  一对一
-	private Integer orderStatus; // 订单状态 ---3：用户拒收 -2：未付款的订单 -1：用户取消 0：待发货 1：配送中 2：用户确认收货
-	private Integer isAppraise; //是否点评  0 1
+	private Address address; //收货地址  一对一 
+	private Integer orderStatus; // 订单状态 ---1：待发货、2：待收货、3：待评价、4：已完成
 	private String receiveTime; //收货时间
-	private Courier courier; //快递公司ID  外键 多对一
 	private Logistics logistics; //物流信息 一对一
 	private String createTime; //下单时间
-	private Integer isDel; //是否删除  0 1
 	private List<OrderGoods> orderGoods; //一对多 订单商品
 	
 	@Id
@@ -55,26 +52,11 @@ public class Orders { //订单信息表
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public Integer getIsAppraise() {
-		return isAppraise;
-	}
-	public void setIsAppraise(Integer isAppraise) {
-		this.isAppraise = isAppraise;
-	}
 	public String getReceiveTime() {
 		return receiveTime;
 	}
 	public void setReceiveTime(String receiveTime) {
 		this.receiveTime = receiveTime;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name="courierId")
-	public Courier getCourier() {
-		return courier;
-	}
-	public void setCourier(Courier courier) {
-		this.courier = courier;
 	}
 	
 	@OneToOne
@@ -90,12 +72,6 @@ public class Orders { //订单信息表
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-	public Integer getIsDel() {
-		return isDel;
-	}
-	public void setIsDel(Integer isDel) {
-		this.isDel = isDel;
 	}
 	
 	@OneToMany

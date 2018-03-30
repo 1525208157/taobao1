@@ -10,6 +10,7 @@ import org.taobao.dao.CartDao;
 import org.taobao.dao.FavoritesGoodDao;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.service.FavoritesGoodService;
+
 @Service
 @Transactional
 public class FavoritesGoodServiceImpl implements FavoritesGoodService{
