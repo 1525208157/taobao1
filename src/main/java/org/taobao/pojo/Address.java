@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Address { //收货地址表
@@ -12,6 +16,7 @@ public class Address { //收货地址表
 	private long userPhone; //收货人电话
 	private String userAddress; //收货地址
 	private Integer isDefault; //是否默认地址  0  1
+	private Users users; //用户
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,6 +49,16 @@ public class Address { //收货地址表
 	}
 	public void setIsDefault(Integer isDefault) {
 		this.isDefault = isDefault;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("orders")
+	public Users getUsers() {
+		return users;
+	}
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 	
 }

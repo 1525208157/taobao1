@@ -38,9 +38,35 @@ public class MyTaobaoController {
 	@RequestMapping("/selectAddress")
 	@ResponseBody
 	public List<Address> selectAddress(Integer userId) { //根据用户查询收货地址
+		userId = 1;
 		String sql = "select * from address where userId = "+userId;
 		List<Address> address = as.selectAddress(sql);
 		return address;
+	}
+	
+	@RequestMapping("/selectOneAddress")
+	@ResponseBody
+	public Address selectOneAddress(Integer addressId) { //根据id查询收货地址
+		Address address = as.selectOneAddress(addressId);
+		return address;
+	}
+	
+	@RequestMapping("/updateIsDefault")
+	@ResponseBody
+	public String updateIsDefault(Integer addressId,Integer userId) { //设为默认地址
+		userId = 1;
+		String sql = "select * from address where userId = "+userId;
+		List<Address> addresses = as.selectAddress(sql);
+		for (Address ad: addresses) {
+			if (ad.getIsDefault() == 1) {
+				ad.setIsDefault(0);
+				as.saveOrUpdateAddress(ad);
+			}
+		}
+		Address address = as.selectOneAddress(addressId);
+		address.setIsDefault(1);
+		as.saveOrUpdateAddress(address);
+		return "ok";
 	}
 	
 	@RequestMapping("/updateAddress")
@@ -52,14 +78,21 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/deleteAddress")
 	@ResponseBody
-	public String deleteAddress(Integer id) { // 添加/修改收货地址
-		as.deleteAddress(id);
+	public String deleteAddress(Integer addressId) { //删除收货地址
+		as.deleteAddress(addressId);
 		return "ok";
 	}
 	
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public String updateUser(Users u) { //修改用户密码 头像 昵称
+		us.saveOrUpdate(u);
+		return "ok";
+	}
+	
+	@RequestMapping("/updatePass")
+	@ResponseBody
+	public String updatePass(Users u) { //修改密码
 		us.saveOrUpdate(u);
 		return "ok";
 	}
@@ -131,6 +164,20 @@ public class MyTaobaoController {
 			ogs.updateIsDel(hql);
 		}
 		return "ok";
+	}
+	
+	@RequestMapping("/selectUser")
+	@ResponseBody
+	public String selectUser(String account,String password) { //按状态查询订单
+		String sql = "select * from users where account = "+account+" and password = "+password;
+		List<Users> users = us.selectUser(sql);
+		String str = "";
+		if (users != null && users.size() != 0) {
+			str = "ok";
+		} else {
+			str = "error";
+		}
+		return str;
 	}
 	
 }

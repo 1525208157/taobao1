@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Orders { //订单信息表
 	private Integer orderId; //订单Id
@@ -40,6 +42,7 @@ public class Orders { //订单信息表
 	
 	@OneToOne
 	@JoinColumn(name="addressId")
+	@JsonIgnoreProperties("address")
 	public Address getAddress() {
 		return address;
 	}
