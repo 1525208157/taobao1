@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.OrderGoods;
+import org.taobao.service.OrderGoodsService;
 import org.taobao.service.OrderService;
 
 @Controller
@@ -15,14 +16,16 @@ import org.taobao.service.OrderService;
 public class OrdersGoodsController {
 	
 	@Resource
-	private OrderService os;
+	private OrderGoodsService os;
 	
 	@RequestMapping("/selectordergoods")
 	@ResponseBody
 	public List<OrderGoods> selectOrderGoods(){
 		String sql = "select * from ordergoods";
-		List<OrderGoods> orderGoods = os.selectOrderGoods(sql);
+		List<OrderGoods> orderGoods = os.queryAll(sql);
 		return orderGoods;
 	}
+	
+	
 	
 }

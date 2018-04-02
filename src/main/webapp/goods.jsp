@@ -14,7 +14,7 @@
 	 function goods() {
 		
 		$.ajax({
-			url:"goods/queryshops",
+			url:"shops/queryShops",
 			dataType : "json",
 			success : function (data) {
 		$
@@ -25,7 +25,7 @@
 									.append(
 											"<tr><td>"
 													+ d.goods[0].goodsId
-													+ "</td><td>"
+												/* 	+ "</td><td>"
 													+ d.goods[0].goodsImg
 													+ "</td><td>"
 													+ d.goods[0].goodsName
@@ -41,8 +41,8 @@
 													+ d.goods[0].lastType.typeId
 												 	+ "</td><td>" 
 													+ d.shopId																																	
-												 	 + "</td><td>"
-													+ d.goods[0].specs[0].gStock    
+												 	+ "</td><td>"
+													+ d.goods[0].specs[0].gStock */    
 													+ "</td><tr>")
 				
 						});
@@ -53,6 +53,8 @@
 			
 	
 	}
+	 
+	 
 
 	goods(); 
 

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,10 +22,10 @@
 							$("table")
 									.append(
 											"<tr><td>"
-						 							+ d.goods[0].goodsId
+						 							+ d.orderGoods.specs.sGoods.goodsId
 													+ "</td><td>"
-													+ d.goods[0].goodsImg
-													+ "</td><td>"
+													+ d.orderGoods[0].specs.sGoods.goodsImg
+													/* + "</td><td>"
 													+ d.goods[0].goodsName
 													+ "</td><td>"
 													+ d.goods[0].isRecom
@@ -40,7 +40,7 @@
 												 	+ "</td><td>" 
 													+ d.shopId																																	
 												 	 + "</td><td>"
-													+ d.goods[0].specs[0].gStock    
+													+ d.goods[0].specs[0].gStock */     
 													+ "</td><tr>")
 				
 						});
@@ -62,7 +62,7 @@
 
  <table border="1">
  	<tr>
- 		<td>商品表</td>
+ 		<td>商品编号</td>
  		<td>图片</td>
  		<td>商品名称</td>
  		<td>是否推荐</td>

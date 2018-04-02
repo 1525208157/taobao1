@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Users {
 	private Integer userId; //用户ID
@@ -93,7 +95,8 @@ public class Users {
 	}
 	
 	@OneToMany
-	@JoinColumn(name="userId")//如果以一对多的情况下 不写这个的话会多出一张表， @JoinColumn(name="userId") 会在另一张表中多一个userid外键来维护关系
+	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("users")
 	public List<Address> getAddresses() {
 		return addresses;
 	}

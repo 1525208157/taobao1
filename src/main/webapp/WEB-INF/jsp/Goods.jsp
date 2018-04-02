@@ -17,8 +17,9 @@
 		var a = $("input[name='b2']").get(0).checked == true ? "s" : "d";
 		if (a == "s") {
 			location.href = "${pageContext.request.contextPath}/Goods/queryAll?goodsName="
-					+ $("#goodsName").val();
-			;
+					+ $("#Name").val();
+		}else if(a=="d"){
+			location.href="Shops/queryAll?shopName="+$("#Name").val();
 		}
 	}
 </script>
@@ -73,7 +74,7 @@
 							<tr>
 								<td><div class="form-group">
 										<input type="text" class="form-control" placeholder="请输入"
-											style="height: 40px; width: 400px;" id="goodsName">
+											style="height: 40px; width: 400px;" id="Name">
 									</div>
 									<button type="button" class="btn btn-warning "
 										style="height: 40px; width: 100px;" onclick="fun1();">搜索</button></td>
@@ -86,10 +87,9 @@
 		<div style="width: 1180px; text-align: left;">
 			品牌：&nbsp;&nbsp;
 			<c:forEach items="${bl}" var="bl">
-				<a href="${pageContext.request.contextPath}/Goods/queryForBrandId"
-					value="${bl.brandId}">${bl.brandName}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/Goods/queryForBrandId?brandId=${bl.brandId}">${bl.brandName}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		</c:forEach>
-			</a>
+		
 		</div>
 		<div style="width: 1180px; height: 20px"></div>
 		<div style="width: 1180px; text-align: left;">
@@ -109,20 +109,21 @@
 					</ul></li>
 			</ul>
 		</div>
-		<div style="width: 1180px; height: 20px"></div>
-		<div class="container" style="text-align: left">
-			<div class="row">
-				<c:forEach items="${specs}" var="gl" varStatus="s">
-					<div class="col-lg-3">
-						<a href=""><img src="${pageContext.request.contextPath}/${gl.sGoods.goodsImg}"></a>
-						￥&nbsp;&nbsp;&nbsp;<span>${gl.smoney}</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>${gl.sGoods.saleNum}人付款</span>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">${gl.sGoods.goodsName}</a>
-					</div>		
+		<table width="1180px" >
+			<tr align="center">
+				<c:forEach items="${gl}" var="gl" varStatus="s">
+					<td width="295px"><a href=""><img src="${pageContext.request.contextPath}/${gl.goodsImg}"></a><br/>
+						￥&nbsp;&nbsp;<span>${gl.specs[0].smoney}</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>${gl.saleNum}人付款</span><br/>
+							<a href="">${gl.goodsName}</a><br/>
+							<a href="">${gl.shop.shopName}</a>
+							</td>
+					<c:if test="${(s.index+1) %4==0}">
+			</tr>
+			<tr align="center">
+				</c:if>
 				</c:forEach>
-				<div id="abc">${4-specs.size()%4}</div>
-				
-			</div>
-		</div>
+			</tr>
+			</table>
 	</center>
 
 </body>

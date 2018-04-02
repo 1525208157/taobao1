@@ -9,5 +9,6 @@ public interface AddressService {
 	List<Address> selectAddress(String sql);
 	void saveOrUpdateAddress(Address address);
 	void deleteAddress(Integer id);
+	Address selectOneAddress(Integer id);
 	
 }

@@ -128,10 +128,12 @@ public class CartsController {
 	    }else{
 	    	si.setBiaoji("error");
 	    }
-		return si;
-		
+		return
+				
+			si;
 	}
 	
+
 	@RequestMapping("/deleteCartGood")
 	public String deleteFavoritesGood(Integer cartGoodId){//单个删除
 		System.out.println("删除商品");
@@ -369,6 +371,8 @@ public class CartsController {
 		return "{}";//没有写重定就是转发
 	}
 	
-	
-	}
  
+	
+
+}
+
