@@ -24,11 +24,11 @@
 									.append(
 											"<tr><td>"
 													+ d.ogId
-													 + "</td><td>"
+													+ "</td><td>"
 													+ d.specs.sGoods.goodsImg
-													 + "</td><td>"
+													+ "</td><td>"
 													+ d.specs.sGoods.goodsName
-													 + "</td><td>"
+													+ "</td><td>"
 													+ d.ogColor.gcName
 													+ "</td><td>"
 													+ d.goodsNum

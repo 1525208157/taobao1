@@ -17,42 +17,47 @@
 			url:"shops/queryShops",
 			dataType : "json",
 			success : function (data) {
-		$
-				.each(//循环遍历数组
+				 //alert(data[0].goods[0].goodsId);
+		 $.each(//循环遍历数组
 						data,
 						function(i, d) {//i代表
-							$("table")
-									.append(
-											"<tr><td>"
-													+ d.goods[0].goodsId
-												/* 	+ "</td><td>"
-													+ d.goods[0].goodsImg
-													+ "</td><td>"
-													+ d.goods[0].goodsName
-													+ "</td><td>"
-													+ d.goods[0].isRecom
-													+ "</td><td>"
-													+ d.goods[0].saleNum
-													+ "</td><td>"
-													+ d.goods[0].saleTime
-													 + "</td><td>"
-													+ d.goods[0].goodsIntroduce.introduceId
-													+ "</td><td>"
-													+ d.goods[0].lastType.typeId
-												 	+ "</td><td>" 
-													+ d.shopId																																	
-												 	+ "</td><td>"
-													+ d.goods[0].specs[0].gStock */    
-													+ "</td><tr>")
-				
-						});
+												for ( j = 0; j < d.goods.length; j++) {
+												for ( a = 0; a < d.goods[j].specs.length; a++) {
+													$("table")
+													.append(
+															"<tr><td>"
+														+d.goods[j].goodsId
+														+"</td><td>"
+														+d.goods[j].goodsImg
+														+"</td><td>"
+														+d.goods[j].goodsName
+														+"</td><td>"
+														+d.goods[j].isRecom
+														+"</td><td>"
+														+d.goods[j].saleNum
+														+"</td><td>"
+														+d.goods[j].saleTime
+														+"</td><td>"
+														+d.goods[j].goodsIntroduce.introduceId
+														+"</td><td>"
+														+d.shopId
+														+"</td><td>"
+														+d.goods[j].specs[a].gStock
+														+ "</td><tr>");
+												}	
+												}	  
+											
+											
+													
+						});  	 
 			}
-			
-				
 			});
 			
+				
+			
+		}
 	
-	}
+	
 	 
 	 
 
@@ -66,14 +71,13 @@
 
  <table border="1">
  	<tr>
- 		<td>商品表</td>
+ 		<td>商品编号</td>
  		<td>图片</td>
  		<td>商品名称</td>
  		<td>是否推荐</td>
  		<td>商品总销量</td>
  		<td>上架时间</td>
  		<td>商品介绍</td>
- 		<td>商品类型编号</td>
  		<td>店铺ID</td>
  		<td>商品库存</td>
  	</tr>

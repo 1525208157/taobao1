@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <a href="orders/selectOrders">查看商品</a>
+ <a href="odersGoods/selectordergoods">查看商品</a>
 </body >
 </html>
