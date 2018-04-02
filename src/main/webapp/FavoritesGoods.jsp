@@ -85,6 +85,12 @@
 
 <script>
 	$(function(){
+		var userId = "${users.userId }";
+		if (userId == "") {
+			location.href="Login.jsp";
+		}
+	})
+		
 		$.ajax({
 			url : "myTaobao/selectFavoritesGoods",
 			dataType : "json",
@@ -250,7 +256,7 @@
 				<div id="fav-tab">
 					<div id="fav-tab-bd">
 						<div data-spm="" id="fav-tab-menu" class="clearfix floatleft">
-							<a class="fav-logo" aria-label="您可以使用tab键寻找您的收藏" href="/"> <img
+							<a class="fav-logo" aria-label="您可以使用tab键寻找您的收藏" href=""> <img
 								aria-label="欢迎访问淘宝收藏夹"
 								src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
 							</a> <a class="item-page current" href="/item_collect_n.htm"

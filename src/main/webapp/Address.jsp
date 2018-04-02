@@ -67,8 +67,9 @@
 
 	<script type="text/javascript">
 		$(function() {
+			var userId = "${users.userId }";
 			$.ajax({
-				url:"myTaobao/selectAddress",
+				url:"myTaobao/selectAddress?userId="+userId,
 				dataType:"json",
 				success:function(data){
 					for (i = 0; i < data.length; i++) {
@@ -269,7 +270,7 @@
 	<header class="mt-header" data-spm="a210b"> <article>
 	<div class="mt-logo" style="margin-left: 0px;">
 		<a title="我的淘宝"
-			href="//i.taobao.com/my_taobao.htm?nekot=1470211439696&amp;tracelog=newmytb_logodianji"
+			href=""
 			class="mt-tblogo" data-spm="d1000351"></a>
 	</div>
 	<nav class="mt-nav">

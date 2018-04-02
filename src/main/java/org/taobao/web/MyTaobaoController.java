@@ -40,7 +40,6 @@ public class MyTaobaoController {
 	@RequestMapping("/selectAddress")
 	@ResponseBody
 	public List<Address> selectAddress(Integer userId) { //根据用户查询收货地址
-		userId = 1;
 		String sql = "select * from address where userId = "+userId;
 		List<Address> address = as.selectAddress(sql);
 		return address;
@@ -147,7 +146,7 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/selectOrders")
 	@ResponseBody
-	public List<Orders> selectOrders(Integer orderStatus) { //按状态查询订单
+	public List<Orders> selectOrders(Integer orderStatus) { //按  状态 用户  查询订单
 		orderStatus = 1;
 		String sql = "";
 		if (orderStatus == 0) { //按所有订单查询

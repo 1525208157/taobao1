@@ -222,7 +222,7 @@
 						<div data-spm="1997985201" id="fav-tab-menu"
 							class="clearfix floatleft">
 
-							<a aria-label="您可以使用tab键寻找您的收藏" class="fav-logo" href="/"> <img
+							<a aria-label="您可以使用tab键寻找您的收藏" class="fav-logo" href=""> <img
 								aria-label="欢迎访问淘宝收藏夹"
 								src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
 							</a> <a class="item-page " href="FavoritesGoods.jsp" data-spm="">商品收藏</a>
