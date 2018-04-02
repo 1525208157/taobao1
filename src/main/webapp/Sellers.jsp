@@ -172,7 +172,7 @@
 </tr>
 
 <tr>
-<td><a href="#">已卖出的商品</a></td>
+<td><a href="GoodsSold .jsp">已卖出的商品</a></td>
 </tr>
 
 <tr>
@@ -199,7 +199,7 @@
 
 <tr>
 <td>
-<a href="#">查看库存</a>
+<a href="goods.jsp">查看库存</a>
 </td>
 </tr>
 </table>

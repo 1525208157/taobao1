@@ -85,18 +85,40 @@
 
 <script>
 	$(function(){
+		var userId = "${users.userId }";
+		if (userId == "") {
+			location.href="Login.jsp";
+		}
+	})
+		
 		$.ajax({
 			url : "myTaobao/selectFavoritesGoods",
 			dataType : "json",
 			success : function(data) {
+				$("#fNum").append(data.length);
 				var num = 0;
 				for (i = 0; i < data.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
 						$("#favoritesGoodsDiv").append("<div class='row' id='d"+i+" '>"
-								+"<div class='col-lg-3 col-md-3'><img src='"+data[i].goods+"' width='160' height='100' class='img-rounded'></div>"
+								+"<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"</div>"
 								+"</div>");
 					}
+					if (i < 4) {
+						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"</div>");
+					} else if (i % 4 != 0) {
+						$("d"+num).append("<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a href='#'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"</div>");
+					}
+					
 				}
 			}
 		})
@@ -129,7 +151,7 @@
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
 					data-name="home" data-spm="1581860521">
 					<div class="site-nav-menu-hd">
-						<a href="//www.taobao.com/" target="_top"> <span>淘宝网首页</span>
+						<a href="index.jsp" target="_top"> <span>淘宝网首页</span>
 						</a>
 
 					</div>
@@ -140,7 +162,7 @@
 					class="site-nav-menu site-nav-mytaobao site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavMytaobao" data-name="mytaobao" data-spm="1997525045">
 					<div class="site-nav-menu-hd">
-						<a href="//i.taobao.com/my_taobao.htm" target="_top"> <span>我的淘宝</span>
+						<a href="MyTaobao.jsp" target="_top"> <span>我的淘宝</span>
 						</a>
 
 					</div>
@@ -168,7 +190,7 @@
 					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavFavor" data-name="favor" data-spm="1997525053">
 					<div class="site-nav-menu-hd">
-						<a href="//shoucang.taobao.com/item_collect.htm" target="_top">
+						<a href="FavoritesGoods.jsp" target="_top">
 							<span class="site-nav-icon">&#xe604;</span> <span>收藏夹</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
@@ -177,9 +199,9 @@
 					<div class="site-nav-menu-bd site-nav-menu-list">
 						<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-							<a href="//shoucang.taobao.com/item_collect.htm" target="_top">收藏的宝贝</a>
+							<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a>
 
-							<a href="//shoucang.taobao.com/shop_collect_list.htm"
+							<a href="FavoritesShops.jsp"
 								target="_top">收藏的店铺</a>
 
 						</div>
@@ -234,12 +256,12 @@
 				<div id="fav-tab">
 					<div id="fav-tab-bd">
 						<div data-spm="" id="fav-tab-menu" class="clearfix floatleft">
-							<a class="fav-logo" aria-label="您可以使用tab键寻找您的收藏" href="/"> <img
+							<a class="fav-logo" aria-label="您可以使用tab键寻找您的收藏" href=""> <img
 								aria-label="欢迎访问淘宝收藏夹"
 								src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
 							</a> <a class="item-page current" href="/item_collect_n.htm"
 								data-spm="">宝贝收藏</a> <a class="shop-page "
-								href="FavoritesShops.html" data-spm="">店铺收藏</a>
+								href="FavoritesShops.jsp" data-spm="">店铺收藏</a>
 
 						</div>
 
@@ -275,7 +297,7 @@
 										<ul>
 											<li class="fav-sel-item fav-sel-item-first J_SelItemsTags ">
 
-												<span class="fav-sel-link fav-sel-select">全部商品 <em>(//商品数量)</em>
+												<span class="fav-sel-link fav-sel-select">全部商品 <em>(<font id="fNum"></font>)</em>
 
 											</span>
 
