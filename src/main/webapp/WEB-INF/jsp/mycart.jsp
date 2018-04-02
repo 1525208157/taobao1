@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.0.min.js" ></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <style type="text/css">
 .goods{
 	background-color: #FFF0F5;
@@ -23,7 +23,12 @@ background-color: #FF9966;
     width:945px;
     height:50px
 }
-
+#jisuananniu{
+ width:80px;
+    height:50px;
+    background:#FF9966;
+}
+ 
 </style>
 <script type="text/javascript">
 
@@ -56,14 +61,15 @@ $(function(){
 				         +" <button type='button' onclick='shangpin_jia(this)' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-plus'></span></button></div>"
 				         +"<div class='col-lg-1 col-md-1'><font color='red'>￥<span>"+data[i][j].totalPrice+"</span></font></div>"
 				         +"<div class='col-lg-2 col-md-2'><a onclick='setFagood("+data[i][j].goodsId+")'>添加关注</a><br>"
-				         +"<a onclick='deleteCartGood("+data[i][j].cartGoodId+")'>删除</a><a>|修改</a> </div></div></br>");
+				         +"<a onclick='deleteCartGood("+data[i][j].cartGoodId+")'>删除</a>"
+				         +"<a onclick='update_select_cartgood("+data[i][j].cartGoodId+")'>|修改</a></div></div></br> ");
 				   			
 				}}
-			
+			    
 			 /* $("input[type='checkbox']").click(function(){
 					alert("商店按钮");
 				})    */
-			
+				
 			$("button[name='shulianganniu']").each(function(){//也面刚刚打开的时候当购物车的商品的数量为1时这时就不能减了，这时
 				if($(this).val()==1){
 					$(this).parent().parent().find(":button").first().attr('disabled',true)
@@ -76,7 +82,7 @@ $(function(){
 	
 }
 	function setFagood(goodsId){//单次关注
-	    alert(321);
+	  
 		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/carts/setFavoritesGood?goodsId="+goodsId,
@@ -94,16 +100,15 @@ $(function(){
 		
 }
 	 function deleteCartGood(cartGoodId){//根据用户名删除购物车里的商品
-		 alert(12131);
+		
 		location.href="${pageContext.request.contextPath}/carts/deleteCartGood?cartGoodId="+cartGoodId;
 		 
 	 }
 	
 	 function setFagoods(){//批量关注
-	  alert("批量关注")
+	 
 		 var cartGoodIds=new Array();
-		 $("input[name='cartgoodId_checkbox']:checked").each(function(){
-			 alert(11);
+		 $("input[name='cartgoodId_checkbox']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 			 cartGoodIds.push($(this).val());
 			});
 		
@@ -114,11 +119,10 @@ $(function(){
 				data:{"cartGoodIds":cartGoodIds},//这里不能直接写cartGoodIds，要写成json格式的
 				success:function(data){
 					console.log(data)
-					alert(data);
 					alert("批量添加关注")
 					if(data.biaoji=="ok"){
 						alert("添加成功！")
-					}else{
+					}else{//这里在后台判断有没有选择商品按钮
 						alert("请选择你要添加关注的商品！")
 					}
 				}
@@ -130,19 +134,17 @@ $(function(){
 	 
 	 function deleteCartGoods(){//批量量删除购物车里的商品
 		 var cartGoodIds=new Array();
-		 $("input[name='cartgoodId_checkbox ']:checked").each(function(){
+		 $("input[name='cartgoodId_checkbox ']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 			 cartGoodIds.push($(this).val());
 			});
 		if(cartGoodIds.length!=0){
-		
-		 
 		 $.ajax({
 				url:"${pageContext.request.contextPath}/carts/deleteCartGoods",
 				dataType:"json",
 				type:"post",
 				data:{"cartGoodIds":cartGoodIds},//这里不能直接写cartGoodIds，要写成json格式的
 				success:function(data){
-					location.reload();
+					location.reload();//刷新方法
 				}
 				
 				
@@ -153,31 +155,28 @@ $(function(){
 	 }
 	function dianpu_checked(c){//点击店铺的多选按钮后，选中时它里面的商品也会选中，反之，里面的商品也不会选中
 		 console.log(c);
-		if(c.checked){
-			//alert("ddddddd")
-			//var cc=$("c.next() input[type='checkbox']").length;
-			//alert(cc);
+		if(c.checked){//当该店铺的按钮选中时店铺里的按钮也会选中
+			
 			$(c).parent().find(":checkbox").prop("checked",true);
 			
 		}else{
 			$(c).parent().find(":checkbox").prop("checked",false);
 			
 		}
-		heji();	 
+		heji();	//这里要调用计算合计金额的方法
 	}
 	 
 	function shangpin_checked(a){//店铺里的商品，如果全部选中是时，店铺的多选按钮也会选中，如果没选完， 店铺的按钮会取消选中	
-	 var cc=$(a).parent().parent().parent().find(":checkbox").length;
-	 var ca=$(a).parent().parent().parent().find(":checked").length;
-	//alert(ca);
+	 var cc=$(a).parent().parent().parent().find(":checkbox").length;//店铺下面的商品的有几个按钮
+	 var ca=$(a).parent().parent().parent().find(":checked").length;//店铺下面的商品按钮有几个选中的
 	
-	if(cc==ca){
+	if(cc==ca){//相等时，该店铺的按钮也会选中的 如果没有就不会选中了
 		
 		$(a).parent().parent().parent().parent().parent().find(":checkbox").first().prop("checked",true);
 	}else{
 		$(a).parent().parent().parent().parent().parent().find(":checkbox").first().prop("checked",false);
 	}
-	heji();
+	heji();//当店铺里面的商品按钮点击时要调用计算合计金额的方法
 	}
 	
 	function quanxuan_checkbox(a){//全选按钮
@@ -187,14 +186,14 @@ $(function(){
 		}else{
 			$("input[type=checkbox]").prop("checked",false);
 		}
-		heji();
+		heji();//调用计算合计金额的方法
 		
 	}
 	function shangpin_jia(a){//商品数量加的效果
 		//$(a).parent().parent().find(":checkbox").prop("checked",true);
 		var c=$(a).parent().parent().find(":checkbox").val();//得到的是购物车里商品的id
 		var ee=$(a).parent().parent().find(":button").first().next().val();//得到数量按钮里的值
-		if(ee==1){
+		if(ee==1){//当商品数量时1这时点击加按钮后，减的按钮会恢复可点击状态
 			$(a).parent().parent().find(":button").first().attr('disabled',false);
 		}
 		 $.ajax({
@@ -207,10 +206,10 @@ $(function(){
 				  $(a).parent().parent().find(":button").first().next().text(data.biaoji);//数量里的值
 				 $(a).parent().parent().find(":button").first().next().val(data.biaoji);//数量里的value
 				 var ii= $(a).parent().parent().find("span").first().text();//商品的数量
-				  $(a).parent().parent().find("span").eq(3).text();//下标从0开始  商品的金额
+				//  $(a).parent().parent().find("span").eq(3).text();//下标从0开始  商品的金额
 				 var y=$(a).parent().parent().find("span").eq().text(); //商品的单价
 				 var cc=ii*data.biaoji;
-				 $(a).parent().parent().find("span").eq(3).html(cc);
+				 $(a).parent().parent().find("span").eq(3).html(cc);//下标从0开始  该商品的数量乘以单价的到商品的金额并赋值
 				 
 				 heji();//选中商品以后加之后的要调合计的方法 这个要放最后
 			       
@@ -224,8 +223,8 @@ $(function(){
 	
 	function shangpin_jian(a){//商品里的数量减的效果
 		var c=$(a).parent().parent().find(":checkbox").val(); //得到的是购物车里商品的id
-		var ee=$(a).parent().parent().find(":button").first().next().val();//得到改按钮里的值
-		if(ee==2){
+		var ee=$(a).parent().parent().find(":button").first().next().val();//得到商品数量按钮里的值
+		if(ee==2){//当数量为2，这时点击了减，将减的按钮改成不可点击状态 这样当数量为1时，就不点击减按钮了
 			$(a).parent().parent().find(":button").first().attr('disabled',true);
 		}
 		 $.ajax({
@@ -235,14 +234,15 @@ $(function(){
 				data:{"cartGoodId":c,"cartGoodNum":ee},//这里不能直接写cartGoodIds，要写成json格式的
 				success:function(data){
 					 
-				 	//location.reload(); 
-				 $(a).parent().parent().find(":button").first().next().text(data.biaoji);//数量里的值
+				 	
+				 $(a).parent().parent().find(":button").first().next().text(data.biaoji);//数量里的值   从后台传过来的
 				 $(a).parent().parent().find(":button").first().next().val(data.biaoji);//数量里的value
-				 var ii= $(a).parent().parent().find("span").first().text();//商品的数量
-				  $(a).parent().parent().find("span").eq(3).text();//下标从0开始  商品的金额
-				 var y=$(a).parent().parent().find("span").eq().text(); //商品的单价
+				
+				 var ii= $(a).parent().parent().find("span").first().text();//商品的单价
+				 // $(a).parent().parent().find("span").eq(3).text();//下标从0开始  商品的金额
+				
 				 var cc=ii*data.biaoji;
-				 $(a).parent().parent().find("span").eq(3).html(cc);
+				 $(a).parent().parent().find("span").eq(3).html(cc);//下标从0开始  该商品的数量乘以单价的到商品的金额并赋值
 				 
 				 heji();//选中商品以后加减之后的要调合计的方法
 			       
@@ -256,16 +256,89 @@ $(function(){
 	function heji(){//求合计的方法
 		var cc=0;
 	    var aa=0;
-	    aa=$("input[name='cartgoodId_checkbox']:checked").length;
+	    aa=$("input[name='cartgoodId_checkbox']:checked").length;//商品的件数
 	    $("#shangpingeshu").html(aa);
-		$("input[name='cartgoodId_checkbox']:checked").each(function(){
+		$("input[name='cartgoodId_checkbox']:checked").each(function(){//循环计算出总金额
 			cc=cc+parseInt($(this).parent().parent().find("span").eq(3).text());
 			});
 		
 		$("#heji").html(cc);
 	}
+	 function  update_select_cartgood(cartgoodId){//修改购物车里的商品之前去查找商品
+		 $("#update_color").empty();//这里先要请空一下
+		 $("#update_spece").empty();
+		
+		 $.ajax({
+				url:"${pageContext.request.contextPath}/carts/slectBycartgoodId_to_color_to_specs",
+				dataType:"json",
+				type:"post",
+				data:{"cartgoodId":cartgoodId},//这里不能直接写cartGoodIds，要写成json格式的
+				success:function(data){
+					for(i=0;i<data.colorlist.length;i++){
+					$("#update_color").append("<option value='"+data.colorlist[i].gcId+"'>"+data.colorlist[i].gcName+"</option>");
+	        	}
+					$("#update_color").val(data.cartGoods.gColor.gcId);
+				
+					 for(i=0;i<data.specelist.length;i++){
+						 $("#update_spece").append("<option value='"+data.specelist[i].specsId+"'>"+data.specelist[i].specsName+"</option>");
+			        	}
+					 $("#update_cartgoodid").val(data.cartGoods.cartGoodId);
+					 $("#update_spece").val(data.cartGoods.specs.specsId);
+					 $("#cart_updateModal").modal("show");
+					
+					 }
+				
+				
+			})
+	 }
+	 
+	function update_cartgood(){//修改购物车里的商品的 提交的操作
+		
+		 $("#cart_updateModal").modal("hide");
+		$.ajax({
+			url:"${pageContext.request.contextPath}/carts/update_cartgoods",
+			dataType:"json",
+			type:"post",
+			data:{"cartGoodId":$("#update_cartgoodid").val(),
+				 "specs.specsId":$("#update_spece").val(),
+				 "gColor.gcId":$("#update_color").val()
+			},
+				
+				//这里不能直接写cartGoodIds，要写成json格式的
+			success:function(data){
+				
+				location.reload(); 
+				 
+				 
+				 }
+			
+		})
+		
+	}
 	
-	
+	/*  function acc(){
+	 	var aa=$("input[name='cartgoodId_checkbox']:checked").length;//商品的件数
+	 	 if(aa==0){
+	 		 $("jisuananniu").attr('disabled',true);
+	 	 }
+	 	
+	 } */
+	 function jieshuan(){//结算
+		 var cartGoodIds=new Array();
+		 $("input[name='cartgoodId_checkbox']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
+			 cartGoodIds.push($(this).val());
+		 alert($(this).val());
+			});
+		if(cartGoodIds.length!=0){
+		     alert("发送");
+			location.href="${pageContext.request.contextPath}/carts/mycart_jieshuan?cartGoodIds[]="+cartGoodIds;
+			//如果这里不是ajax传参时，是url传参是要加[],不然传不过去
+				
+			
+		}else{
+		    alert("请你选择你要结算的商品！")
+		}
+	 }
 </script>
 
 </head>
@@ -299,8 +372,8 @@ $(function(){
 		
 		<div class="col-lg-10 col-md-10" >
 		<br>
-		<div id="dear"  ">
-		<br>
+		<div id="dear">
+		
 		&nbsp;&nbsp;&nbsp;
 		<input type="checkbox" onclick="quanxuan_checkbox(this)"/>全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a onclick="setFagoods()">批量关注</a>
@@ -316,15 +389,21 @@ $(function(){
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		
 		已选择商品&nbsp;<span id="shangpingeshu"><font color="red">0</span>&nbsp;件
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
 		合计<font color="red">￥<span id="heji">0.0</span></font>&nbsp;&nbsp;&nbsp;&nbsp;
-		<br>
+		<input type="button" id="jisuananniu" onclick="jieshuan()" style='font-size:20px' value="结 算"></button>
+		
+		
+
+	
 		
 		</div>
+		
 	
+		
 		</div>
 		<div class="col-lg-1 col-md-1" ></div>
 		
@@ -332,68 +411,38 @@ $(function(){
 			
 </div>		
 <!-- 修改模态框 -->
-<div class="modal fade" id="theme_updateModal" data-backdrop="false">
+<div class="modal fade" id="cart_updateModal" data-backdrop="false">
 <!-- data-backdrop="false"设置显示模态框时，在模态框外面点击时，模态框时否消失-->
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">设置该主题帖是否置顶/精华</h4>
+        <h4 class="modal-title">修改购物车商品的规格及颜色</h4>
       </div>
       <div class="modal-body">
       
       <form class="form-horizontal" role="form">
+      
       <div class="form-group">
-	  <label for="themeId" class="col-lg-2 col-sm-2 control-label">主题编号:</label>
-	  <div class="col-lg-10">
-	  <input type="text" class="form-control" id="themeId"
-	 name="themeId" readonly="readonly" width="50px">
+     
+	  <label for="colorid" class="col-lg-3 col-sm-3 control-label">颜色分类:</label>
+	  <div class="col-lg-9">
+	  <input type="hidden" id="update_cartgoodid" />
+	  
+       <select id="update_color" class="form-control" ></select>
 		</div>
 		</div>
-      <div class="form-group">
-	  <label for="themeTitle" class="col-lg-2 col-sm-2  control-label">主题标题:</label>
-	  <div class="col-lg-10">
-	  <input type="text" class="form-control" id="themeTitle"
-	 name="themeTitle" readonly="readonly" width="50px">
-	 
-	 
-	 <input type="hidden" id="updateTheme_themeIsTop">
-	 <input type="hidden" id="updateTheme_themeIsTopTime">
+		 <div class="form-group">
+	  <label for="spece" class="col-lg-3 col-sm-3 control-label">手机内存分类:</label>
+	  <div class="col-lg-9">
+	   
+       <select id="update_spece" class="form-control" ></select>
 		</div>
 		</div>
-         
-      <div class="form-group"><!-- 按钮组， label+group ，group中有两个lable,每label包一个input radio -->
-   
-      <label for="themeIsTop" class="col-lg-2 col-sm-2 control-label">置顶状态:</label>
-       <div class="col-lg-10 ">
-      <div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-default active" id="label_themeIsTop1">
-    <input type="radio" name="themeIsTop" id="update_themeIsTop1" value="1"  autocomplete="off" >是
-  </label>
-  <label class="btn btn-default" id="label_themeIsTop2">
-    <input type="radio" name="themeIsTop" value="0" id="update_themeIsTop2" autocomplete="off">否
-  </label>
-  </div>
-  </div>
- </div>
- 
- 
-      <div class="form-group"><!-- 按钮组， label+group ，group中有两个lable,每label包一个input radio -->
-      <label for="themeSign" class="col-lg-2 col-sm-2 control-label">精华状态:</label>
-       <div class="col-lg-10 ">
-      <div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-default active" id="label_themeSign1">
-    <input type="radio" name="themeSign" id="update_themeSign1" value="1" autocomplete="off" >是
-  </label>
-  <label class="btn btn-default" id="label_themeSign2">
-    <input type="radio" name="themeSign" value="0" autocomplete="off" id="update_themeSign2">否
-  </label>
-  </div>
-  </div>
- </div>
+    
       </form>
       <div class="modal-footer">
-         <button type="button" class="btn btn-info" onclick="update_theme();"><i class="glyphicon glyphicon-ok"></i>&nbsp;确定修改</button>&nbsp;
+         <button type="button" class="btn btn-info" onclick="update_cartgood();"><i class="glyphicon glyphicon-ok"></i>&nbsp;确定修改</button>&nbsp;
          <button type="button" class="btn btn-info" onclick="reset();"><i class="glyphicon glyphicon-repeat"></i>&nbsp;表单重置</button>&nbsp;
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;放弃修改</button>
         
