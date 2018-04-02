@@ -120,7 +120,6 @@ public List<Goods> queryAll(){
 }
 
 @RequestMapping("/insertGoods")
-@ResponseBody
 public String insertFavoritesGood(Shops ss) { //ÃÌº”…Ã∆∑
 	gs.saveOrUpdate(ss);
 	return "redirect:/tianjia.jsp";
