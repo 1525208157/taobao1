@@ -84,13 +84,6 @@ public class MyTaobaoController {
 		return "ok";
 	}
 	
-	@RequestMapping("/updateUser")
-	@ResponseBody
-	public String updateUser(Users u) { //修改用户密码 头像 昵称
-		us.saveOrUpdate(u);
-		return "ok";
-	}
-	
 	@RequestMapping("/updatePass")
 	@ResponseBody
 	public String updatePass(Integer userId,String password) { //修改密码
@@ -102,8 +95,8 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/selectFavoritesGoods")
 	@ResponseBody
-	public List<FavoritesGoods> selectFavoritesGoods() { //查询所有关注商品
-		String sql = "select * from favoritesGoods";
+	public List<FavoritesGoods> selectFavoritesGoods(Integer userId) { //查询所有关注商品
+		String sql = "select * from favoritesGoods where userId = "+userId;
 		List<FavoritesGoods> favoritesGoods = fgs.selectFavoritesGoods(sql);
 		return favoritesGoods;
 	}
@@ -124,8 +117,8 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/selectFavoritesShops")
 	@ResponseBody
-	public List<FavoritesShops> selectFavoritesShops() { //查询所有关注店铺
-		String sql = "select * from favoritesShops";
+	public List<FavoritesShops> selectFavoritesShops(Integer userId) { //查询所有关注店铺
+		String sql = "select * from favoritesShops where userId = "+userId;
 		List<FavoritesShops> favoritesShops = fss.selectFavoritesShops(sql);
 		return favoritesShops;
 	}
@@ -146,19 +139,33 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/selectOrders")
 	@ResponseBody
-	public List<Orders> selectOrders(Integer orderStatus) { //按  状态 用户  查询订单
-		orderStatus = 1;
-		String sql = "";
-		if (orderStatus == 0) { //按所有订单查询
-			sql = "select * from orders";
-		} else if (orderStatus > 0) {
-			sql = "select * from orders where orderStatus = "+orderStatus;
+	public List<Orders> selectOrders(Integer userId,Integer orderStatus) { //按  状态 用户  查询未删除订单
+		String sql = "select * from orders where userId = "+userId+" and isDel = 0";
+		if (orderStatus > 0) {
+			sql = sql + " and orderStatus = "+orderStatus;
 		}
 		List<Orders> orders = os.selectOrders(sql);
 		return orders;
 	}
 	
-	@RequestMapping("/deleteOrderGoods")
+	@RequestMapping("/selectIsDelOrders")
+	@ResponseBody
+	public List<Orders> selectIsDelOrders(Integer userId) { //查询删除订单(订单回收站)
+		String sql = "select * from orders where userId = "+userId+" and isDel = 1";
+		List<Orders> orders = os.selectOrders(sql);
+		return orders;
+	}
+	
+	@RequestMapping("/updateIsDel")
+	@ResponseBody
+	public String updateIsDel(Integer orderId,Integer isDel) { //修改密码
+		Orders order = os.selectOrder(orderId);
+		order.setIsDel(isDel);
+		os.saveOrUpdate(order);
+		return "ok";
+	}
+	
+	/*@RequestMapping("/deleteOrderGoods")
 	@ResponseBody
 	public String deleteOrderGoods(int[] arrays) { //批量删除订单商品
 		String hql = "";
@@ -167,11 +174,12 @@ public class MyTaobaoController {
 			ogs.updateIsDel(hql);
 		}
 		return "ok";
-	}
+	}*/
+	
 	
 	@RequestMapping("/selectUser")
 	@ResponseBody
-	public String selectUser(String account,String password,HttpServletRequest request) { //按状态查询订单
+	public String selectUser(String account,String password,HttpServletRequest request) { //修改密码
 		HttpSession session = request.getSession();
 		String sql = "select * from users where account = "+account+" and password = "+password;
 		List<Users> users = us.selectUser(sql);
