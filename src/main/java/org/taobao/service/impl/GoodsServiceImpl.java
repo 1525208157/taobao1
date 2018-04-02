@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.GoodsDao;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.Shops;
 import org.taobao.service.GoodsService;
 @Service
 @Transactional
@@ -19,6 +20,16 @@ private GoodsDao gd;
 	List<Goods> gl=gd.selectAll(sql);
 		return gl;
 	}
-
-
+	@Override
+	public void saveOrUpdate(Shops ss) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void saveOrUpdate(Goods g) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
