@@ -23,6 +23,7 @@ public class Orders { //订单信息表
 	private String receiveTime; //收货时间
 	private Logistics logistics; //物流信息 一对一
 	private String createTime; //下单时间
+	private Integer isDel; //是否删除  0 1
 	private List<OrderGoods> orderGoods; //一对多 订单商品
 	
 	@Id
@@ -75,6 +76,12 @@ public class Orders { //订单信息表
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public Integer getIsDel() {
+		return isDel;
+	}
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 	
 	@OneToMany

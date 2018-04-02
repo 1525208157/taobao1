@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.tomcat.jni.OS;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.OrderDao;
@@ -24,15 +25,14 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<OrderGoods> selectOrderGoods(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+	public void saveOrUpdate(Orders o) {
+		od.saveOrUpdate(o);
 	}
 
 	@Override
-	public void saveOrUpdate(Orders o) {
-		// TODO Auto-generated method stub
-		
+	public Orders selectOrder(Integer id) {
+		Orders order = od.selectOne(id);
+		return order;
 	}
 
 }

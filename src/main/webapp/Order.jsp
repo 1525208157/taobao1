@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,24 +56,82 @@
 
 <script>
 	$(function() {
-		$
-				.ajax({
-					url : "myTaobao/selectOrders",
-					dataType : "json",
-					success : function(data) {
-						for (i = 0; i < data.length; i++) {
-							$("#orderDiv")
-									.append(
-											"<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4'>订单号："+data[i].orderId+ "</div><div class='col-lg-8 col-sm-8'>"+data[i].orderGoods[0].specs.sGoods.shop.shopName+"</div></div>"
-											+"<div class='panel-body'><div class='col-lg-4 col-sm-4'>"+data[i].orderGoods[0].specs.sGoods.goodsName+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[0].specs.smoney+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[0].goodsNum+"</div><div class='col-lg-2 col-sm-2'>${"+data[i].logistics+" == '' ? '未发货':'已发货' }</div><div class='col-lg-2 col-sm-2'><c:if test=' "+data[i].orderStatus+" < 3 '>确认收货</c:if></div></div><hr>"
-											+"</div>");
-
-						}
-					}
-
-				});
-
+		var userId = "${users.userId }";
+		if (userId == "") {
+			location.href="Login.jsp";
+		}
+		selectOrders(0);
 	});
+	
+	function selectOrders(orderStatus) {
+		var userId = "${users.userId }";
+		$.ajax({
+			url : "myTaobao/selectOrders",
+			data:{
+				"userId":userId,
+				"orderStatus":orderStatus
+			},
+			dataType : "json",
+			success : function(data) {
+				$("#orderDiv").empty();
+				for (i = 0; i < data.length; i++) {
+					for (j = 0; j < data[i].orderGoods.length; j++) {
+						$("#orderDiv").append("<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："+data[i].orderId+ "</div><div class='col-lg-6 col-sm-6' style='text-align:left'>店铺名称："+data[i].orderGoods[j].specs.sGoods.shop.shopName+"</div><div class='col-lg-2 col-sm-2'><a href='#' onclick='updateIsDel("+data[i].orderId+",1)'>删除订单</a></div></div>"
+								+"<div class='panel-body'><div class='col-lg-4 col-sm-4'>"+data[i].orderGoods[j].specs.sGoods.goodsName+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[j].specs.smoney+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[j].goodsNum+"</div><div class='col-lg-2 col-sm-2'>${"+data[i].logistics+" == '' ? '未发货':'已发货' }</div><div class='col-lg-2 col-sm-2'><c:if test=' "+data[i].orderStatus+" < 3 '>确认收货</c:if></div></div><hr>"
+								+"</div>");
+					}
+					
+
+				}
+			}
+
+		});
+	}
+	
+	//逻辑删除订单
+	function updateIsDel(orderId,isDel) {
+		$.ajax({
+			url:"myTaobao/updateIsDel",
+			data:{
+				"orderId":orderId,
+				"isDel":isDel
+			},
+			success:function(data){
+				alert(data);
+				location.reload();
+			}
+		});
+	}
+	
+	//显示订单回收站模态框
+	function openIsDelModal() {
+		$("#isDelModal").modal();
+	}
+	
+	//查询已删除订单
+	function selectIsDelOrders() {
+		var userId = "${users.userId }";
+		$.ajax({
+			url : "myTaobao/selectIsDelOrders",
+			data:{
+				"userId":userId
+			},
+			dataType : "json",
+			success : function(data) {
+				for (i = 0; i < data.length; i++) {
+					for (j = 0; j < data[i].orderGoods.length; j++) {
+						$("#isDelOrders").append("<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："+data[i].orderId+ "</div><div class='col-lg-6 col-sm-6' style='text-align:left'>店铺名称："+data[i].orderGoods[j].specs.sGoods.shop.shopName+"</div><div class='col-lg-2 col-sm-2'><a href='#' onclick='updateIsDel("+data[i].orderId+",1)'>删除订单</a></div></div>"
+								+"<div class='panel-body'><div class='col-lg-4 col-sm-4'>"+data[i].orderGoods[j].specs.sGoods.goodsName+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[j].specs.smoney+"</div><div class='col-lg-2 col-sm-2'>"+data[i].orderGoods[j].goodsNum+"</div><div class='col-lg-2 col-sm-2'>${"+data[i].logistics+" == '' ? '未发货':'已发货' }</div><div class='col-lg-2 col-sm-2'></div></div><hr>"
+								+"</div>");
+					}
+					
+
+				}
+			}
+
+		});
+	}
+	
 </script>
 
 <body>
@@ -200,8 +258,7 @@
 
 	<header class="mt-header" data-spm="a210b"> <article>
 	<div class="mt-logo" style="margin-left: 0px;">
-		<a title="我的淘宝" class="mt-tblogo"
-			href="//i.taobao.com/my_taobao.htm?nekot=1470211439696&amp;tracelog=newmytb_logodianji"
+		<a title="我的淘宝" class="mt-tblogo" href="MyTaobao.jsp"
 			data-spm="d1000351"></a>
 	</div>
 	<nav class="mt-nav">
@@ -239,48 +296,73 @@
 		</div>
 	</div>
 	</nav> </article> </header>
-		<br><br>
-		<div class="row">
-			<div class="col-lg-2 col-sm-2"></div>
-			<div class="col-lg-8 col-sm-8">
-				<nav class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="collapse navbar-collapse"
-						id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="#">所有订单</a></li>
-							<li><a href="#">待发货</a></li>
-							<li><a href="#">待收货</a></li>
-							<li><a href="#">待评价</a></li>
-						</ul>
-					</div>
+	<br>
+	<br>
+	<center>
+		<div style="width: 63%;">
+			<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#" onclick="selectOrders(0)">所有订单</a></li>
+						<li><a href="#" onclick="selectOrders(1)">待发货</a></li>
+						<li><a href="#" onclick="selectOrders(2)">待收货</a></li>
+						<li><a href="#" onclick="selectOrders(3)">待评价</a></li>
+					</ul>
+
 				</div>
-				</nav>
-				
-				<div class="row">
-					<div class="col-lg-4 col-sm-4">
-						<font size="4">商品</font>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-						<font size="4">单价</font>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-						<font size="4">数量</font>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-						<font size="4">交易状态</font>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-						<font size="4">交易操作</font>
-					</div>
-				</div>
-	
-				<div id="orderDiv"></div>
-				
+
 			</div>
-			
-			<div class="col-lg-2 col-sm-2"></div>
+
+			</nav>
+
+			<div class="row" style="width: 100%; text-align: right">
+				<button onclick="openIsDelModal()" class="btn btn-default">订单回收站</button>
+			</div>
+
+			<div class="row" style="width: 100%;">
+				<div class="col-lg-4 col-sm-4">
+					<font size="4">商品</font>
+				</div>
+				<div class="col-lg-2 col-sm-2">
+					<font size="4">单价</font>
+				</div>
+				<div class="col-lg-2 col-sm-2">
+					<font size="4">数量</font>
+				</div>
+				<div class="col-lg-2 col-sm-2">
+					<font size="4">交易状态</font>
+				</div>
+				<div class="col-lg-2 col-sm-2">
+					<font size="4">交易操作</font>
+				</div>
+			</div>
+
+			<div id="orderDiv" class="row" style="width: 100%;"></div>
+
 		</div>
-		
+	</center>
+
+	<div class="modal fade" id="isDelModal" style="width: 63%">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title">订单回收站</h4>
+				</div>
+				<div class="modal-body" id="isDelOrders" style="width: 100%">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
