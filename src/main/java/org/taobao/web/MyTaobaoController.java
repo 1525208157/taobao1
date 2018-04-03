@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
+import org.taobao.pojo.Goods;
 import org.taobao.pojo.Orders;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
 import org.taobao.service.FavoritesGoodService;
 import org.taobao.service.FavoritesShopService;
+import org.taobao.service.GoodsService;
 import org.taobao.service.OrderGoodsService;
 import org.taobao.service.OrderService;
 import org.taobao.service.UserService;
@@ -36,6 +38,8 @@ public class MyTaobaoController {
 	private FavoritesShopService fss;
 	@Resource
 	private OrderGoodsService ogs;
+	@Resource
+	private GoodsService gs;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -191,6 +195,13 @@ public class MyTaobaoController {
 			str = "error";
 		}
 		return str;
+	}
+	
+	@RequestMapping("/selectGoods")
+	@ResponseBody
+	public Goods selectGoods(Integer goodsId) {
+		Goods goods = gs.selectGoods(goodsId);
+		return goods;
 	}
 	
 }
