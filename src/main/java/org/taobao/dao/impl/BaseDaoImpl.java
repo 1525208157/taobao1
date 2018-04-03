@@ -52,6 +52,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 	public void saveOrUpdate(T t) {
 		Session session = sf.getCurrentSession();
 		session.saveOrUpdate(t);
+		
 	}
 
 	@Override

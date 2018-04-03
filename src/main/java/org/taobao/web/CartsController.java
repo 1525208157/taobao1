@@ -3,6 +3,7 @@ package org.taobao.web;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.User;
 import org.aspectj.weaver.Shadow;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +38,8 @@ import org.taobao.util.CartHelp;
 import org.taobao.util.Shopcarts;
 import org.taobao.util.Sign;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 
 @Controller
 @RequestMapping("/carts")
@@ -47,6 +52,10 @@ public class CartsController {
 	
 	@Resource
 	private AddressService address;
+	
+	@Resource
+	
+	private SessionFactory sf;
 	
 	@RequestMapping("/showCarts")
 	public String showCarts(){
@@ -296,7 +305,7 @@ public class CartsController {
 		   
 	 }
 	
-	@RequestMapping("/mycart_jieshuan")//如果这里不是ajax传数组参时，是url传数组参时这里要加[]
+	@RequestMapping("/mycart_jieshuan")//如果这里不是ajax传数组参时，是url传数组参时这里要加[] 点击结算按钮
 	public String maycart_jieshuan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,ModelMap model,HttpServletRequest request){
 		HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
@@ -349,12 +358,12 @@ public class CartsController {
 		    	   listAll.add(list3);//每次的外层循环把店铺集合放入双层集合中   
 		       }
 	       
-		      String hql="select addressId,isDefault,userAddress,userName,userPhone from address where userId="+user.getUserId()+" order by isDefault desc" ;
-		      List<Address> li=address.selectAddress(hql);
+		     // String hql="select addressId,isDefault,userAddress,userName,userPhone from address where userId="+user.getUserId()+" order by isDefault desc" ;
+		       String hql="select * from address where userId="+user.getUserId()+" order by isDefault desc" ;
+		       List<Address> li=address.selectAddress(hql);
 		      model.put("cart_jieshuan", listAll);
 		      model.put("address", li);
-		   
-		      
+		
 		      
 		  
 		       
@@ -364,15 +373,98 @@ public class CartsController {
 		return "mycart_jieshuan";
 	}
 	
-	@RequestMapping("/cheshi")
+	
+	@RequestMapping("/getAddress_one")
 	@ResponseBody
-	public String cheshi(){
-		System.out.println("zenmmdmdmm");
-		return "{}";//没有写重定就是转发
+	public Address getAddress_one(Integer addressId){//根据单个id查找地址
+		Address ad=address.selectOneAddress(addressId);
+		return ad;
 	}
 	
- 
+	@RequestMapping("/update_address")
+	@ResponseBody
+	public String update_address(HttpServletRequest request,Address ad,ModelMap model){//修改地址栏
+		 HttpSession see=request.getSession();
+		 Users user=(Users) see.getAttribute("user");
+		if(user==null){
+			user=new Users();
+			user.setUserId(1);
+		}
+		
+		ad.setUsers(user);//给前台传过来的地址添加外键用户
+		
+		//数据库里的收货地址默认地址要么只能有一个，要么没有默认地址，不能有多个默认地址
+		if(ad.getIsDefault()!=0){//先要判断前台传过来的address对象的是否默认是不是为0，为0时，后面这个对象直接添加
+			
+			//不是0时要先查该用户的默认地址，有先把默认地址的默认该为0，没有时就可以直接save这个ad对象
+			String hql="select *  from address where userId="+user.getUserId()+" and isDefault=1";
+			List<Address> adds=address.selectAddress(hql);
+			
+			if(!adds.isEmpty()){//判断是否为空！不是空时还要继续判断
+				
+				if(adds.get(0).getAddressId()!=ad.getAddressId()){//判断从数据库查找的对象是否和前台传过的对象Id是一样 》》
+					 adds.get(0).setIsDefault(0);//不一样时要先把数据库默认的地址改为0，然后在保管前台传过来的对象
+					 address.saveOrUpdateAddress(ad);
+			}else{
+				
+				
+				//如果是一样时 利用数据持久化直接set数据库里的对象， 这里不能 直接save前台对象 因为session里已经有一个对象，前台也有一个通主键的对象，
+				//save 前台对象会报错 （NonUniqueObjectException:）
+			
+				
+				
+				adds.get(0).setUserAddress(ad.getUserAddress());
+				 adds.get(0).setUserName(ad.getUserName());
+				 adds.get(0).setUserPhone(ad.getUserPhone());
+			}
+			
+			}else{//为空时这时会直接保管该选为默认地址的对象
+			address.saveOrUpdateAddress(ad);
+		
+			}
+		
+		}else{//为0时，后面这个对象直接添加
+			 address.saveOrUpdateAddress(ad);
+		}
+		
+		String hql1="select * from address where userId="+user.getUserId()+" order by isDefault desc" ;
+	       List<Address> li=address.selectAddress(hql1);
+	       model.put("address", li);
+	       return "{}";
+		
+		
+	}
 	
+	@RequestMapping("/insert_address")
+	@ResponseBody
+	public String insert_address(HttpServletRequest request,Address ad,ModelMap model){//添加新地址 数据库里；每个人默认地址只能有一个，要么没有
+		HttpSession see=request.getSession();
+		 Users user=(Users) see.getAttribute("user");
+		if(user==null){
+			user=new Users();
+			user.setUserId(1);
+		}
+		
+		ad.setUsers(user);//给前台传过来的地址添加外键用户
+		
+
+		//数据库里的收货地址默认地址要么只能有一个，要么没有默认地址，不能有多个默认地址
+		if(ad.getIsDefault()!=0){//先要判断前台传过来的address对象的是否默认是不是为0，为0时，后面这个对象直接添加
+			//不是0时要先查该用户的默认地址，有先把默认地址的默认该为0，没有时就可以直接save这个ad对象
+			String hql="select *  from address where userId="+user.getUserId()+" and isDefault=1";
+			List<Address> adds=address.selectAddress(hql);
+			if(!adds.isEmpty()){//判断是否为空！，直接  adds.get(0).setIsDefault(0);
+				
+			     adds.get(0).setIsDefault(0);
+		}
+		}
+		 address.saveOrUpdateAddress(ad);//添加对象
+		String hql1="select * from address where userId="+user.getUserId()+" order by isDefault desc" ;
+	       List<Address> li=address.selectAddress(hql1);
+	       model.put("address", li);
+		return "{}";
+		
+	}
 
 }
 
