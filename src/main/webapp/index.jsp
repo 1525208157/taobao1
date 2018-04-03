@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,12 +13,7 @@
 	 <script type="text/javascript" src="js/jquery-3.2.0.min.js" ></script>
 	<script type="text/javascript" src="js/bootstrap.min.js" ></script>		
 
-<title>Insert title here</title>
 
- <link rel="stylesheet" href="layui/css/layui.css" media="all">
-	 <link rel="stylesheet" href="css/bootstrap.min.css" />
-	 <script type="text/javascript" src="js/jquery.min.js" ></script>
-	<script type="text/javascript" src="js/bootstrap.js" ></script>
 	
 	<!-- 首页、我的淘宝、购物车 导航样式 -->
 <link rel="stylesheet"
@@ -70,11 +66,47 @@
 		if(a=="s"){
 			location.href="Goods/queryAll?goodsName="+$("#gname").val();
 		}else if(a=="d"){
-			location.href="Shops/queryAll?shopName="+$("#gname").val();
+			location.href="shops/queryAll?shopName="+$("#gname").val();
 		}
 		}
 	</script>
 </head>
+<script type="text/javascript">
+	$(function(){
+		
+		$.ajax({
+			url : "Goods/index",
+			dataType : "json",
+			success : function(data) { 	
+				var num = 0;
+				for (i = 0; i < data.length; i++) {
+					if (i != 0 && i %4 == 0) {
+						num++;
+						$("#Goods").append("<div class='row' style='width: 295px;' id='d"+i+" '>"
+								+"<a href='#'><img src='"+data[i].goodsImg+"'class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+					}
+					if (i < 4) {
+						$("#firstRow").append("<div style='width: 295px;' class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goodsImg+"'' class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+					} else if (i % 4 != 0) {
+						$("d"+num).append("<div style='width: 295px;'	 class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goodsImg+" class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+					}
+					
+				}
+			}
+		})
+	})
+</script>
 <body>
 <center>
 	<div class="site-nav" id="J_SiteNav"
@@ -237,7 +269,9 @@ layui.use('carousel', function(){
   });
 });
 </script>
-	
+		<div id="Goods" style="width: 1180px;">
+						<div style=" width: 295px;" class="row"  id="firstRow"></div>
+					</div> 
 		</center>
 </body>
 </html>

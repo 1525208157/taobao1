@@ -122,7 +122,7 @@
 				}
 			}
 		})
-	});
+	
 </script>
 
 <body data-spm="6846577">
@@ -338,7 +338,7 @@
 
 					<div id="favoritesGoodsDiv">
 						<div class="row" id="firstRow"></div>
-					</div>
+					</div> 
 
 				</div>
 

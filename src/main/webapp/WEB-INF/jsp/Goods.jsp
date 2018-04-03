@@ -108,7 +108,7 @@
 							href="${pageContext.request.contextPath}/Goods/queryAsc">由低到高</a></li>
 					</ul></li>
 			</ul>
-		</div>
+		</div>	
 		<table width="1180px" >
 			<tr align="center">
 				<c:forEach items="${gl}" var="gl" varStatus="s">
