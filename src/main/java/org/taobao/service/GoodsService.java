@@ -9,7 +9,7 @@ import org.taobao.pojo.Shops;
 public interface GoodsService {
     List<Goods> queryAll(String sql);
     
-    void saveOrUpdate(Shops ss); //Ìí¼Ó/ÐÞ¸Ä
+    Goods selectGoods(Integer id);
 
 	void saveOrUpdate(Goods g);
 	

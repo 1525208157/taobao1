@@ -20,15 +20,17 @@ private GoodsDao gd;
 	List<Goods> gl=gd.selectAll(sql);
 		return gl;
 	}
-	@Override
-	public void saveOrUpdate(Shops ss) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	@Override
 	public void saveOrUpdate(Goods g) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Goods selectGoods(Integer id) {
+		Goods goods = gd.selectOne(id);
+		return goods;
 	}
 	
 	

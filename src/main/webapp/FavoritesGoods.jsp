@@ -89,10 +89,12 @@
 		if (userId == "") {
 			location.href="Login.jsp";
 		}
-	})
 		
 		$.ajax({
 			url : "myTaobao/selectFavoritesGoods",
+			data:{
+				"userId":userId
+			},
 			dataType : "json",
 			success : function(data) {
 				$("#fNum").append(data.length);

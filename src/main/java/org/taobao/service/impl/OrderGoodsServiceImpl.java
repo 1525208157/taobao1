@@ -16,10 +16,10 @@ public class OrderGoodsServiceImpl implements OrderGoodsService{
 	@Resource
 	private OrderGoodsDao og;
 
-	@Override
+	/*@Override
 	public void updateIsDel(String hql) {
 		og.updateIsDel(hql);
-	}
+	}*/
 
 	@Override
 	public List<OrderGoods> queryAll(String sql) {

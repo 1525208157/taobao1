@@ -14,7 +14,7 @@ public class OrderGoods { //订单商品表
 	private Specs specs; //多对一 规格
 	private Integer goodsNum; //商品数量  
 	private GoodsColor ogColor; //颜色
-	private Integer isDel; //是否删除  0 1
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,13 +38,6 @@ public class OrderGoods { //订单商品表
 	}
 	public void setSpecs(Specs specs) {
 		this.specs = specs;
-	}
-	
-	public Integer getIsDel() {
-		return isDel;
-	}
-	public void setIsDel(Integer isDel) {
-		this.isDel = isDel;
 	}
 	
 	@OneToOne
