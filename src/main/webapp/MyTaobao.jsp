@@ -454,7 +454,7 @@
 					</dd>
 					<dd class="mt-menu-sub fold J_MtSideTree">
 						<!--<b class="mt-indicator J_MtIndicator">-</b>-->
-						<a id="bought" href="Order.jsp" data-spm="d1000368">已买到的宝贝</a>
+						<a id="bought" href="Order.jsp" data-spm="d1000368">我的订单</a>
 					</dd>
 					<dd id="favorite1">
 						<a href="FavoritesGoods.jsp" data-spm="d1000374">收藏商品</a>

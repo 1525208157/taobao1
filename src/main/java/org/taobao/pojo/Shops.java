@@ -17,7 +17,6 @@ public class Shops { //店铺表
 	private String shopName; //店铺名称
 	private String shopImg; //店铺图片地址
 	private List<Goods> goods; //商品  一对多
-	private List<Coupons> coupons; //优惠券  一对多
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,16 +46,6 @@ public class Shops { //店铺表
 	}
 	public void setGoods(List<Goods> goods) {
 		this.goods = goods;
-	}
-	
-	@OneToMany
-	@JoinColumn(name="shopId")
-	@JsonIgnoreProperties("shop")
-	public List<Coupons> getCoupons() {
-		return coupons;
-	}
-	public void setCoupons(List<Coupons> coupons) {
-		this.coupons = coupons;
 	}
 	
 }

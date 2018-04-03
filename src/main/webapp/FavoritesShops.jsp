@@ -62,8 +62,16 @@
 
 <script type="text/javascript">
 	$(function() {
+		var userId = "${users.userId }";
+		if (userId == "") {
+			location.href="Login.jsp";
+		}
+		
 		$.ajax({
 			url : "myTaobao/selectFavoritesShops",
+			data:{
+				"userId":userId
+			},
 			dataType : "json",
 			success : function(data) {
 				$("#sNum").append(data.length);

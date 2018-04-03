@@ -119,10 +119,5 @@ public List<Goods> queryAll(){
 	return goods;
 }
 
-@RequestMapping("/insertGoods")
-public String insertFavoritesGood(Shops ss) { //ÃÌº”…Ã∆∑
-	gs.saveOrUpdate(ss);
-	return "redirect:/tianjia.jsp";
-}
 
 }
