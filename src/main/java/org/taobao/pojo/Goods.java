@@ -87,6 +87,7 @@ public class Goods { //…Ã∆∑±Ì
 	
 	@OneToOne
 	@JoinColumn(name="introduceId")
+	@JsonIgnoreProperties("goods")
 	public GoodsIntroduce getGoodsIntroduce() {
 		return goodsIntroduce;
 	}
