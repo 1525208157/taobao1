@@ -473,8 +473,26 @@ function update_address(c){ //修改地址前的查找
 			 var cartGoodIds=new Array();
 			 $("input[name='cartgoodsId']").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 				 cartGoodIds.push($(this).val());
+			   //  alert("商品id："+cccc)
 				});
-			
+			 var a=null;
+				$("input[name='addrs']:checked").each(function(){//选择的单选按钮的集合循环方法
+				 a= $(this).val();//得到收货人的名字
+				 alert("收货id："+a);
+				})
+				if($("input[name='addrs']:checked").length==0){
+					alert("请选择收货地址！");
+				}else{
+				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/carts/create_dingdan",
+					dataType:"json",
+					data:{"cartGoodIds":cartGoodIds,"addressId":a},
+					success:function(data){
+						location.href="${pageContext.request.contextPath}/carts/showCarts";
+				}
+		
+			})}
 		}
 			
 		

@@ -65,7 +65,7 @@ $(function(){
 				         +" <button type='button' onclick='shangpin_jia(this)' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-plus'></span></button></div>"
 				         +"<div class='col-lg-1 col-md-1'><font color='red'>￥<span>"+data[i][j].totalPrice+"</span></font></div>"
 				         +"<div class='col-lg-2 col-md-2'><a onclick='setFagood("+data[i][j].goodsId+")'>添加关注</a><br>"
-				         +"<a onclick='deleteCartGood("+data[i][j].cartGoodId+")'>删除</a>"
+				         +"<a onclick='delete_cartgood("+data[i][j].cartGoodId+")'>删除</a>"
 				         +"<a onclick='update_select_cartgood("+data[i][j].cartGoodId+")'>|修改</a></div></div></br> ");
 				   			
 				}}
@@ -101,11 +101,15 @@ $(function(){
 			
 			
 		})
+	}
+		function delete_cartgood(cartgoodId){//单次删除前的显示是否要删除该帖模态框
+			$("#delete_cartgoodId").html(cartgoodId);
+			$("#delete_cartgoods_Modal").modal("show");
+		}
+
+	 function deleteCartGood(){  //根据用户名删除购物车里的商品
 		
-}
-	 function deleteCartGood(cartGoodId){//根据用户名删除购物车里的商品
-		
-		location.href="${pageContext.request.contextPath}/carts/deleteCartGood?cartGoodId="+cartGoodId;
+		location.href="${pageContext.request.contextPath}/carts/deleteCartGood?cartGoodId="+$("#delete_cartgoodId").html();
 		 
 	 }
 	
@@ -136,12 +140,47 @@ $(function(){
 		 
 	 }
 	 
+	  function deleteCartGoods_piliang(){//批量删除前的模态框显示是否要批量删除
+		  var cartGoodIds=new Array();
+			 $("input[name='cartgoodId_checkbox']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
+				 cartGoodIds.push($(this).val());
+				});
+			 
+			 
+			 if(cartGoodIds.length!=0){
+				 var cva="";
+				 if(cartGoodIds.length!=1){//模态框里的商品id的拼接
+				 for(i=0;i<cartGoodIds.length;i++){
+					 if(i!=cartGoodIds.length-1){
+					 cva=cva+cartGoodIds[i]+",";
+					 }else{
+						 cva=cva+cartGoodIds[i];
+					 }
+				 }}else{
+					 cva=cva+cartGoodIds[0]+" "; 
+				 }
+			 
+				 $("#delete_cartgoodId_piliang").html(cva);
+				
+				 $("#delete_cartgoodsPiliang_Modal").modal("show");
+				 
+			 }else{
+				 alert("请选择你要删除的商品！")
+			 }
+	  }
+	 
+	 
+	 
+	 
+	 
+	 
 	 function deleteCartGoods(){//批量量删除购物车里的商品
 		 var cartGoodIds=new Array();
-		 $("input[name='cartgoodId_checkbox ']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
+		 $("input[name='cartgoodId_checkbox']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 			 cartGoodIds.push($(this).val());
 			});
-		if(cartGoodIds.length!=0){
+		
+		
 		 $.ajax({
 				url:"${pageContext.request.contextPath}/carts/deleteCartGoods",
 				dataType:"json",
@@ -153,10 +192,8 @@ $(function(){
 				
 				
 			})
-		}else{
-		    alert("请你选择你要删除的商品！")
-		}
-	 }
+		 }
+	 
 	function dianpu_checked(c){//点击店铺的多选按钮后，选中时它里面的商品也会选中，反之，里面的商品也不会选中
 		 console.log(c);
 		if(c.checked){//当该店铺的按钮选中时店铺里的按钮也会选中
@@ -376,7 +413,7 @@ $(function(){
 		<input type="checkbox" onclick="quanxuan_checkbox(this)"/>全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a onclick="setFagoods()">批量关注</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a onclick="deleteCartGoods()">批量删除</a>
+		<a onclick="deleteCartGoods_piliang()">批量删除</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -447,6 +484,46 @@ $(function(){
 </div><!-- /.modal -->
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="delete_cartgoods_Modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content danger">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" align="center">删除确认</h3>
+      </div>
+      <div class="modal-body">
+	      <div class="alert alert-danger alert-dismissible fade in" role="alert" id="deleteAlert" >
+	        	<p>您真的要删除&nbsp; <span id="delete_cartgoodId"></span>&nbsp; 的信息吗？请谨慎删除！</p>
+	       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="deleteCartGood();"><i class="glyphicon glyphicon-trash"></i>&nbsp; 确认删除</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-repeat"></i>&nbsp; 放弃</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="delete_cartgoodsPiliang_Modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content danger">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" align="center">删除确认</h3>
+      </div>
+      <div class="modal-body">
+	      <div class="alert alert-danger alert-dismissible fade in" role="alert" id="deleteAlert" >
+	        	<p>您真的要删除&nbsp; <span id="delete_cartgoodId_piliang"></span>&nbsp; 的信息吗？请谨慎删除！</p>
+	       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="deleteCartGoods();"><i class="glyphicon glyphicon-trash"></i>&nbsp; 确认删除</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-repeat"></i>&nbsp; 放弃</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <script type="text/javascript">

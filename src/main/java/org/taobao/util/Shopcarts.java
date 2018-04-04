@@ -4,6 +4,7 @@ public class Shopcarts {//购物车用的购物实体
 	private String shopName;//店铺名称
 	private Integer specsId;//手机型号
 	private String specsName;//手机内存
+	private Integer gcId;//手机颜色id
 	private String gcName;//手机颜色
 	private Double smoney;//单价
 	private Integer goodsId;//商品id
@@ -91,6 +92,12 @@ public class Shopcarts {//购物车用的购物实体
 	}
 	public void setCartGoodId(Integer cartGoodId) {
 		this.cartGoodId = cartGoodId;
+	}
+	public Integer getGcId() {
+		return gcId;
+	}
+	public void setGcId(Integer gcId) {
+		this.gcId = gcId;
 	}
 	
 	
