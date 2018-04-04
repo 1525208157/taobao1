@@ -14,6 +14,7 @@ import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
 import org.taobao.pojo.Goods;
 import org.taobao.pojo.Orders;
+import org.taobao.pojo.Specs;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
 import org.taobao.service.FavoritesGoodService;
@@ -21,6 +22,7 @@ import org.taobao.service.FavoritesShopService;
 import org.taobao.service.GoodsService;
 import org.taobao.service.OrderGoodsService;
 import org.taobao.service.OrderService;
+import org.taobao.service.SpecsService;
 import org.taobao.service.UserService;
 
 @Controller
@@ -40,6 +42,8 @@ public class MyTaobaoController {
 	private OrderGoodsService ogs;
 	@Resource
 	private GoodsService gs;
+	@Resource
+	private SpecsService ss;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -202,6 +206,13 @@ public class MyTaobaoController {
 	public Goods selectGoods(Integer goodsId) {
 		Goods goods = gs.selectGoods(goodsId);
 		return goods;
+	}
+	
+	@RequestMapping("/selectSpecs")
+	@ResponseBody
+	public Specs selectSpecs(Integer specsId) {
+		Specs specs = ss.selectSpecs(specsId);
+		return specs;
 	}
 	
 }

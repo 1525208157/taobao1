@@ -6,4 +6,5 @@ import org.taobao.pojo.Specs;
 
 public interface SpecsService {
 List<Specs> queryAll(String sql);
+Specs selectSpecs(Integer id);
 }
