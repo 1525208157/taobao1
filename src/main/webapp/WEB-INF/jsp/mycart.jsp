@@ -31,14 +31,18 @@ background-color: #FF9966;
  
 </style>
 <script type="text/javascript">
-
+var user="${user}"
 $(function(){
-	// var uid=1;
-	cartsgoddss();
-		
+	if(user!=null){
+		cartsgoddss();
+	}else{
+		$("#d2").append("<h1>请先登录！！！</h1>")
+	}
+	
 		})
    
    function cartsgoddss(){
+	var userId="${user.userId}"
 	 $.ajax({
 		url:"${pageContext.request.contextPath}/carts/goodAll?userId=1",
 		dataType:"json",
@@ -316,21 +320,15 @@ $(function(){
 		
 	}
 	
-	/*  function acc(){
-	 	var aa=$("input[name='cartgoodId_checkbox']:checked").length;//商品的件数
-	 	 if(aa==0){
-	 		 $("jisuananniu").attr('disabled',true);
-	 	 }
-	 	
-	 } */
+
 	 function jieshuan(){//结算
 		 var cartGoodIds=new Array();
 		 $("input[name='cartgoodId_checkbox']:checked").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 			 cartGoodIds.push($(this).val());
-		 alert($(this).val());
+		
 			});
 		if(cartGoodIds.length!=0){
-		     alert("发送");
+		     
 			location.href="${pageContext.request.contextPath}/carts/mycart_jieshuan?cartGoodIds[]="+cartGoodIds;
 			//如果这里不是ajax传参时，是url传参是要加[],不然传不过去
 				
@@ -391,14 +389,10 @@ $(function(){
 		
 		
 		已选择商品&nbsp;<span id="shangpingeshu"><font color="red">0</span>&nbsp;件
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
-		合计<font color="red">￥<span id="heji">0.0</span></font>&nbsp;&nbsp;&nbsp;&nbsp;
+		合计<font color="red">￥<span id="heji">0.0</span></font>&nbsp;&nbsp;&nbsp;
 		<input type="button" id="jisuananniu" onclick="jieshuan()" style='font-size:20px' value="结 算"></button>
-		
-		
-
-	
 		
 		</div>
 		
@@ -409,7 +403,8 @@ $(function(){
 		
 		
 			
-</div>		
+</div>	
+</div>	
 <!-- 修改模态框 -->
 <div class="modal fade" id="cart_updateModal" data-backdrop="false">
 <!-- data-backdrop="false"设置显示模态框时，在模态框外面点击时，模态框时否消失-->
@@ -450,7 +445,7 @@ $(function(){
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+</div>
 
 
 
