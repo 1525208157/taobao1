@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.CartDao;
@@ -35,12 +37,14 @@ public class CartsServiceImpl implements CartsService {
 	@Resource
     private CartGoodsDao cs;
 	@Override
+	@Cacheable(value="good1")//查询购物车商品时添加到缓存good1
 	public List<Shopcarts> getCarts(String sql) {
 		 List<Shopcarts> list=car.getCarts(sql);
 		return list;
 	}
 
 	@Override
+	@CacheEvict(value="good1",allEntries=true)//删除购物车里的商品时，清空缓存good1
 	public void deleteCartGood(Integer cartGoodId) {
 		cragood.delete(cartGoodId);
 		
@@ -48,6 +52,7 @@ public class CartsServiceImpl implements CartsService {
 	}
 
 	@Override
+	@CacheEvict(value="good1",allEntries=true)//修改购物车里的商品时，清空缓存good1
 	public void update(CartGoods good) {
 		cragood.saveOrUpdate(good);
 		

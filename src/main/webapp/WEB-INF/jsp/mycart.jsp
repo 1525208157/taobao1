@@ -13,7 +13,7 @@
 .goods{
 	background-color: #FFF0F5;
 	border:1px dashed #000;
-	 font-size: 12px
+	 font-size: 16px
 }
 #dear{
 background-color: #FF9966;

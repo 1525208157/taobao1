@@ -13,18 +13,18 @@
 <style type="text/css">
 #cc{
 background-color:  #FFF0F5;
- font-size: 11px;
+ font-size: 13px;
 padding:11px;
   
 }
 
 #d11{
-font-size: 12px;
+font-size: 15px;
 }
 
 #dibu{
-width:270px;
-height:70px;
+width:300px;
+
 border:2px solid  #FF9966;;
 }
 </style>
@@ -139,29 +139,30 @@ border:2px solid  #FF9966;;
 		  <div class="col-lg-4 col-md-4">
 		 
 		  <div id="dibu">
-		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-		  &nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 
+		 
 		  <font style='font-weight:bold' >实付款:</font><font size="5">￥</font><span id="zonghe"></span></br>
-		   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		   &nbsp;&nbsp;&nbsp;&nbsp; 
 		   
 		   
 		   
 		  <font style='font-weight:bold'> 寄送至:</font><span id="dizhi"></span><br>
-		    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-		    &nbsp;&nbsp;&nbsp;&nbsp; 
+		    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		   
 		    
 		    <font style='font-weight:bold'>收货人:</font><span id="shouhuoren"></span> &nbsp;&nbsp; 
             <span id="dianhua"></span>		  
 		    
 		    
 		  </div>
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    <button type="button" class="btn btn-warning" onclick="tijiaodingdan();">&nbsp;&nbsp;提交订单&nbsp;&nbsp;</button>
+		    <div class="row">
+		    <div class="col-lg-7 col-md-7"></div>
+		  <div class="col-lg-3 col-md-3">
+		     <button type="button" class="btn btn-warning" onclick="tijiaodingdan();">&nbsp;&nbsp;提交订单&nbsp;&nbsp;</button>
 		  <br>
-		   
+		   </div>
+		   </div>
+		   <div class="col-lg-2 col-md-2"></div>
 		  </div>
 		 <!--  <div class="col-lg-1 col-md-1"> -->
 		 </div>
