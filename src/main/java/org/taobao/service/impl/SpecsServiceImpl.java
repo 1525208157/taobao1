@@ -16,8 +16,14 @@ public class SpecsServiceImpl implements SpecsService{
 private SpecsDao sd;
 	@Override
 	public List<Specs> queryAll(String sql) {
-List<Specs> sl=sd.selectAll(sql);
+		List<Specs> sl=sd.selectAll(sql);
 		return sl;
+	}
+	
+	@Override
+	public Specs selectSpecs(Integer id) {
+		Specs specs = sd.selectOne(id);
+		return specs;
 	}
 
 }

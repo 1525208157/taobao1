@@ -11,7 +11,6 @@
 
 </head>
 <script type="text/javascript">
-	
 	$(function() {
 		$.ajax({
 			url:"myTaobao/selectGoods",
@@ -20,15 +19,21 @@
 			},
 			dataType:"json",
 			success:function(data){
-					for (var c = 0; c < data.specs.length; c++) {
+				$("#td_goodsImg").append("<img src="+data.goodsImg+">");
+				$("#td_goodsName").append(data.goodsName);
+				$("#smoney").append(data.specs[0].smoney);
+				$("#saleNum").append(data.saleNum);
+				$("#appraisesNum").append(data.appraises.length);
+				for (var x = 0; x < data.specs.length; x++) {
+					
+					$("#td_specsName").append("<label class='btn btn-default'><input type='radio' name='specsName_btn' onchange='getGStock("+data.specs[x].specsId+")'>"+data.specs[x].specsName+"</label>");
+				}
+				for (var y = 0; y < data.appraises.length; y++) {
 						
-					}
-					for (var j = 0; j < data.appraises.length; j++) {
-						
-					}
-					for (var x = 0; x < data.goodsColor.length; x++) {
-							
-					}
+				}
+				for (var z = 0; z < data.goodsColor.length; z++) {
+					$("#td_gcName").append("<label class='btn btn-default'><input type='radio' name='gcName_btn'>"+data.goodsColor[z].gcName+"</label>");
+				}
 					
 					$("#shopRow").append("<div class='col-lg-2 col-sm-2'><a href=''>"+data.shop.shopName+"</a></div>"
 							+"<div class='col-lg-1 col-sm-1'>描述<br>5</div>"
@@ -44,6 +49,35 @@
 		})
 	});
 	
+	function addNum() {
+		$("#td_num").val(eval($("#td_num").val() +"+1"));
+	}
+	
+	function minusNum() {
+		if ($("#td_num").val() <= 1) {
+			$("#minusBtn").attr('disabled',true);
+		} else if ($("#td_num").val() >1){
+			$("#minusBtn").attr('disabled',false);
+			$("#td_num").val(eval($("#td_num").val() +"-1"));
+		}
+		
+	}
+	
+	function getGStock(specsId) {
+		$.ajax({
+			url:"myTaobao/selectSpecs",
+			data:{
+				"specsId":specsId
+			},
+			success:function(data){
+				$("#gStock").empty();
+				$("#smoney").empty();
+				$("#gStock").append(data.gStock);
+				$("#smoney").append(data.smoney);
+				
+			}
+		});
+	}
 	
 </script>
 
@@ -53,33 +87,49 @@
 		<div class="col-lg-6 col-md-6 col-sm-6" id="goodsBody"><!-- body -->
 			
 			<div class="row" id="shopRow" style="width: 100%;border: 1px solid;"></div>
+			
 			<div class="row" style="width: 100%;">
 			<table border="1" width="100%">
 				<tr>
-					<td rowspan="7" width="40%"></td><!-- 商品图片 -->
-					<td colspan="2" align="center">商品名称</td><!-- 商品名称 -->
+					<td rowspan="6" width="40%" id="td_goodsImg"></td><!-- 商品图片 -->
+					<td colspan="2" id="td_goodsName"></td><!-- 商品名称 -->
 				</tr>
 				<tr>
 					<td width="15%">价格</td>
-					<td></td>
+					<td>
+						<font size="5" color="red" id="smoney"></font>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center">销量、评价</td><!-- 销量、评价 -->
+					<td colspan="2" id="td_saleNum">总销量<font id="saleNum" color="red"></font>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;评价<font id="appraisesNum" color="red"></font></td><!-- 销量、评价 -->
 				</tr>
 				<tr>
 					<td>机身颜色</td>
-					<td></td>
+					<td>
+						<div class="btn-group" data-toggle="buttons" id="td_gcName"></div>
+					</td>
 				</tr>
 				<tr>
 					<td>存储容量</td>
-					<td></td>
+					<td>
+						<div class="btn-group" data-toggle="buttons" id="td_specsName"></div>
+					</td>
 				</tr>
 				<tr>
 					<td>数量</td>
-					<td></td>
+					<td>
+						<button type="button" id="addBtn" class="btn btn-dafault" onclick="addNum()"><i class="glyphicon glyphicon-plus"></i></button>
+						<input type="text" value="1" size="2" id="td_num">
+						<button type="button" id="minusBtn" class="btn btn-dafault" onclick="minusNum()"><i class="glyphicon glyphicon-minus"></i></button>
+						&nbsp;&nbsp;&nbsp;库存<font id="gStock"></font>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center">购买、加入购物车</td><!-- 购买、加入购物车 -->
+					<td align="center">收藏商品</td>
+					<td colspan="2" align="center" id="td_buy">
+						<button type="button" class="btn btn-danger">加入购物车</button>&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-danger">购买</button>
+					</td>
 				</tr>
 			</table>
 			</div>
