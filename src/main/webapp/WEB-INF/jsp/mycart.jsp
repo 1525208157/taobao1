@@ -13,20 +13,24 @@
 .goods{
 	background-color: #FFF0F5;
 	border:1px dashed #000;
-	 font-size: 16px
+	 font-size: 17px
 }
 #dear{
 background-color: #FF9966;
     position:fixed;
     bottom:0;
     left:100;
-    width:945px;
-    height:50px
+    width:1138px;
+    height:70px
 }
 #jisuananniu{
- width:80px;
-    height:50px;
+ width:120px;
+ height:70px;
+   
     background:#FF9966;
+}
+#d11{
+font-size: 19px
 }
  
 </style>
@@ -50,11 +54,11 @@ $(function(){
 			//console.log(data);
 			for(i=0;i<data.length;i++){
 				$("#d2").append("<br><div><div class='row'><div class='col-lg-12 col-md-12'><input type='checkbox' onclick='dianpu_checked(this)' name='shopId_checkbox' value='"
-						+data[i][0].shopId+"'>"+data[i][0].shopName+" <div id='dp"+i+"' class='goods'></div></div></div></div>");
+						+data[i][0].shopId+"'>&nbsp;"+data[i][0].shopName+"<div id='dp"+i+"' class='goods'></div></div></div></div>");
 				for(j=0;j<data[i].length;j++){
 				    $("#dp"+i).append("</br><div class='row'><div class='col-lg-2 col-md-2'>&nbsp;<input type='checkbox'"
 						 +" name='cartgoodId_checkbox'onclick='shangpin_checked(this)' value='"+data[i][j].cartGoodId+"'/>&nbsp;"
-						 +"<img src='"+data[i][j].goodsImg+"'width=40 height=30/></div>"
+						 +"<img src='"+data[i][j].goodsImg+"'width=70 height=60/></div>"
 				         +"<div class='col-lg-2 col-md-2'>"+data[i][j].goodsName+"</div>"
 				         +"<div class='col-lg-2 col-md-2'>手机颜色："+data[i][j].gcName+"<br>"
 				         +" 手机内存："+data[i][j].specsName+"</div>"
@@ -127,7 +131,7 @@ $(function(){
 				data:{"cartGoodIds":cartGoodIds},//这里不能直接写cartGoodIds，要写成json格式的
 				success:function(data){
 					console.log(data)
-					alert("批量添加关注")
+					
 					if(data.biaoji=="ok"){
 						alert("添加成功！")
 					}else{//这里在后台判断有没有选择商品按钮
@@ -298,7 +302,7 @@ $(function(){
 		var cc=0;
 	    var aa=0;
 	    aa=$("input[name='cartgoodId_checkbox']:checked").length;//商品的件数
-	    $("#shangpingeshu").html(aa);
+	    $("#shangpingeshu").html("<font color='red'>"+aa+"</font>");
 		$("input[name='cartgoodId_checkbox']:checked").each(function(){//循环计算出总金额
 			cc=cc+parseInt($(this).parent().parent().find("span").eq(3).text());
 			});
@@ -384,64 +388,44 @@ $(function(){
 <br><br><br>
 
 <div id="d11" class="container">
-		<div class="row">
-		<div class="col-lg-1 col-md-1" id="d1"></div>
-		
-		
-		<div class="col-lg-10 col-md-10" id="d2">
+	
+		<div  id="d2">
 		 
 		<div class="row">
-		<div class="col-lg-2 col-md-2" id="w1">&nbsp;<input type="checkbox" onclick="quanxuan_checkbox(this)"/>全选</div>
+		<div class="col-lg-2 col-md-2" id="w1">&nbsp;<input type="checkbox" onclick="quanxuan_checkbox(this)"/>&nbsp;全选</div>
 		<div class="col-lg-4 col-md-4" id="w2">商品信息</div>
-		<div class="col-lg-1 col-md-1" id="w3">单价</div>
-		<div class="col-lg-2 col-md-2" id="w4">数量</div>
-		<div class="col-lg-1 col-md-1" id="w5">金额</div>
-		<div class="col-lg-2 col-md-2" id="w6">操作</div>
+		<div class="col-lg-1 col-md-2" id="w3">单&nbsp;&nbsp;&nbsp;价</div>
+		<div class="col-lg-2 col-md-2" id="w4">数&nbsp;&nbsp;&nbsp;量</div>
+		<div class="col-lg-1 col-md-1" id="w5">金&nbsp;&nbsp;&nbsp;额</div>
+		<div class="col-lg-2 col-md-1" id="w6">操&nbsp;&nbsp;&nbsp;作</div>
 		</div>
-		</div>
-		<div class="col-lg-1 col-md-1" ></div>
+	
 		</div>	
 		
 		<div class="row">
-		<div class="col-lg-1 col-md-1" ></div>
-		
-		<div class="col-lg-10 col-md-10" >
+		<div id="dear" style="left:390px;">
 		<br>
-		<div id="dear">
-		
-		&nbsp;&nbsp;&nbsp;
-		<input type="checkbox" onclick="quanxuan_checkbox(this)"/>全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a onclick="setFagoods()">批量关注</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a onclick="deleteCartGoods_piliang()">批量删除</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		
-		
-		已选择商品&nbsp;<span id="shangpingeshu"><font color="red">0</span>&nbsp;件
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		
-		合计<font color="red">￥<span id="heji">0.0</span></font>&nbsp;&nbsp;&nbsp;
-		<input type="button" id="jisuananniu" onclick="jieshuan()" style='font-size:20px' value="结 算"></button>
+		<div class="col-lg-1 col-md-1"> <input type="checkbox" onclick="quanxuan_checkbox(this)"/>&nbsp;全选 </div>
+		<div class="col-lg-2 col-md-2"> <a onclick="setFagoods()">批量关注</a> </div>
+		<div class="col-lg-2 col-md-2"> <a onclick="deleteCartGoods_piliang()">批量删除</a> </div>
+		<div class="col-lg-1 col-md-1"> </div>
+		<div class="col-lg-2 col-md-2">已选择商品&nbsp;<span id="shangpingeshu"><font color="red">0</font></span>&nbsp;件</div>
+		<div class="col-lg-2 col-md-2">合计:&nbsp;&nbsp;<font color="red">￥<span id="heji">0.0</span></font></div>
+		<div class="col-lg-2 col-md-2" style="top: -26px; left: 50px;font-weight:bold;color:red"><input type="button" id="jisuananniu" onclick="jieshuan()"  style='font-size:25px' value="结 算"/></div>
+
 		
 		</div>
-		
+		<br>
 	
 		
 		</div>
-		<div class="col-lg-1 col-md-1" ></div>
 		
 		
 			
 </div>	
-</div>	
+	
+
+
 <!-- 修改模态框 -->
 <div class="modal fade" id="cart_updateModal" data-backdrop="false">
 <!-- data-backdrop="false"设置显示模态框时，在模态框外面点击时，模态框时否消失-->
