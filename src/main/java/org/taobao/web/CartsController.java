@@ -1,11 +1,14 @@
 package org.taobao.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,17 +26,21 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.taobao.pojo.Address;
 import org.taobao.pojo.CartGoods;
 import org.taobao.pojo.Carts;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.Goods;
 import org.taobao.pojo.GoodsColor;
+import org.taobao.pojo.OrderGoods;
+import org.taobao.pojo.Orders;
 import org.taobao.pojo.Specs;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
 import org.taobao.service.CartsService;
 import org.taobao.service.FavoritesGoodService;
+import org.taobao.service.OrderService;
 import org.taobao.util.CartHelp;
 import org.taobao.util.Shopcarts;
 import org.taobao.util.Sign;
@@ -54,8 +61,10 @@ public class CartsController {
 	private AddressService address;
 	
 	@Resource
-	
 	private SessionFactory sf;
+	
+	@Resource
+	private OrderService ordservice;
 	
 	@RequestMapping("/showCarts")
 	public String showCarts(){
@@ -66,7 +75,7 @@ public class CartsController {
 	@RequestMapping("/goodAll")
 	@ResponseBody
 	public List<List<Shopcarts>> getCartsGoods(Integer userId){
-		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
+		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 					+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 				    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
 				    + " and c.userId="+userId+" order by ca.cgDate desc";
@@ -100,6 +109,7 @@ public class CartsController {
 		    			   catrs.setGoodsName(list.get(j).getGoodsName());//手机名称
 		    			   catrs.setSpecsName(list.get(j).getSpecsName());//型号名称
 		    			   catrs.setCartGoodId(list.get(j).getCartGoodId());//购物商品id
+		    			   catrs.setGcId(list.get(j).getGcId());//手机颜色id
 		    			  list3.add(catrs);//将商品放入该店铺里
 		    		   }  
 		    	   }
@@ -314,17 +324,21 @@ public class CartsController {
 			user.setUserId(1);
 		}
 		
-		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
+		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 				+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 			    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
 			    + " and c.userId="+user.getUserId()+" and ca.cartGoodId in(";
-	       for(int i=0;i<idList.size();i++){
+	    if(idList.size()!=1){//如果只选择一个商品时，这里拼接时in()就不要逗号了
+		for(int i=0;i<idList.size();i++){
 	    	   if(i!=idList.size()-1){
 	    		   sql=sql+idList.get(i)+",";
 	    	   }else {
 				  sql=sql+idList.get(i);
 			}
 	       }
+	    }else {
+	    	sql=sql+idList.get(0);
+		}
 	       sql=sql+") order by ca.cgDate desc";//查询语句的字符串拼接
 	       List<Shopcarts> list=ca.getCarts(sql);
 	       List<Integer> list5=new ArrayList<>();//新建一个放店铺id的集合
@@ -352,6 +366,7 @@ public class CartsController {
 		    			   catrs.setGoodsName(list.get(j).getGoodsName());//手机名称
 		    			   catrs.setSpecsName(list.get(j).getSpecsName());//型号名称
 		    			   catrs.setCartGoodId(list.get(j).getCartGoodId());//购物商品id
+		    			   catrs.setGcId(list.get(j).getGcId());//手机颜色id
 		    			  list3.add(catrs);//将商品放入该店铺里
 		    		   }  
 		    	   }
@@ -465,6 +480,113 @@ public class CartsController {
 		return "{}";
 		
 	}
+	
+	@RequestMapping("/create_dingdan")//创建订单
+	@ResponseBody
+	 public String createdingdan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,Address addr,HttpServletRequest request){
+		HttpSession see=request.getSession();
+		 Users user=(Users) see.getAttribute("user");
+		if(user==null){
+			user=new Users();
+			user.setUserId(1);
+		}
+		
+		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
+				+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
+			    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
+			    + " and c.userId="+user.getUserId()+" and ca.cartGoodId in(";
+	     if(idList.size()!=1) {//如果只选择一个商品时，这里拼接时in()就不要逗号了
+		for(int i=0;i<idList.size();i++){
+	    	   if(i!=idList.size()-1){
+	    		   sql=sql+idList.get(i)+",";
+	    	   }else {
+				  sql=sql+idList.get(i);
+			}
+	       }
+		}else {
+			sql=sql+idList.get(0);
+		}
+	       sql=sql+") order by ca.cgDate desc";//查询语句的字符串拼接
+	       List<Shopcarts> list=ca.getCarts(sql);
+	       List<Integer> list5=new ArrayList<>();//新建一个放店铺id的集合
+		    for (Shopcarts shopcarts : list) {//循环把店铺id放入list5集合中
+				 if(!list5.contains(shopcarts.getShopId())){//当list5没有这个id时才允许add进去
+					 list5.add(shopcarts.getShopId());
+				 }		
+				}
+		    List<List<Shopcarts>> listAll=new ArrayList<>();//新建一个双层数组
+		      
+		       for(int i=0;i<list5.size();i++){
+		    	   List<Shopcarts> list3=new ArrayList<>();//外层循环创建店铺的集合
+		    	   for(int j=0;j<list.size();j++){
+		    		   Shopcarts catrs=null;
+		    		   if(list5.get(i)==list.get(j).getShopId()){
+		    			   catrs=new Shopcarts();
+		    			   catrs.setShopId(list.get(j).getShopId());//店铺id
+		    			   catrs.setShopName(list.get(j).getShopName());//店铺名称
+		    			   catrs.setSpecsId(list.get(j).getSpecsId());//手机规格id
+		    			   catrs.setGcName(list.get(j).getGcName());//手机颜色
+		    			   catrs.setSmoney(list.get(j).getSmoney());//手机单价
+		    			   catrs.setGoodsId(list.get(j).getGoodsId());//手机 id
+		    			   catrs.setCartGoodNum(list.get(j).getCartGoodNum());//手机数量
+		    			   catrs.setCgDate(list.get(j).getCgDate());//购物商品时间
+		    			   catrs.setGoodsName(list.get(j).getGoodsName());//手机名称
+		    			   catrs.setSpecsName(list.get(j).getSpecsName());//型号名称
+		    			   catrs.setCartGoodId(list.get(j).getCartGoodId());//购物商品id
+		    			   catrs.setGcId(list.get(j).getGcId());//手机颜色id
+		    			  list3.add(catrs);//将商品放入该店铺里
+		    		   }  
+		    	   }
+		    	   listAll.add(list3);//每次的外层循环把店铺集合放入双层集合中   
+		       }
+		    
+		       
+		       
+		       
+		       
+		        for (List<Shopcarts> list2 : listAll) {//外层循环
+		        	Orders orders=new Orders();//创建一个订单对象
+		        	
+		        	Date now = new Date();//给订单时间属性赋值
+		        	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String now1= df.format(now);// 将时间对象格式成指定格式的字符串
+		        	orders.setCreateTime(now1);
+		        	
+		        	Double a=(double) 0;
+		        	List<OrderGoods> lis=new ArrayList<>();//创建一个订单商品集合
+		        	for (Shopcarts shopcarts : list2) {
+						OrderGoods orgood=new OrderGoods();//创建一个订单的商品
+						a=a+shopcarts.getSmoney();//循环计算总金额
+						
+						Specs s=new Specs();//订单商品属性设置型号id
+						s.setSpecsId(shopcarts.getSpecsId());
+					    orgood.setSpecs(s);
+						
+						orgood.setGoodsNum(shopcarts.getCartGoodNum());//订单商品属性设置数量
+						
+						GoodsColor color=new GoodsColor();//订单商品属性设置手机颜色id
+						color.setGcId(shopcarts.getGcId());
+						orgood.setOgColor(color);
+						
+						lis.add(orgood);//集合里添加定单商品	
+					}
+					
+		        	orders.setTotalMoney(a);//设置订单的总金额
+		        	orders.setOrderGoods(lis);//将订单商品添加到定单里
+		        	orders.setAddress(addr);//给订单设置收货地址
+		        	ordservice.saveOrUpdate(orders);//级联save订单
+				}
+		       
+		        for (Integer list2 : idList) {//生成定单的商品要从购物车里删除
+					ca.deleteCartGood(Integer.valueOf(list2));
+				}
+		       
+		       
+		       
+		       
+		return "{}";
+	 }
 
+	   
 }
 
