@@ -25,5 +25,10 @@ private ShopsDao sd;
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Shops selectShop(Integer id) {
+		Shops shop = sd.selectOne(id);
+		return shop;
+	}
 
 }

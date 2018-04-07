@@ -9,6 +9,13 @@
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
+	<style>
+		#id_span {
+			position: absolute;
+			top: 10px;
+		}
+	</style>
+
 <!--我的淘宝图片-->
 <link rel="apple-touch-icon" sizes="72x72"
 	href="//img.alicdn.com/tps/i1/T11naSFbdaXXcCcBHm-72-72.png" />
@@ -88,15 +95,20 @@
 			var userId = "${users.userId }";
 			var account = "${users.account }";
 			var password = "${users.password }";
+			var nickname = "${users.nickname }";
+			var userImg = "${users.userImg }";
+			
+			if (userId == "") {
+				location.href="Login.jsp";
+			}
+			
+			$("#id_span").append("<img src='" + userImg + "' width='20px' height='20px' class='img-circle' width>" + nickname);
+			
 			
 			if ($("#account").val() == "" || $("#password").val() == "") {
 				$("#nextBtn").attr('disabled',true);
 			} else {
 				$("#nextBtn").attr('disabled',false);
-			}
-			
-			if (userId == "") {
-				location.href="Login.jsp";
 			}
 			
 		}
@@ -128,22 +140,8 @@
 		data-component-config='{ "cart": "0.0.6","message": "3.4.6","umpp": "1.5.4","mini-login": "6.3.8","tb-ie-updater": "0.0.4","tbar": "2.1.0","tb-footer": "1.1.6","sidebar": "1.0.10" }'
 		data-tbar='{ "show":true, "miniCart": "2.12.2","paramsBlackList": "_wt,seeyouagain1722","my_activity": "https:&#x2F;&#x2F;market.m.taobao.com&#x2F;apps&#x2F;abs&#x2F;5&#x2F;38&#x2F;my12?psId=58386&amp;pcPsId=58388", "venueUrl": "https:&#x2F;&#x2F;1212.taobao.com?wh_weex=true&amp;data_prefetch=true&amp;wx_navbar_transparent=true", "helpUrl": "https://consumerservice.taobao.com/online-help", "validTime":{"startTime": 1512057599, "endTime": 1513094400}, "style": {"name": "171212", "path": "kg/sidebar-style-171212/0.0.5/" }, "page":[],"blackList":[],"navDataId":{"tceSid":1182567,"tceVid":0},"pluginVersion":{ "cart":"0.2.0","history":"0.2.0","redpaper":"0.0.8","gotop":"0.2.5","help":"0.2.1","ww":"0.0.3","pagenav":"0.0.27","myasset":"0.0.9","my1212":"0.0.1","my1111":"0.2.2"}}'>
 		<div class="site-nav-bd" id="J_SiteNavBd">
-
-			<ul class="site-nav-bd-l" id="J_SiteNavBdL" data-spm-ab="1">
-
-				<li class="site-nav-menu site-nav-login" id="J_SiteNavLogin"
-					data-name="login" data-spm="754894437">
-					<div class="site-nav-menu-hd">
-						<a
-							href="//login.taobao.com/member/login.jhtml?f=top&redirectURL=https%3A%2F%2Fwww.taobao.com%2F"
-							target="_top"> <span>亲，请登录</span>
-						</a>
-
-					</div>
-
-				</li>
-
-			</ul>
+			<!-- 用户图片、名称 -->
+			<span id="id_span"></span>
 
 			<ul class="site-nav-bd-r" id="J_SiteNavBdR" data-spm-ab="2">
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
@@ -271,29 +269,7 @@
 
 			</div></li>
 	</ul>
-	<div class="search" id="J_Search" role="search">
-		<div class="search-panel search-sns-panel-field">
-			<form target="_blank" action="//s.taobao.com/search" name="search"
-				id="J_TSearchForm" class="search-panel-focused">
-				<div class="search-button">
-					<button class="btn-search" type="submit">搜 索</button>
-				</div>
-				<div class="search-panel-fields">
-					<label for="q"></label>
-					<div class="search-combobox" id="ks-component1045">
-						<div class="search-combobox-input-wrap">
-							<input id="q" name="q" accesskey="s" autofocus="true"
-								autocomplete="off" x-webkit-speech=""
-								x-webkit-grammar="builtin:translate" aria-haspopup="true"
-								aria-combobox="list" role="combobox"
-								class="search-combobox-input" aria-label="请输入搜索文字或从搜索历史中选择">
-						</div>
-					</div>
-				</div>
-
-			</form>
-		</div>
-	</div>
+	
 	</nav> </article> </header>
 	<!-- end ems/mytaobao/header -->
 	<div id="layout-center">
