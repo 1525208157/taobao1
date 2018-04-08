@@ -283,7 +283,7 @@
 		</script>
 		<br>
 		<div id="Goods" style="width: 1180px;">
-			<div style="width: 100%;" class="row" id="firstRow"></div>
+			<div class="row" id="firstRow"></div>
 		</div>
 	</center>
 </body>
