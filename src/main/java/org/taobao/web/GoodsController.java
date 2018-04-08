@@ -1,18 +1,29 @@
 package org.taobao.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
 import org.apache.tomcat.jni.Mmap;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
+import org.taobao.pojo.Appraises;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.Brand;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.GoodsColor;
+import org.taobao.pojo.GoodsIntroduce;
+import org.taobao.pojo.Orders;
 import org.taobao.pojo.Shops;
 
 import org.taobao.pojo.Specs;
@@ -34,6 +45,7 @@ private BrandService bs;
 private SpecsService ss;
 @Resource
 private ShopsService sh;
+
 
 @RequestMapping("/queryAll")
 public String queryAll(ModelMap map,String goodsName){
@@ -109,6 +121,29 @@ public List<Goods> queryAll(){
 	String sql="select * from goods";
 	List<Goods> goods=gs.queryAll(sql);
 	return goods;
+}
+
+
+@RequestMapping("/addGoods")//添加商品
+public String insertFavoritesGood(Brand brand,Goods goods, GoodsIntroduce goodsIntroduce,Specs specs,GoodsColor goodsColor) { 
+
+	goods.setGoodsIntroduce(goodsIntroduce);
+	brand.getGoods().add(goods);//级联添加品牌
+	goods.getSpecs().add(specs);//级联添加
+	goods.getGoodsColor().add(goodsColor);//级联添加
+	
+	Date now = new Date();//添加系统时间
+	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String now1=df.format(now);
+	goods.setSaleTime(now1);
+	
+	
+	gs.saveOrUpdate(goods);
+	gs.addBrand(brand);
+	gs.addMony(specs);
+	gs.addGoodsIntroduce(goodsIntroduce);
+	gs.addGoodscolor(goodsColor);
+	return "redirect:/Sellers.jsp";
 }
 
 
