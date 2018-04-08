@@ -28,12 +28,11 @@
 								+ "<div class='col-lg-1 col-sm-1'>物流<br>5</div>"
 								+ "<div class='col-lg-2 col-sm-2'><a href=''><img src="+data.shopImg+"></a></div>"
 								+ "<div class='col-lg-5 col-sm-5'><a href='#' onclick='insertFavoritesShop("+data.shopId+")'>收藏店铺</a></div>");
-				
 				var num = 0;
 				for (i = 0; i < data.goods.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
-						$("#goodsBody").append("<div class='row' id='d"+i+" '>"
+						$("#goodsBody").append("<div class='row' id='d"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data.goods[i].goodsImg+"' width='180' height='160' class='img-rounded'></a>"
 								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
@@ -47,8 +46,8 @@
 								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data.goods[i].specs[0].smoney+"</font>"
 								+"</div>");
-					} else if (i % 4 != 0) {
-						$("d"+num).append("<div class='col-lg-3 col-md-3'>"
+					} else if (i%4 != 0) {
+						$("#d"+num).append("<div class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data.goods[i].goodsImg+"' width='180' height='160' class='img-rounded'></a>"
 								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data.goods[i].specs[0].smoney+"</font>"
