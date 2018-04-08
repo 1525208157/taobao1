@@ -112,7 +112,7 @@
 				for (i = 0; i < data.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
-						$("#favoritesGoodsDiv").append("<div class='row' id='d"+i+" '>"
+						$("#favoritesGoodsDiv").append("<div class='row' id='d"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
 								+"<a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
 								+"<br><a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
@@ -127,7 +127,7 @@
 								+"<br><font size='4' color='red'>￥"+data[i].goods.specs[0].smoney+"</font>"
 								+"</div>");
 					} else if (i % 4 != 0) {
-						$("d"+num).append("<div class='col-lg-3 col-md-3'>"
+						$("#d"+num).append("<div class='col-lg-3 col-md-3'>"
 								+"<a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
 								+"<br><a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data[i].goods.specs[0].smoney+"</font>"

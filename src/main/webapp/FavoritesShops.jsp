@@ -90,7 +90,7 @@
 				for (i = 0; i < data.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
-						$("#favoritesShopsDiv").append("<div class='row' id='d"+i+" '>"
+						$("#favoritesShopsDiv").append("<div class='row' id='d"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
 								+"<a href='ShopsDetails.jsp?shopId="+data[i].shops.shopId+"'><img src='"+data[i].shops.shopImg+"' width='260' height='240' class='img-rounded'></a>"
 								+"<br><a href='ShopsDetails.jsp?shopId="+data[i].shops.shopId+"'><font size='4'>"+data[i].shops.shopName+"</font></a>"
@@ -103,7 +103,7 @@
 								+"<br><a href='ShopsDetails.jsp?shopId="+data[i].shops.shopId+"'><font size='4'>"+data[i].shops.shopName+"</font></a>"
 								+"</div>");
 					} else if (i % 4 != 0) {
-						$("d"+num).append("<div class='col-lg-3 col-md-3'>"
+						$("#d"+num).append("<div class='col-lg-3 col-md-3'>"
 								+"<a href='ShopsDetails.jsp?shopId="+data[i].shops.shopId+"'><img src='"+data[i].shops.shopImg+"' width='260' height='240' class='img-rounded'></a>"
 								+"<br><a href='ShopsDetails.jsp?shopId="+data[i].shops.shopId+"'><font size='4'>"+data[i].shops.shopName+"</font></a>"
 								+"</div>");

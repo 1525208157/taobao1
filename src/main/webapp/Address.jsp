@@ -88,12 +88,13 @@
 				dataType:"json",
 				success:function(data){
 					for (i = 0; i < data.length; i++) {
+						alert(data[i].isDefault=="1");
 						$("#addressDiv").append("<div class='row'>"
 								+"<div class='col-lg-2 col-md-2 col-sm-2'>"+data[i].userName+"</div>"
 								+"<div class='col-lg-4 col-md-4 col-sm-4'>"+data[i].userAddress+"</div>"
 								+"<div class='col-lg-2 col-md-2 col-sm-2'>"+data[i].userPhone+"</div>"
 								+"<div class='col-lg-2 col-md-2 col-sm-2'><button class='btn btn-default btn-xs' onclick='selectOneAddress("+data[i].addressId+")'>修改</button> | <button class='btn btn-default btn-xs' onclick='deleteAddress("+data[i].addressId+")'>删除</button></div>"
-								+"<div class='col-lg-2 col-md-2 col-sm-2'><c:if test='"+data[i].isDefault+"==1'>默认地址</c:if></div>"
+								+"<div class='col-lg-2 col-md-2 col-sm-2'>${"+data[i].isDefault+"=='1' ? '默认地址' : '设为默认' }</div>"
 								+"</div>");
 					}
 				}
