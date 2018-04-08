@@ -72,5 +72,66 @@
 		</div>		
 		</div>
 	</div>
+	
+	
+	
+<!-- 找回密码 -->
+<div class="modal fade" id="findUsers_modal" data-backdrop="false">
+<!-- data-backdrop="false"设置显示模态框时，在模态框外面点击时，模态框时否消失-->
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">jeebbs论坛会员找回密码</h4>
+      </div>
+      <div class="modal-body">
+      
+      <form class="form-horizontal" role="form" name="form2" id="form2">
+      <div class="form-group">
+	  <label for="find_userId" class="col-lg-2 col-sm-2 control-label">用户账号:</label>
+	  <div class="col-lg-10">
+	  <input type="text" class="form-control" id="find_userId"
+	 name="find_userId" onblur="findUserPassQ_ByuserId();" >
+		</div>
+		</div>
+      <div class="form-group">
+	  <label for="find_userPassQ" class="col-lg-2 col-sm-2 control-label">密保问题:</label>
+	  <div class="col-lg-10 col-sm-10">
+	  <input type="text" class="form-control" id="find_userPassQ" name="find_userPassQ" readonly="readonly">
+		</div>
+		</div>
+		
+		 <div class="form-group">
+	  <label for="find_userPassA" class="col-lg-2 col-sm-2 control-label">密保答案:</label>
+	  <div class="col-lg-10 col-sm-10">
+	  <input type="text" class="form-control" id="find_userPassA" name="find_userPassA" >
+		</div>
+		</div>
+		
+		
+		<div class="form-group">
+		<label for="mpanel2" class="col-lg-2 col-sm-2  control-label">滑动验证码:</label>
+     <div class="col-lg-10 col-sm-10">
+    
+        <div id="mpanel2">
+        </div></div>
+         </div>
+      </form>
+      
+      <div class="modal-footer">
+         <button type="button" class="btn btn-info" onclick="find_user();"><i class="glyphicon glyphicon-ok"></i>&nbsp;确定提交</button>&nbsp;
+         <button type="button" class="btn btn-info" onclick="findUser_reset()"><i class="glyphicon glyphicon-repeat"></i>&nbsp;表单重置</button>&nbsp;
+        <button type="button" class="btn btn-danger" onclick="findUser_reset()" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;放弃提交</button>
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+	</div>
+	
+	
+	
+	
+	
 	</body>
 </html>
