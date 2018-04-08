@@ -95,20 +95,21 @@
 				for (i = 0; i < data.length; i++) {
 					if (i != 0 && i %4 == 0) {
 						num++;
-						$("#Goods").append("<div class='row' style='width: 295px;' id='d"+i+" '>"
+						$("#Goods").append("<div class='row' id='a"+num+"'>"
+								+"<div class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data[i].goodsImg+"'class='img-rounded'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
-								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div></div>");
 					}
 					if (i < 4) {
-						$("#firstRow").append("<div style='width: 295px;' class='col-lg-3 col-md-3'>"
+						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data[i].goodsImg+"'' class='img-rounded'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
 								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
-					} else if (i % 4 != 0) {zffff
-						$("d"+num).append("<div style='width: 295px;'	 class='col-lg-3 col-md-3'>"
+					} else if (i % 4 != 0) {
+						$("#a"+num).append("<div class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data[i].goodsImg+" class='img-rounded'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
@@ -119,73 +120,6 @@
 			}
 		})
 	})
-</script>
-<body>
-<center>
-	<div class="site-nav" id="J_SiteNav"
-		data-component-config='{ "cart": "0.0.6","message": "3.4.6","umpp": "1.5.4","mini-login": "6.3.8","tb-ie-updater": "0.0.4","tbar": "2.1.0","tb-footer": "1.1.6","sidebar": "1.0.10" }'
-		data-tbar='{ "show":true, "miniCart": "2.12.2","paramsBlackList": "_wt,seeyouagain1722","my_activity": "https:&#x2F;&#x2F;market.m.taobao.com&#x2F;apps&#x2F;abs&#x2F;5&#x2F;38&#x2F;my12?psId=58386&amp;pcPsId=58388", "venueUrl": "https:&#x2F;&#x2F;1212.taobao.com?wh_weex=true&amp;data_prefetch=true&amp;wx_navbar_transparent=true", "helpUrl": "https://consumerservice.taobao.com/online-help", "validTime":{"startTime": 1512057599, "endTime": 1513094400}, "style": {"name": "171212", "path": "kg/sidebar-style-171212/0.0.5/" }, "page":[],"blackList":[],"navDataId":{"tceSid":1182567,"tceVid":0},"pluginVersion":{ "cart":"0.2.0","history":"0.2.0","redpaper":"0.0.8","gotop":"0.2.5","help":"0.2.1","ww":"0.0.3","pagenav":"0.0.27","myasset":"0.0.9","my1212":"0.0.1","my1111":"0.2.2"}}'>
-		<div class="site-nav-bd" id="J_SiteNavBd">
-
-				$.ajax({
-							url : "Goods/index",
-							dataType : "json",
-							success : function(data) {
-								var num = 0;
-								for (i = 0; i < data.length; i++) {
-									if (i != 0 && i % 4 == 0) {
-										num++;
-										$("#Goods").append(
-														"<div class='row' style='width: 295px;' id='d"+i+" '>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									}
-									if (i < 4) {
-										$("#firstRow").append(
-														"<div style='width: 295px;' class='col-lg-3 col-md-3'>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									} else if (i % 4 != 0) {
-										$("d" + num).append(
-														"<div style='width: 295px;'	 class='col-lg-3 col-md-3'>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+" class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									}
-
-								}
-							}
-						})
-			})
 </script>
 <body>
 	<center>
