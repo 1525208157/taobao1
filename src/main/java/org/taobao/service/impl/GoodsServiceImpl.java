@@ -54,6 +54,13 @@ private GoodsIntroduceDao gi;
 	@Override//添加手机品牌
 	public void addBrand(Brand brand) {
 		bd.saveOrUpdate(brand);
+
+	}
+
+	@Override
+	public Goods selectGoods(Integer id) {
+		Goods goods = gd.selectOne(id);
+		return goods;
 	}
 	
 	@Override//添加手机价格

@@ -89,6 +89,7 @@ public class Goods { //…Ã∆∑±Ì
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="introduceId")
+	@JsonIgnoreProperties("goods")
 	public GoodsIntroduce getGoodsIntroduce() {
 		return goodsIntroduce;
 	}

@@ -85,30 +85,22 @@ public String querySaleNum(ModelMap map){
 	map.put("bl", bl);
 	return "Goods";
 }
-@RequestMapping("/queryForName")
-
-public String queryForName(String goodName ,ModelMap map){
-	String sql="select * from goods where 1=1";
-	if (goodName!=null&&!goodName.equals("")) {
-		sql=sql+" and goodName like '%"+goodName+"%'"	;
-	}
+@RequestMapping("/index")
+@ResponseBody
+public List<Goods> index(){
+	String sql="select * from goods  order by saleNum desc;";
 	List<Goods> gl=gs.queryAll(sql);
-	map.put("gl", gl);
-	String hql="select * from brand";
-	List<Brand> bl=bs.queryAll(hql);
-	map.put("bl", bl);
-	return "Goods";
+	return gl;
 }
 @RequestMapping("/queryAsc")
-
-public String queryAsc(ModelMap map){
+public List<Goods> queryAsc(ModelMap map){
 	String sql="select g.* from goods g,specs s where s.goodsId=g.goodsId order by s.smoney asc;";	
-	List<Goods> gl=gs.queryAll(sql);
+	List<Goods> gl=gs.queryAll(sql);	
 	map.put("gl", gl);
 	String hql="select * from brand";
 	List<Brand> bl=bs.queryAll(hql);
 	map.put("bl", bl);
-	return "Goods";
+	return gl;
 }
 @RequestMapping("/queryDesc")
 
@@ -131,6 +123,7 @@ public List<Goods> queryAll(){
 	return goods;
 }
 
+
 @RequestMapping("/addGoods")//ÃÌº”…Ã∆∑
 public String insertFavoritesGood(Brand brand,Goods goods, GoodsIntroduce goodsIntroduce,Specs specs,GoodsColor goodsColor) { 
 
@@ -152,5 +145,6 @@ public String insertFavoritesGood(Brand brand,Goods goods, GoodsIntroduce goodsI
 	gs.addGoodscolor(goodsColor);
 	return "redirect:/Sellers.jsp";
 }
+
 
 }

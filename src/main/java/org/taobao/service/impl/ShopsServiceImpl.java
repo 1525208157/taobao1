@@ -21,5 +21,17 @@ private ShopsDao sd;
 		return sl;
 	}
 
+	@Override
+	public Shops selectShop(Integer id) {
+		Shops shop = sd.selectOne(id);
+		return shop;
+	}
+
+	@Override
+	public void saveOrUpdate(Shops o) {
+		sd.saveOrUpdate(o);
+		
+	}
+
 
 }

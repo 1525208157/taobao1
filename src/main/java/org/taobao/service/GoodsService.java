@@ -12,6 +12,8 @@ public interface GoodsService {
     List<Goods> queryAll(String sql);
     
 
+    Goods selectGoods(Integer id);
+
 	void saveOrUpdate(Goods g);//添加商品
 	
 	void addGoodscolor(GoodsColor gc);//添加颜色

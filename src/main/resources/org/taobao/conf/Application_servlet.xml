@@ -21,12 +21,13 @@
 
 	<!-- 静态资源放行 -->
 	<mvc:default-servlet-handler />
-
-
-
-	<!-- 在spring mvc配置文件中增加配置，文件大小限制可根据项目情况调整： 不写上传会报错 -->
-	<bean id="multipartResolver"
+  
+  <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="maxUploadSize" value="10485760" />
 	</bean>
 
+
+	
+  
 </beans>

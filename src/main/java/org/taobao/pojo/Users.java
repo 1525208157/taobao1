@@ -115,6 +115,7 @@ public class Users {
 	
 	@OneToMany
 	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("users")
 	public List<Appraises> getAppraises() {
 		return appraises;
 	}

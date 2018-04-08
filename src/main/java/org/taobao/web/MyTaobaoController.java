@@ -12,13 +12,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
+import org.taobao.pojo.Goods;
 import org.taobao.pojo.Orders;
+import org.taobao.pojo.Shops;
+import org.taobao.pojo.Specs;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
 import org.taobao.service.FavoritesGoodService;
 import org.taobao.service.FavoritesShopService;
+import org.taobao.service.GoodsService;
 import org.taobao.service.OrderGoodsService;
 import org.taobao.service.OrderService;
+import org.taobao.service.ShopsService;
+import org.taobao.service.SpecsService;
 import org.taobao.service.UserService;
 
 @Controller
@@ -36,6 +42,12 @@ public class MyTaobaoController {
 	private FavoritesShopService fss;
 	@Resource
 	private OrderGoodsService ogs;
+	@Resource
+	private GoodsService gs;
+	@Resource
+	private SpecsService ss;
+	@Resource
+	private ShopsService shopsService;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -103,9 +115,20 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/insertFavoritesGood")
 	@ResponseBody
-	public String insertFavoritesGood(FavoritesGoods fGoods) { //添加关注商品
-		fgs.insertFavoritesGood(fGoods);
-		return "ok";
+	public Integer insertFavoritesGood(Integer goodsId,Integer userId,FavoritesGoods fGoods) { //添加关注商品
+		List<FavoritesGoods> favoritesGoods = fgs.selectFavoritesGoods("select * from favoritesGoods where goodsId = "+goodsId+" and userId = "+userId);
+		Integer n;
+		if (favoritesGoods.size() > 0) {
+			n = 0;
+		} else {
+			Goods goods = gs.selectGoods(goodsId);
+			Users users = us.selectOne(userId);
+			fGoods.setGoods(goods);
+			fGoods.setUsers(users);
+			fgs.insertFavoritesGood(fGoods);
+			n = 1;
+		}
+		return n;
 	}
 	
 	@RequestMapping("/deleteFavoritesGood")
@@ -125,9 +148,20 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/insertFavoritesShop")
 	@ResponseBody
-	public String insertFavoritesShop(FavoritesShops fShops) { //添加关注店铺
-		fss.insertFavoritesShop(fShops);
-		return "ok";
+	public Integer insertFavoritesShop(Integer shopId,Integer userId,FavoritesShops fShops) { //添加关注店铺
+		List<FavoritesShops> favoritesShops = fss.selectFavoritesShops("select * from favoritesShops where shopId = "+shopId+" and userId = "+userId);
+		Integer n;
+		if (favoritesShops.size() > 0) {
+			n = 0;
+		} else {
+			Shops shop = shopsService.selectShop(shopId);
+			Users users = us.selectOne(userId);
+			fShops.setShops(shop);
+			fShops.setUsers(users);
+			fss.insertFavoritesShop(fShops);
+			n = 1;
+		}
+		return n;
 	}
 	
 	@RequestMapping("/deleteFavoritesShop")
@@ -158,7 +192,7 @@ public class MyTaobaoController {
 	
 	@RequestMapping("/updateIsDel")
 	@ResponseBody
-	public String updateIsDel(Integer orderId,Integer isDel) { //修改密码
+	public String updateIsDel(Integer orderId,Integer isDel) { //修改逻辑删除状态
 		Orders order = os.selectOrder(orderId);
 		order.setIsDel(isDel);
 		os.saveOrUpdate(order);
@@ -191,6 +225,27 @@ public class MyTaobaoController {
 			str = "error";
 		}
 		return str;
+	}
+	
+	@RequestMapping("/selectGoods")
+	@ResponseBody
+	public Goods selectGoods(Integer goodsId) { //按ID查询商品
+		Goods goods = gs.selectGoods(goodsId);
+		return goods;
+	}
+	
+	@RequestMapping("/selectSpecs")
+	@ResponseBody
+	public Specs selectSpecs(Integer specsId) { //按ID查询规格
+		Specs specs = ss.selectSpecs(specsId);
+		return specs;
+	}
+	
+	@RequestMapping("/selectShops")
+	@ResponseBody
+	public Shops selectShops(Integer shopId) { //按ID查询商品
+		Shops shop = shopsService.selectShop(shopId);
+		return shop;
 	}
 	
 }

@@ -39,7 +39,20 @@
 	
 	<!-- 扫描注解 -->
 	<context:component-scan base-package="org.taobao.dao,org.taobao.service"></context:component-scan>
-	
+	<!-- spring缓存配置 -->
+	<bean id="cheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	 <property name="caches">
+	  <list><!--多个缓存-->
+	  <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+	 <property name="name" value="goods1"></property><!--购物车用的缓存-->
+	 </bean>
+	  <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+	 <property name="name" value="goods2"></property>
+	 </bean>
+	  
+	  </list>
+	 </property>
+	</bean>
 	
 	
 	

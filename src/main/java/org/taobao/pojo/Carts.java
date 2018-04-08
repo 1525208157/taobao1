@@ -15,7 +15,6 @@ public class Carts { //购物车表
 	private Integer cartId; //购物车ID
 	private Users user; //用户
 	private List<CartGoods> cartGoods; //一对多 购物车商品
-	private List<Specs> specs; //一对多 购物车商品
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
