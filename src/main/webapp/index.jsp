@@ -151,7 +151,7 @@
 						id="J_MiniCart" data-name="cart" data-spm="1997525049">
 						<div class="site-nav-menu-hd">
 							<a
-								href="${pageContext.request.contextPath}/WEB-INF/jsp/mycart.jsp"
+								href="${pageContext.request.contextPath}/carts/showCarts"
 								target="_top"> <span
 								class="site-nav-icon site-nav-icon-highlight">&#xe603;</span> <span>购物车</span>
 								<strong class="h" id="J_MiniCartNum"></strong>
