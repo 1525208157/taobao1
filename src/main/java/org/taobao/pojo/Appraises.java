@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Appraises { //评价表
@@ -13,6 +17,7 @@ public class Appraises { //评价表
 	private Integer logisticsScore; //物流评分
 	private String content; //点评内容
 	private String appraisesTime; //评价时间
+	private Users users; //用户 多对一
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -51,6 +56,16 @@ public class Appraises { //评价表
 	}
 	public void setAppraisesTime(String appraisesTime) {
 		this.appraisesTime = appraisesTime;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("appraises")
+	public Users getUsers() {
+		return users;
+	}
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 	
 }

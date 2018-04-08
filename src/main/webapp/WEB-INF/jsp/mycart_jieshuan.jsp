@@ -13,28 +13,25 @@
 <style type="text/css">
 #cc{
 background-color:  #FFF0F5;
- font-size: 11px;
+ font-size: 14px;
 padding:11px;
   
 }
 
 #d11{
-font-size: 12px;
+font-size: 17px;
 }
 
 #dibu{
-width:270px;
-height:70px;
-border:2px solid  #FF9966;;
+width:455px;
+
+border:3px solid  #FF9966;;
 }
 </style>
 <body>
 <div id="d11" class="container">
-<div class="row">
-		<div class="col-lg-1 col-md-1" id="d1"></div>
-		
-		
-		<div class="col-lg-10 col-md-10" id="d2">
+
+		<div  id="d2">
 		<br><br><br><br>
 		 <div class="row">
 		
@@ -42,14 +39,21 @@ border:2px solid  #FF9966;;
 		 <div class="col-lg-8 col-md-8" ></div>
 		 <div class="col-lg-2 col-md-2" ><a onclick="cheshi()">管理收货地址</a></div>
 		 </div>
-		 <div class="row"> <hr style="height:2px;border:none;border-top:2px dotted #185598;"></div>
+		 <div class="row">
+		  <hr style="height:2px;border:none;border-top:2px dotted #185598;">
+		  </div>
 		<div class="row">
-		<div class="col-lg-1 col-md-1" > 寄货至:</div>
+		 寄货至:
+		
+		
+		</div>
+		
+		<div class="row">
+		<div class="col-lg-1 col-md-1" > </div>
 		<div class="col-lg-9 col-md-9" >  
 	      
-	      
 	      <c:forEach items="${address}" var="addr">
-	      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <br>
 	     <div> <input type="radio" name="addrs" onclick="fapiaotaitou()" ${addr.isDefault eq "1"?"checked":""}
 	      value="${addr.addressId}" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	     <span> ${addr.userAddress}</span>      &nbsp; &nbsp;&nbsp;
@@ -60,9 +64,8 @@ border:2px solid  #FF9966;;
 	      </div>
 	      </c:forEach>
 	    
-	      </br>
-	       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-	       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<a onclick="show_insertAddress();">使用新地址</a>
+	    
+	       
 	     </div>
 	     <div class="col-lg-2 col-md-2" >
 	     <br>
@@ -72,6 +75,14 @@ border:2px solid  #FF9966;;
 	     </div>
 		</div>
 		<div class="row">
+		<div class="col-lg-1 col-md-1" ></div>
+		<div class="col-lg-9 col-md-9" ><a onclick="show_insertAddress();">&nbsp;&nbsp;&nbsp;使用新地址</a></div>
+		<div class="col-lg-2 col-md-2" ></div>
+		
+		</div>
+		
+		<div class="row">
+		<br>
 		确定订单信息
 		<hr style="height:2px;border:none;border-top:2px dotted #185598;">
 		</div>
@@ -96,7 +107,7 @@ border:2px solid  #FF9966;;
 		 
 		  
 		  	<div class="row">
-		  	<div class="col-lg-2 col-md-2" ><img src="${a.goodsImg}" width=40 height=30></div>
+		  	<div class="col-lg-2 col-md-2" ><img src="${a.goodsImg}" width=60 height=50></div>
 		    <div class="col-lg-2 col-md-2" >${a.goodsName}<input type="hidden" name="cartgoodsId" value="${a.cartGoodId}"></div>
 		     <div class="col-lg-3 col-md-3" >手机颜色：${a.gcName}<br>手机内存：${a.specsName}</div>
 		    <div class="col-lg-1 col-md-1" >${a.smoney}</div>
@@ -135,40 +146,53 @@ border:2px solid  #FF9966;;
 		 </c:forEach>
 		
 		 <div class="row">
-		 <div class="col-lg-8 col-md-8"></div>
-		  <div class="col-lg-4 col-md-4">
+		 <div class="col-lg-7 col-md-7"></div>
+		  <div class="col-lg-5 col-md-5">
 		 
 		  <div id="dibu">
-		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-		  &nbsp;&nbsp;
-		  <font style='font-weight:bold' >实付款:</font><font size="5">￥</font><span id="zonghe"></span></br>
-		   &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-		   
-		   
-		   
-		  <font style='font-weight:bold'> 寄送至:</font><span id="dizhi"></span><br>
-		    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
-		    &nbsp;&nbsp;&nbsp;&nbsp; 
-		    
+	
+		  <div class="row">
+		   <div class="col-lg-6 col-md-6"></div>
+		   <div class="col-lg-6 col-md-6">
+		   <font style='font-weight:bold' >实付款:</font><font size="6">￥</font><span id="zonghe"></span>
+		   </div>
+		  </div>
+		  
+		   <div class="row">
+		   <div class="col-lg-2 col-md-2"></div>
+		   <div class="col-lg-10 col-md-10">
+		     <font style='font-weight:bold'> 寄送至:</font><span id="dizhi"></span><br>
+		   </div>
+		  </div>
+		  
+		  
+		   <div class="row">
+		   <div class="col-lg-5 col-md-5"></div>
+		   <div class="col-lg-7 col-md-7">
 		    <font style='font-weight:bold'>收货人:</font><span id="shouhuoren"></span> &nbsp;&nbsp; 
             <span id="dianhua"></span>		  
 		    
+		   </div>
+		  </div>
 		    
 		  </div>
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    <button type="button" class="btn btn-warning" onclick="tijiaodingdan();">&nbsp;&nbsp;提交订单&nbsp;&nbsp;</button>
-		  <br>
-		   
+		    <div class="row">
+		    <div class="col-lg-6 col-md-6"></div>
+		  <div class="col-lg-3 col-md-3">
+		     <button type="button"   style="width:200px;height:50px;background:#FF0033;color:white;font-weight:bold;font-size:18px;" onclick="tijiaodingdan();">&nbsp;&nbsp;提交订单&nbsp;&nbsp;</button>
+		  <br><br>
+		   </div>
+		  
+		   <div class="col-lg-3 col-md-3"></div>
 		  </div>
-		 <!--  <div class="col-lg-1 col-md-1"> -->
+		
 		 </div>
 		 
 		</div><!-- 结束 -->
-		<div class="col-lg-1 col-md-1" ></div>
-		</div>	
+		
+		
+		
+		
 </div>
 
 
@@ -353,7 +377,7 @@ function zongheji(){//求总合计
 	$("span[name='dianpujieshuan']").each(function(){//循环店铺合计金额里的span标签计算得到总金额
 		a=a+parseInt($(this).text());
 	})
-	$("#zonghe").html("<font size='5'  color='red'>"+a+"</font>");
+	$("#zonghe").html("<font size='6' color='red'>"+a+"</font>");
 }
 
 function update_address(c){ //修改地址前的查找
@@ -473,8 +497,26 @@ function update_address(c){ //修改地址前的查找
 			 var cartGoodIds=new Array();
 			 $("input[name='cartgoodsId']").each(function(){//选中的商品按钮将按钮里的商品Id封装到集合中
 				 cartGoodIds.push($(this).val());
+			   //  alert("商品id："+cccc)
 				});
-			
+			 var a=null;
+				$("input[name='addrs']:checked").each(function(){//选择的单选按钮的集合循环方法
+				 a= $(this).val();//得到收货人的名字
+				 alert("收货id："+a);
+				})
+				if($("input[name='addrs']:checked").length==0){
+					alert("请选择收货地址！");
+				}else{
+				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/carts/create_dingdan",
+					dataType:"json",
+					data:{"cartGoodIds":cartGoodIds,"addressId":a},
+					success:function(data){
+						location.href="${pageContext.request.contextPath}/carts/showCarts";
+				}
+		
+			})}
 		}
 			
 		

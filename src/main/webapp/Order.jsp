@@ -7,7 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我的订单</title>
 </head>
-
+<style>
+#id_span {
+	position: absolute;
+	top: 10px;
+}
+</style>
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -66,8 +71,10 @@
 
 	function selectOrders(orderStatus) {
 		var userId = "${users.userId }";
-		$
-				.ajax({
+		var nickname = "${users.nickname }";
+		var userImg = "${users.userImg }";
+		$("#id_span").append("<img src='"+userImg+"' width='20px' height='20px' class='img-circle' width>"+nickname);
+		$.ajax({
 					url : "myTaobao/selectOrders",
 					data : {
 						"userId" : userId,
@@ -172,6 +179,7 @@
 		data-tbar='{ "show":true, "miniCart": "2.12.2","paramsBlackList": "_wt,seeyouagain1722","my_activity": "https://market.m.taobao.com/apps/abs/5/38/my12?psId=58386&amp;pcPsId=58388", "venueUrl": "https://1212.taobao.com?wh_weex=true&amp;data_prefetch=true&amp;wx_navbar_transparent=true", "helpUrl": "https://consumerservice.taobao.com/online-help", "validTime":{"startTime": 1512057599, "endTime": 1513094400}, "style": {"name": "171212", "path": "kg/sidebar-style-171212/0.0.5/" }, "page":[],"blackList":[],"navDataId":{"tceSid":1182567,"tceVid":0},"pluginVersion":{ "cart":"0.2.0","history":"0.2.0","redpaper":"0.0.8","gotop":"0.2.5","help":"0.2.1","ww":"0.0.3","pagenav":"0.0.27","myasset":"0.0.9","my1212":"0.0.1","my1111":"0.2.2"}}'
 		data-component-config='{ "cart": "0.0.6","message": "3.4.6","umpp": "1.5.4","mini-login": "6.3.8","tb-ie-updater": "0.0.4","tbar": "2.1.0","tb-footer": "1.1.6","sidebar": "1.0.10" }'>
 		<div class="site-nav-bd" id="J_SiteNavBd">
+			<span id="id_span"></span>
 			<ul class="site-nav-bd-r" id="J_SiteNavBdR" data-spm-ab="2">
 			
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
@@ -277,33 +285,6 @@
 			data-spm="d1000352">我的订单</a> <i class="mt-arrow"></i></li>
 
 	</ul>
-	<div class="search" id="J_Search" role="search">
-		<div class="search-panel search-sns-panel-field">
-			<form name="search" class="search-panel-focused" id="J_TSearchForm"
-				action="//s.taobao.com/search" target="_blank">
-				<div class="search-button">
-					<button class="btn-search" type="submit">搜 索</button>
-				</div>
-				<div class="search-panel-fields">
-					<label for="q"></label>
-					<div class="search-combobox" id="ks-component1045">
-						<div class="search-combobox-input-wrap">
-							<div class="search-combobox">
-								<div class="search-combobox-input-wrap">
-									<input name="q" class="search-combobox-input" id="q"
-										role="combobox" aria-haspopup="true" accesskey="s"
-										autofocus="true" aria-label="请输入搜索文字或从搜索历史中选择"
-										aria-combobox="list" x-webkit-grammar="builtin:translate"
-										x-webkit-speech="" autocomplete="off">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</form>
-		</div>
-	</div>
 	</nav> </article> </header>
 	<br>
 	<br>

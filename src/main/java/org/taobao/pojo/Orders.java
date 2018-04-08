@@ -3,6 +3,7 @@ package org.taobao.pojo;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -84,8 +86,8 @@ public class Orders { //订单信息表
 		this.isDel = isDel;
 	}
 	
-	@OneToMany
-	@JoinColumn(name="orderId")
+	 @OneToMany(cascade=CascadeType.ALL)
+	 @JoinColumn(name="orderId")
 	public List<OrderGoods> getOrderGoods() {
 		return orderGoods;
 	}
