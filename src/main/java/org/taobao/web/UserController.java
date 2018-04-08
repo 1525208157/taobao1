@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.taobao.pojo.Users;
 import org.taobao.service.UserService;
 import org.taobao.util.Sign;
+import org.taobao.util.UserHelp;
 
 @Controller
 @RequestMapping("/user")
@@ -80,16 +81,77 @@ public class UserController {
 	
 	@RequestMapping("check_account")
 	@ResponseBody
-	public  Sign checkzhanghao(String account){
+	public  UserHelp checkzhanghao(String account){
 		String sql="select * from users where account='"+account+"'";
 		List<Users> user=ur.selectUser(sql);
 		Sign s=new Sign();
-		s.setBiaoji("error");
+		UserHelp use=new UserHelp();
+		
 		if(user.isEmpty()){
 			s.setBiaoji("ok");
+		}else {
+			s.setBiaoji("error");
+			use.setUsers(user.get(0));
+			
 		}
+		use.setSign(s);
 		
-		return s;
+		return use;
 		
 	}
+	
+	
+	@RequestMapping("/check_user")
+	@ResponseBody
+	public UserHelp check_user(Users user){
+		String sql="select * from users where account='"+user.getAccount()+"' and problem='"
+	            +user.getProblem()+"' and answer='"+user.getAnswer()+"'";
+		 List<Users> use=ur.selectUser(sql);
+		 Sign s=new Sign();
+			UserHelp u=new UserHelp();
+			
+			if(use.isEmpty()){
+				s.setBiaoji("ok");
+			}else {
+				s.setBiaoji("error");
+				u.setUsers(use.get(0));
+				
+			}
+			u.setSign(s);
+			
+			return u;
+		
+	}
+	
+	
+	@RequestMapping("/find_update_uses")
+	@ResponseBody
+	public String find_update_uses(Users user){
+		String sql="select * from users where account='"+user.getAccount()+"'";
+		List<Users> use=ur.selectUser(sql);
+		use.get(0).setPassword(user.getPassword());
+		ur.saveOrUpdate(use.get(0));
+		return "{}";
+		
+	}
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public Sign login(Users user,HttpServletRequest request){
+		HttpSession session=request.getSession();
+		String sql="select * from users where  account='"+user.getAccount()+"'  and  password='"+user.getPassword()+"'";
+		List<Users> use=ur.selectUser(sql);
+		Sign si=new Sign();
+		if(use.isEmpty()){
+			si.setBiaoji("error");
+		}else {
+			session.setAttribute("user", use.get(0));
+			si.setBiaoji("ok");
+		}
+		return si;
+		
+	}
+	
+	
+	
 }
