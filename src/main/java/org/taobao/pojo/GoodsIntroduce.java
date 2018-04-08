@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class GoodsIntroduce { //商品介绍
+	
 	private Integer introduceId; //ID
 	private Integer pixel; //摄像头像素
 	private double gSize; //屏幕尺寸
@@ -87,5 +88,6 @@ public class GoodsIntroduce { //商品介绍
 	public void setgCore(String gCore) {
 		this.gCore = gCore;
 	}
+	
 	
 }

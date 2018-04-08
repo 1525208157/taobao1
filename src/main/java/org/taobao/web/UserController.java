@@ -61,4 +61,28 @@ public class UserController {
 		ur.saveOrUpdate(user);
 		return "ok";
 	}
+	
+	
+	@RequestMapping("/upload1")
+	@ResponseBody
+	public String upload1(MultipartFile goodsImg,HttpSession session) throws IllegalStateException, IOException {
+       //获得文件名加后缀名
+		String filename = goodsImg.getOriginalFilename();  
+		//获得文件后缀名的出现位置前一个
+        int spot = filename.lastIndexOf(".");
+        //获得后缀名
+        String ext = filename.substring(spot);
+        //获得文件上传的父路径
+        String path = session.getServletContext().getRealPath("images");
+        //获得当前时间的毫秒值和文件后缀名拼接成新的文件名
+		filename=System.currentTimeMillis()+ext;
+		//文件的保存
+		File file = new File(path,filename);
+		goodsImg.transferTo(file);
+		//文件的地址回复给浏览器让其通过此地址请求服务器获得刚上传的图片显示出来
+		String userImg="/images/"+filename;
+		//将文件的请求地址返回
+        return userImg;
+		
+	}
 }

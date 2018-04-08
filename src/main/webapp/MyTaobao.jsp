@@ -211,7 +211,7 @@
 					class="site-nav-menu site-nav-seller site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavSeller" data-name="seller" data-spm="1997525073">
 					<div class="site-nav-menu-hd">
-						<a href="//mai.taobao.com/seller_admin.htm" target="_top"> <span>卖家中心</span>
+						<a href="111.jsp" target="_top"> <span>卖家中心</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
 					</div>

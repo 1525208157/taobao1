@@ -1,7 +1,9 @@
 package org.taobao.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +24,10 @@ public class Goods { //商品表
 	private Integer saleNum; //商品总销量
 	private String saleTime; //上架时间
 	private List<Appraises> appraises; //评价 一对多
-	private List<GoodsColor> goodsColor; //颜色，一对多
+	private List<GoodsColor> goodsColor=new ArrayList<>(); //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
 	private List<GoodsPicture> goodsPicture; //商品图片
-	private List<Specs> specs; //一对多 规格 双向
+	private List<Specs> specs=new ArrayList<>(); //一对多 规格 双向
 	private Shops shop; //多对一 店铺
 	
 	@Id
@@ -76,7 +78,7 @@ public class Goods { //商品表
 		this.appraises = appraises;
 	}
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="goodsId")
 	public List<GoodsColor> getGoodsColor() {
 		return goodsColor;
@@ -85,11 +87,12 @@ public class Goods { //商品表
 		this.goodsColor = goodsColor;
 	}
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="introduceId")
 	public GoodsIntroduce getGoodsIntroduce() {
 		return goodsIntroduce;
 	}
+	
 	public void setGoodsIntroduce(GoodsIntroduce goodsIntroduce) {
 		this.goodsIntroduce = goodsIntroduce;
 	}
@@ -103,7 +106,7 @@ public class Goods { //商品表
 		this.goodsPicture = goodsPicture;
 	}
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="goodsId")
 	@JsonIgnoreProperties("sGoods")  //双向关系转json时，查规格后规格不再查询到商品
 	public List<Specs> getSpecs() {
