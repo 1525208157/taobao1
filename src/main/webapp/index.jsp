@@ -94,7 +94,7 @@
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
 								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
-					} else if (i % 4 != 0) {
+					} else if (i % 4 != 0) {zffff
 						$("d"+num).append("<div style='width: 295px;'	 class='col-lg-3 col-md-3'>"
 								+"<a href='#'><img src='"+data[i].goodsImg+" class='img-rounded'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
