@@ -48,7 +48,7 @@ $(function(){
    function cartsgoddss(){
 	var userId="${user.userId}"
 	 $.ajax({
-		url:"${pageContext.request.contextPath}/carts/goodAll?userId=1",
+		url:"${pageContext.request.contextPath}/carts/goodAll?userId="+userId,
 		dataType:"json",
 		success:function(data){
 			//console.log(data);
