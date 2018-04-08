@@ -86,65 +86,40 @@
 			$("#id_span").append("<img src='" + userImg + "' width='20px' height='20px' class='img-circle' width>" + nickname);
 		}
 		
-				$.ajax({
-							url : "Goods/index",
-							dataType : "json",
-							success : function(data) {
-								var num = 0;
-								for (i = 0; i < data.length; i++) {
-									if (i != 0 && i % 4 == 0) {
-										num++;
-										$("#Goods").append(
-														"<div class='row' style='width: 295px;' id='d"+i+" '>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									}
-									if (i < 4) {
-										$("#firstRow").append(
-														"<div style='width: 295px;' class='col-lg-3 col-md-3'>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									} else if (i % 4 != 0) {
-										$("d" + num).append(
-														"<div style='width: 295px;'	 class='col-lg-3 col-md-3'>"
-																+ "<a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+" class='img-rounded' width='200' height='180'></a>"
-																+ "<br/>￥&nbsp;&nbsp;<span>"
-																+ data[i].specs[0].smoney
-																+ "</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"
-																+ data[i].saleNum
-																+ "人付款</span>"
-																+ " <br/> <a href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"
-																+ data[i].goodsName
-																+ "</a>"
-																+ "<br/><a href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"
-																+ data[i].shop.shopName
-																+ "</a></div>");
-									}
 
-								}
-							}
-						})
-			})
+		$.ajax({
+			url : "Goods/index",
+			dataType : "json",
+			success : function(data) { 	
+				var num = 0;
+				for (i = 0; i < data.length; i++) {
+					if (i != 0 && i %4 == 0) {
+						num++;
+						$("#Goods").append("<div class='row' id='a"+num+"'>"
+								+"<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goodsImg+"'class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div></div>");
+					}
+					if (i < 4) {
+						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goodsImg+"'' class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+					} else if (i % 4 != 0) {
+						$("#a"+num).append("<div class='col-lg-3 col-md-3'>"
+								+"<a href='#'><img src='"+data[i].goodsImg+" class='img-rounded'></a>"
+								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
+								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+					}
+					
+				}
+			}
+		})
+	})
 </script>
 <body>
 	<center>
