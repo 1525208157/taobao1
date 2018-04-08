@@ -143,10 +143,21 @@
 <div  class="container">
 
 	<div class="row">
-		<div class=".col-md-1">
-<table border="1" width="600" height="600" >
+		<div class="col-lg-12 col-sm-12"></div>
+		</div>
+	<div class="row">
+	
+	<div class="well well-sm">导航信息</div>
+					<ul class="nav nav-pills nav-stacked">
+						<li role="presentation" class="active"><a href="red.html" target="right">红色</a></li>
+						<li role="presentation"><a href="blue.html" target="right">蓝色</a></li>
+						<li role="presentation"><a href="green.html" target="right">绿色</a></li>
+					</ul>
+	
+	
+<!-- <table border="0" width="600" height="600" >
 <tr>
-<td>店铺管理</td>
+<td >店铺管理</td>
 </tr>
 <tr>
 <td><a href="#">我要开店</a></td>
@@ -187,7 +198,7 @@
 <a href="goods.jsp">查看库存</a>
 </td>
 </tr>
-</table>
+</table> -->
 			</div>
 	</div>
 </div>

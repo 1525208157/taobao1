@@ -92,7 +92,7 @@
 <style media="screen" type="text/css">
     .bgt td {text-align:left;}
 </style>
-<form action="Goods/addGoods" method="post" name="open" id="uploadForm">
+<form action="Goods/addGoods" method="post" name="open" id="uploadForm"  method="post"  enctype="multipart/form-data">
 <!--     <input name='_tb_token_' type='hidden' value='53134beb55f31'>
 <input type="hidden" name="pageName" value="goodsOnSale">
 <input type="hidden" name="banner" value="">
@@ -227,6 +227,12 @@
                 <label for="search-itemid">商品介绍：</label>
                 <!-- <input type="text" value="" maxlength="64" name="introduceId" id="search-itemid"  class="search-keyword" style="width: 156px;"/> -->
             </div>
+            <div class="row">
+                <label for="search-itemid">宝贝照片：</label>
+               
+                <input type="file" name="Imgs"maxlength="64"style="width: 156px;"/>
+            </div>
+           
              <div class="row">
                 <label for="search-itemid">摄像头像素：</label>
                 <input type="text" value="" maxlength="64" name="pixel" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
@@ -273,11 +279,11 @@
                <div> <input type="submit" value="添加"></div>
     </div>
     </div>
-<button>上传</button>
+
 <div>
-<img id = "goodsImg" height = "60" width = "60" name="goodsImg"/>
+<!-- <img id = "Imgs" height = "60" width = "60" name="Imgs"/> -->
 </div>
-<input type="file" name="goodsImg">
+
 
 </form>
 	<script type="text/javascript">
@@ -286,7 +292,7 @@
 			$("button:contains('上穿')").on("click", function() {
 				var fd = new FormData($("#uploadForm")[0]);
 				$.ajax({
-					url : "${pageContext.request.contextPath}/user/upload1",
+					url : "${pageContext.request.contextPath}/Goods/addGoods",
 					data : fd,
 					type : "post",
 					processData : false,
