@@ -99,15 +99,29 @@
 	});
 
 	function addNum() {//控制数量加
-		$("#td_num").val(eval($("#td_num").val() + "+1"));
+		var gStock = $("#gStock").text();
+		var num = $("#td_num").val();
+		if (gStock != "") {
+			if (num == gStock) {
+				$("#addBtn").attr('disabled', true);
+				alert("超出库存数量！");
+			} else {
+				$("#td_num").val(eval($("#td_num").val() + "+1"));
+				$("#minusBtn").attr('disabled', false);
+			}
+		} else {
+			alert("请先选择存储容量！");
+		}
+		
 	}
 
 	function minusNum() { //控制数量减
-		if ($("#td_num").val() <= 1) {
+		var num = $("#td_num").val();
+		if (num <= 1) {
 			$("#minusBtn").attr('disabled', true);
-		} else if ($("#td_num").val() > 1) {
-			$("#minusBtn").attr('disabled', false);
+		} else if (num > 1) {
 			$("#td_num").val(eval($("#td_num").val() + "-1"));
+			$("#addBtn").attr('disabled', false);
 		}
 
 	}
