@@ -237,23 +237,6 @@ public class MyTaobaoController {
 		return "ok";
 	}*/
 	
-	
-	@RequestMapping("/selectUser")
-	@ResponseBody
-	public String selectUser(String account,String password,HttpServletRequest request) { //修改密码
-		HttpSession session = request.getSession();
-		String sql = "select * from users where account = "+account+" and password = "+password;
-		List<Users> users = us.selectUser(sql);
-		String str = "";
-		if (users != null && users.size() != 0) {
-			str = "ok";
-			session.setAttribute("users", users.get(0));
-		} else {
-			str = "error";
-		}
-		return str;
-	}
-	
 	@RequestMapping("/selectGoods")
 	@ResponseBody
 	public Goods selectGoods(Integer goodsId) { //按ID查询商品
