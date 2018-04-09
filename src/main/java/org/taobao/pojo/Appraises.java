@@ -18,6 +18,7 @@ public class Appraises { //评价表
 	private String content; //点评内容
 	private String appraisesTime; //评价时间
 	private Users users; //用户 多对一
+	private Goods goods; //商品 多对一
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -66,6 +67,16 @@ public class Appraises { //评价表
 	}
 	public void setUsers(Users users) {
 		this.users = users;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="goodsId")
+	@JsonIgnoreProperties("appraises")
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 	
 }

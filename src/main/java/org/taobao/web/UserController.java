@@ -153,7 +153,7 @@ public class UserController {
 		if(use.isEmpty()){
 			si.setBiaoji("error");
 		}else {
-			session.setAttribute("user", use.get(0));
+			session.setAttribute("users", use.get(0));
 			si.setBiaoji("ok");
 		}
 		return si;
