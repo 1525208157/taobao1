@@ -35,7 +35,7 @@ font-size: 19px
  
 </style>
 <script type="text/javascript">
-var user="${user}"
+var user="${users}"
 $(function(){
 	if(user!=null){
 		cartsgoddss();
@@ -46,7 +46,7 @@ $(function(){
 		})
    
    function cartsgoddss(){
-	var userId="${user.userId}"
+	var userId="${users.userId}"
 	 $.ajax({
 		url:"${pageContext.request.contextPath}/carts/goodAll?userId="+userId,
 		dataType:"json",
