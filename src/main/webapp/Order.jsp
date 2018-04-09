@@ -285,6 +285,9 @@
 	
 	//修改订单状态(评价)
 	function addAppraises() {
+		var goodsScore = $("#star_grade span").text();
+		var serviceScore = $("#star_grade1 span").text();
+		var logisticsScore = $("#star_grade2 span").text();
 		var userId = "${users.userId }";
 		$.ajax({
 			url:"myTaobao/addAppraises",
@@ -292,9 +295,9 @@
 				"orderId":$("#orderId_txt").val(),
 				"orderStatus":$("#orderStatus_txt").val(),
 				"content":$("#content").val(),
-				"goodsScore":5,
-				"logisticsScore":5,
-				"serviceScore":5,
+				"goodsScore":Number(goodsScore.substring(1,0)),
+				"logisticsScore":Number(logisticsScore.substring(1,0)),
+				"serviceScore":Number(serviceScore.substring(1,0)),
 				"users.userId":userId,
 				"goods.goodsId":$("#goodsId_txt").val()
 			},
@@ -347,7 +350,7 @@
 					class="site-nav-menu site-nav-cart site-nav-menu-empty site-nav-multi-menu J_MultiMenu mini-cart menu"
 					id="J_MiniCart" data-spm="1997525049" data-name="cart">
 					<div class="site-nav-menu-hd">
-						<a id="mc-menu-hd" href="" target="_top"> <span
+						<a id="mc-menu-hd" href="${pageContext.request.contextPath}/carts/showCarts" target="_blank"> <span
 							class="site-nav-icon site-nav-icon-highlight"></span> <span>购物车</span>
 							<strong class="h" id="J_MiniCartNum">0</strong>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>

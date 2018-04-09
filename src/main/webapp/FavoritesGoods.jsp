@@ -114,22 +114,22 @@
 						num++;
 						$("#favoritesGoodsDiv").append("<div class='row' id='d"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
-								+"<a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data[i].goods.specs[0].smoney+"</font>"
 								+"</div>"
 								+"</div>");
 					}
 					if (i < 4) {
 						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data[i].goods.specs[0].smoney+"</font>"
 								+"</div>");
 					} else if (i % 4 != 0) {
 						$("#d"+num).append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
-								+"<br><a href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><img src='"+data[i].goods.goodsImg+"' width='260' height='240' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goods.goodsId+"'><font size='4'>"+data[i].goods.goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data[i].goods.specs[0].smoney+"</font>"
 								+"</div>");
 					}
@@ -175,8 +175,8 @@
 					id="J_MiniCart" data-name="cart" data-spm="1997525049">
 					<div class="site-nav-menu-hd">
 						<a
-							href="//cart.taobao.com/cart.htm?from=mini&ad_id=&am_id=&cm_id=&pm_id=1501036000a02c5c3739"
-							target="_top"> <span
+							href="${pageContext.request.contextPath}/carts/showCarts"
+							target="_blank"> <span
 							class="site-nav-icon site-nav-icon-highlight">&#xe603;</span> <span>购物车</span>
 							<strong class="h" id="J_MiniCartNum"></strong>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
