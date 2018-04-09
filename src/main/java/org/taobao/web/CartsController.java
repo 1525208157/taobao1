@@ -76,6 +76,15 @@ public class CartsController {
 	@ResponseBody
 	public List<List<Shopcarts>> getCartsGoods(Integer userId){//Integer user
 		
+		String sql4="select * from carts where userId="+userId;//查看是否有该用户的购物车，如果没有则添加该用户的购物车
+		List<Carts> list4=ca.selectCarts(sql4);
+		if(list4.isEmpty()){
+			Users us=new Users();
+			us.setUserId(userId);
+			Carts css=new Carts();
+			css.setUser(us);
+			ca.addCart(css);
+		}
 		
 		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
