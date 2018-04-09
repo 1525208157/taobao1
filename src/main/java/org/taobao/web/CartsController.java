@@ -74,7 +74,19 @@ public class CartsController {
 	
 	@RequestMapping("/goodAll")
 	@ResponseBody
-	public List<List<Shopcarts>> getCartsGoods(Integer userId){
+	public List<List<Shopcarts>> getCartsGoods(Integer userId){//Integer user
+		
+		String sql4="select * from carts where userId="+userId;//查看是否有该用户的购物车，如果没有则添加该用户的购物车
+		List<Carts> list4=ca.selectCarts(sql4);
+		if(list4.isEmpty()){
+			Users us=new Users();
+			us.setUserId(userId);
+			Carts css=new Carts();
+			css.setUser(us);
+			ca.addCart(css);
+		}
+		
+		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 					+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 				    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
@@ -470,7 +482,7 @@ public class CartsController {
 			List<Address> adds=address.selectAddress(hql);
 			if(!adds.isEmpty()){//判断是否为空！，直接  adds.get(0).setIsDefault(0);
 				
-			     adds.get(0).setIsDefault(0);
+			     adds.get(0).setIsDefault(0);//？？？？？？？？
 		}
 		}
 		 address.saveOrUpdateAddress(ad);//添加对象
@@ -586,7 +598,11 @@ public class CartsController {
 		       
 		return "{}";
 	 }
-
+	
+	@RequestMapping("/tiaozhuan_login")
+	public String tiaozhuan_login(){
+		return "redirect:/Login.jsp";
+	}
 	   
 }
 
