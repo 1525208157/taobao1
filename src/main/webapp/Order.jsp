@@ -139,17 +139,19 @@
 		if (userId == "") {
 			location.href = "Login.jsp";
 		}
+		var nickname = "${users.nickname }";
+		var userImg = "${users.userImg }";
+		$("#id_span").append(
+				"<img src='"+userImg+"' width='20px' height='20px' class='img-circle' width>"
+						+ nickname);
+		
 		selectOrders(0);
 		selectIsDelOrders();
 	});
 
 	function selectOrders(orderStatus) {
 		var userId = "${users.userId }";
-		var nickname = "${users.nickname }";
-		var userImg = "${users.userImg }";
-		$("#id_span").append(
-				"<img src='"+userImg+"' width='20px' height='20px' class='img-circle' width>"
-						+ nickname);
+		
 		$
 				.ajax({
 					url : "myTaobao/selectOrders",
@@ -166,6 +168,7 @@
 								var status;
 								if (data[i].orderStatus == 1) {
 									str = "待发货";
+									status = "";
 								} else if (data[i].orderStatus == 2) {
 									str = "已发货";
 									status = "<a href='#' onclick='updateOrderStatus("+data[i].orderId+",3)'>确认收货</a>";
@@ -174,6 +177,7 @@
 									status = "<a href='#' onclick='openAppraisesModal("+data[i].orderId+",4,"+data[i].orderGoods[j].specs.sGoods.goodsId+")'>评价</a>";
 								} else if (data[i].orderStatus == 4) {
 									str = "已完成";
+									status = "";
 								}
 								$("#orderDiv")
 										.append(
@@ -239,7 +243,7 @@
 							for (j = 0; j < data[i].orderGoods.length; j++) {
 								$("#isDelOrders")
 										.append(
-												"<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
+												"<div class='panel panel-default'><div class='panel-heading' style='height:40px;'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
 														+ data[i].orderId
 														+ "</div><div class='col-lg-6 col-sm-6' style='text-align:left'>店铺名称："
 														+ data[i].orderGoods[j].specs.sGoods.shop.shopName
@@ -469,11 +473,11 @@
 		<div class="modal fade" id="isDelModal">
 			<div class="modal-dialog" style="width: 63%">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div class="modal-header" style="height: 40px">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title" style="height: 40px">订单回收站</h4>
+						</h4><h4 class="modal-title">订单回收站</h4>
 					</div>
 					<div class="modal-body" id="isDelOrders" style="width: 100%">
 						<div class="row" style="width: 100%;">
@@ -536,7 +540,7 @@
 					<div class="row">
 						<div class="col-lg-4 col-sm-4"><font size="5">评价内容：</font></div>
 						<div class="col-lg-8 col-sm-8">
-							<textarea id="text" cols="110" rows="9" id="content"></textarea>
+							<textarea cols="110" rows="9" id="content"></textarea>
 						</div>
 					</div>
 						

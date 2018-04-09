@@ -66,7 +66,7 @@
 						for (var x = 0; x < data.specs.length; x++) {
 							$("#td_specsName")
 									.append(
-											"<label class='btn btn-default'><input type='radio' name='specsName_btn' onchange='getGStock("
+											"<label class='btn btn-default'><input type='radio' name='specsName_btn' value='"+data.specs[x].specsId+"' onchange='getGStock("
 													+ data.specs[x].specsId
 													+ ")'>"
 													+ data.specs[x].specsName
@@ -77,7 +77,7 @@
 						}
 						for (var z = 0; z < data.goodsColor.length; z++) {
 							$("#td_gcName").append(
-									"<label class='btn btn-default'><input type='radio' name='gcName_btn'>"
+									"<label class='btn btn-default'><input type='radio' name='gcName_btn' value='"+data.goodsColor[z].gcId+"'>"
 											+ data.goodsColor[z].gcName
 											+ "</label>");
 						}
@@ -195,6 +195,34 @@
 		
 	}
 	
+	//添加至购物车
+	function insertCarts() {
+		var userId = "${users.userId }";
+		var cartGoodNum = $("#td_num").val();
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ").val();
+		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val();
+		if (userId == "") {
+			alert("请先登录！");
+		} else {
+			if (specsId == null || gcId == null) {
+				alert("请先选择颜色和容量！");
+			} else {
+				$.ajax({
+					url:"myTaobao/insertCarts",
+					data:{
+						"userId":userId,
+						"specs.specsId":specsId,
+						"cartGoodNum":cartGoodNum,
+						"gColor.gcId":gcId
+					},
+					success:function(data){
+						alert(data);
+					}
+				})
+			}
+		}
+	}
+	
 </script>
 
 <body>
@@ -251,7 +279,7 @@
 					<tr>
 						<td align="center" id="favoritesGood"></td>
 						<td colspan="2">
-							<button type="button" class="btn btn-danger">加入购物车</button>&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-danger" onclick="insertCarts()">加入购物车</button>&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn btn-danger">购买</button>
 						</td>
 					</tr>

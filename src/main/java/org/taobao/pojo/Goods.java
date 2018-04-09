@@ -24,10 +24,10 @@ public class Goods { //商品表
 	private Integer saleNum; //商品总销量
 	private String saleTime; //上架时间
 	private List<Appraises> appraises; //评价 一对多
-	private List<GoodsColor> goodsColor=new ArrayList<>(); //颜色，一对多
+	private List<GoodsColor> goodsColor; //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
 	private List<GoodsPicture> goodsPicture; //商品图片
-	private List<Specs> specs=new ArrayList<>(); //一对多 规格 双向
+	private List<Specs> specs; //一对多 规格 双向
 	private Shops shop; //多对一 店铺
 	
 	@Id

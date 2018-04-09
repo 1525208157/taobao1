@@ -61,7 +61,7 @@ public class Appraises { //ÆÀ¼Û±í
 	
 	@ManyToOne
 	@JoinColumn(name="userId")
-	@JsonIgnoreProperties("appraises")
+	@JsonIgnoreProperties({"appraises","orders","addresses","shops"})
 	public Users getUsers() {
 		return users;
 	}
