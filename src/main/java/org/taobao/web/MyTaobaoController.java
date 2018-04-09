@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -270,6 +271,7 @@ public class MyTaobaoController {
 	//添加至购物车
 	@RequestMapping("/insertCarts")
 	@ResponseBody
+	@CacheEvict(value="good1",allEntries=true)//调用该方法时，清空缓存good1
 	public String insertCarts(Integer userId,CartGoods cg) {
 		String sql = "select * from carts where userId = "+userId;
 		List<Carts> carts = cs.selectCarts(sql);
