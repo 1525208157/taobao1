@@ -1,5 +1,7 @@
 package org.taobao.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
+import org.taobao.pojo.Appraises;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
 import org.taobao.pojo.Goods;
@@ -18,6 +21,7 @@ import org.taobao.pojo.Shops;
 import org.taobao.pojo.Specs;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
+import org.taobao.service.AppraisesService;
 import org.taobao.service.FavoritesGoodService;
 import org.taobao.service.FavoritesShopService;
 import org.taobao.service.GoodsService;
@@ -48,6 +52,8 @@ public class MyTaobaoController {
 	private SpecsService ss;
 	@Resource
 	private ShopsService shopsService;
+	@Resource
+	private AppraisesService apps;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -67,7 +73,6 @@ public class MyTaobaoController {
 	@RequestMapping("/updateIsDefault")
 	@ResponseBody
 	public String updateIsDefault(Integer addressId,Integer userId) { //设为默认地址
-		userId = 1;
 		String sql = "select * from address where userId = "+userId;
 		List<Address> addresses = as.selectAddress(sql);
 		for (Address ad: addresses) {
@@ -196,6 +201,28 @@ public class MyTaobaoController {
 		Orders order = os.selectOrder(orderId);
 		order.setIsDel(isDel);
 		os.saveOrUpdate(order);
+		return "ok";
+	}
+	
+	@RequestMapping("/updateOrderStatus")
+	@ResponseBody
+	public String updateOrderStatus(Integer orderId,Integer orderStatus) { //修改订单状态(确认收货)
+		Orders order = os.selectOrder(orderId);
+		order.setOrderStatus(orderStatus);
+		os.saveOrUpdate(order);
+		return "ok";
+	}
+	
+	@RequestMapping("/addAppraises")
+	@ResponseBody
+	public String addAppraises(Integer orderId,Integer orderStatus,Appraises appraises) { //修改订单状态(评价)
+		Orders order = os.selectOrder(orderId);
+		order.setOrderStatus(orderStatus);
+		os.saveOrUpdate(order); //修改订单状态
+		Date date = new Date();//获取时间
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		appraises.setAppraisesTime(sf.format(date));
+		apps.saveOrUpdateAddress(appraises); //添加评价
 		return "ok";
 	}
 	

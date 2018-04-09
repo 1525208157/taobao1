@@ -69,6 +69,7 @@ public class Goods { //…Ã∆∑±Ì
 	
 	@OneToMany
 	@JoinColumn(name="goodsId")
+	@JsonIgnoreProperties("goods")
 	public List<Appraises> getAppraises() {
 		return appraises;
 	}

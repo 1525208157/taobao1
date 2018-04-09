@@ -12,10 +12,84 @@
 	position: absolute;
 	top: 10px;
 }
+
+.set_image_all {
+	cursor: pointer;
+	position: relative;
+}
+
+.set_image_all .set_image_item {
+	position: relative;
+	display: inline-block;
+	z-index: 11;
+	visibility: visible;
+}
+
+.set_image_all .set_image_top {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+}
+
+.set_image_all .set_image_top>div {
+	display: inline-block;
+	overflow: hidden;
+}
+
+.set_image_all .set_image_top>div>img {
+	height: 100%;
+}
+
+.grade {
+	vertical-align: top;
+}
 </style>
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<!-- 星星js -->
+<script  type="text/javascript" src="js/markingSystem.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- 评分星星样式 -->
+<script>
+	$(function() {
+		$("#star_grade").markingSystem({
+	        backgroundImageInitial: 'img/star_hollow.png',
+	        backgroundImageOver: 'img/star_solid.png',
+	        num: 5,
+	        havePoint: false,
+	        haveGrade: true,
+	        unit: '星',
+	        grade: 1,
+	        height: 30,
+	      width: 30,
+	    })
+	    $("#star_grade1").markingSystem({
+	        backgroundImageInitial: 'img/star_hollow.png',
+	        backgroundImageOver: 'img/star_solid.png',
+	        num: 5,
+	        havePoint: false,
+	        haveGrade: true,
+	        unit: '星',
+	        grade: 1,
+	        height: 30,
+	      width: 30,
+	    })
+	    $("#star_grade2").markingSystem({
+	        backgroundImageInitial: 'img/star_hollow.png',
+	        backgroundImageOver: 'img/star_solid.png',
+	        num: 5,
+	        havePoint: false,
+	        haveGrade: true,
+	        unit: '星',
+	        grade: 1,
+	        height: 30,
+	      width: 30,
+	    })
+	})
+</script>
+
 <!--
         	作者：offline
         	时间：2018-03-26
@@ -73,8 +147,11 @@
 		var userId = "${users.userId }";
 		var nickname = "${users.nickname }";
 		var userImg = "${users.userImg }";
-		$("#id_span").append("<img src='"+userImg+"' width='20px' height='20px' class='img-circle' width>"+nickname);
-		$.ajax({
+		$("#id_span").append(
+				"<img src='"+userImg+"' width='20px' height='20px' class='img-circle' width>"
+						+ nickname);
+		$
+				.ajax({
 					url : "myTaobao/selectOrders",
 					data : {
 						"userId" : userId,
@@ -85,9 +162,22 @@
 						$("#orderDiv").empty();
 						for (i = 0; i < data.length; i++) {
 							for (j = 0; j < data[i].orderGoods.length; j++) {
+								var str;
+								var status;
+								if (data[i].orderStatus == 1) {
+									str = "待发货";
+								} else if (data[i].orderStatus == 2) {
+									str = "已发货";
+									status = "<a href='#' onclick='updateOrderStatus("+data[i].orderId+",3)'>确认收货</a>";
+								} else if (data[i].orderStatus == 3) {
+									str = "待评价";
+									status = "<a href='#' onclick='openAppraisesModal("+data[i].orderId+",4,"+data[i].orderGoods[j].specs.sGoods.goodsId+")'>评价</a>";
+								} else if (data[i].orderStatus == 4) {
+									str = "已完成";
+								}
 								$("#orderDiv")
 										.append(
-												"<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
+												"<div class='panel panel-default'><div class='panel-heading' style='height:40px;'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
 														+ data[i].orderId
 														+ "</div><div class='col-lg-6 col-sm-6' style='text-align:left'>店铺名称："
 														+ data[i].orderGoods[j].specs.sGoods.shop.shopName
@@ -100,11 +190,11 @@
 														+ data[i].orderGoods[j].specs.smoney
 														+ "</div><div class='col-lg-2 col-sm-2'>"
 														+ data[i].orderGoods[j].goodsNum
-														+ "</div><div class='col-lg-2 col-sm-2'>${"
-														+ data[i].logistics
-														+ " == '' ? '未发货':'已发货' }</div><div class='col-lg-2 col-sm-2'><c:if test=' "
-														+ data[i].orderStatus
-														+ " < 3 '>确认收货</c:if></div></div><hr>"
+														+ "</div><div class='col-lg-2 col-sm-2'>"
+														+ str
+														+ "</div><div class='col-lg-2 col-sm-2'>"
+														+ status
+														+ "</div></div><hr>"
 														+ "</div>");
 							}
 
@@ -133,11 +223,12 @@
 	function openIsDelModal() {
 		$("#isDelModal").modal();
 	}
-	''
+
 	//查询已删除订单
 	function selectIsDelOrders() {
 		var userId = "${users.userId }";
-		$.ajax({
+		$
+				.ajax({
 					url : "myTaobao/selectIsDelOrders",
 					data : {
 						"userId" : userId
@@ -146,24 +237,24 @@
 					success : function(data) {
 						for (i = 0; i < data.length; i++) {
 							for (j = 0; j < data[i].orderGoods.length; j++) {
-
-								$("#isDelOrders").append(
-												 "<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
+								$("#isDelOrders")
+										.append(
+												"<div class='panel panel-default'><div class='panel-heading'><div class='col-lg-4 col-sm-4' style='text-align:left'>订单号："
 														+ data[i].orderId
 														+ "</div><div class='col-lg-6 col-sm-6' style='text-align:left'>店铺名称："
 														+ data[i].orderGoods[j].specs.sGoods.shop.shopName
 														+ "</div><div class='col-lg-2 col-sm-2'>"
-														+"<a href='#' onclick='updateIsDel("+ data[i].orderId+ ",0)'>还原订单</a>"
-														+"</div></div>"
+														+ "<a href='#' onclick='updateIsDel("
+														+ data[i].orderId
+														+ ",0)'>还原订单</a>"
+														+ "</div></div>"
 														+ "<div class='panel-body'><div class='col-lg-4 col-sm-4'>"
 														+ data[i].orderGoods[j].specs.sGoods.goodsName
 														+ "</div><div class='col-lg-2 col-sm-2'>"
 														+ data[i].orderGoods[j].specs.smoney
 														+ "</div><div class='col-lg-2 col-sm-2'>"
 														+ data[i].orderGoods[j].goodsNum
-														+ "</div><div class='col-lg-2 col-sm-2'>${"
-														+ data[i].logistics
-														+ " == '' ? '未发货':'已发货' }</div><div class='col-lg-2 col-sm-2'></div></div><hr>"
+														+ "</div><div class='col-lg-2 col-sm-2'></div><div class='col-lg-2 col-sm-2'></div></div><hr>"
 														+ "</div>");
 							}
 
@@ -172,6 +263,51 @@
 
 				});
 	}
+	
+	//修改订单状态(确认收货)
+	function updateOrderStatus(orderId,orderStatus) {
+		$.ajax({
+			url:"myTaobao/updateOrderStatus",
+			data:{
+				"orderId":orderId,
+				"orderStatus":orderStatus
+			},
+			success:function(data){
+				alert(data);
+				location.reload();
+			}
+		});
+	}
+	
+	//修改订单状态(评价)
+	function addAppraises() {
+		var userId = "${users.userId }";
+		$.ajax({
+			url:"myTaobao/addAppraises",
+			data:{
+				"orderId":$("#orderId_txt").val(),
+				"orderStatus":$("#orderStatus_txt").val(),
+				"content":$("#content").val(),
+				"goodsScore":5,
+				"logisticsScore":5,
+				"serviceScore":5,
+				"users.userId":userId,
+				"goods.goodsId":$("#goodsId_txt").val()
+			},
+			success:function(data){
+				alert(data);
+				location.reload();
+			}
+		});
+	}
+	
+	function openAppraisesModal(orderId,orderStatus,goodsId) {
+		$("#orderId_txt").val(orderId);
+		$("#orderStatus_txt").val(orderStatus);
+		$("#goodsId_txt").val(goodsId);
+		$("#appraisesModal").modal();
+	}
+	
 </script>
 
 <body>
@@ -181,7 +317,7 @@
 		<div class="site-nav-bd" id="J_SiteNavBd">
 			<span id="id_span"></span>
 			<ul class="site-nav-bd-r" id="J_SiteNavBdR" data-spm-ab="2">
-			
+
 				<li class="site-nav-menu site-nav-home" id="J_SiteNavHome"
 					data-spm="1581860521" data-name="home">
 					<div class="site-nav-menu-hd">
@@ -207,9 +343,7 @@
 					class="site-nav-menu site-nav-cart site-nav-menu-empty site-nav-multi-menu J_MultiMenu mini-cart menu"
 					id="J_MiniCart" data-spm="1997525049" data-name="cart">
 					<div class="site-nav-menu-hd">
-						<a id="mc-menu-hd"
-							href=""
-							target="_top"> <span
+						<a id="mc-menu-hd" href="" target="_top"> <span
 							class="site-nav-icon site-nav-icon-highlight"></span> <span>购物车</span>
 							<strong class="h" id="J_MiniCartNum">0</strong>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
@@ -224,8 +358,8 @@
 					class="site-nav-menu site-nav-favor site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavFavor" data-spm="1997525053" data-name="favor">
 					<div class="site-nav-menu-hd">
-						<a href="FavoritesGoods.jsp" target="_top">
-							<span class="site-nav-icon"></span> <span>收藏夹</span>
+						<a href="FavoritesGoods.jsp" target="_top"> <span
+							class="site-nav-icon"></span> <span>收藏夹</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon"></span></span>
 
 					</div>
@@ -233,10 +367,8 @@
 					<div class="site-nav-menu-bd site-nav-menu-list">
 						<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-							<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a>
-
-							<a href="FavoritesShops.jsp"
-								target="_top">收藏的店铺</a>
+							<a href="FavoritesGoods.jsp" target="_top">收藏的宝贝</a> <a
+								href="FavoritesShops.jsp" target="_top">收藏的店铺</a>
 
 						</div>
 					</div>
@@ -280,9 +412,8 @@
 	</div>
 	<nav class="mt-nav">
 	<ul id="J_MtMainNav">
-		<li class="selected"><a
-			href="#"
-			data-spm="d1000352">我的订单</a> <i class="mt-arrow"></i></li>
+		<li class="selected"><a href="#" data-spm="d1000352">我的订单</a> <i
+			class="mt-arrow"></i></li>
 
 	</ul>
 	</nav> </article> </header>
@@ -290,6 +421,9 @@
 	<br>
 	<center>
 		<div style="width: 63%;">
+			<div class="row" style="width: 100%; text-align: right">
+				<button onclick="openIsDelModal()" class="btn btn-default">订单回收站</button>
+			</div>
 			<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse"
@@ -307,9 +441,7 @@
 
 			</nav>
 
-			<div class="row" style="width: 100%; text-align: right">
-				<button onclick="openIsDelModal()" class="btn btn-default">订单回收站</button>
-			</div>
+
 
 			<div class="row" style="width: 100%;">
 				<div class="col-lg-4 col-sm-4">
@@ -333,6 +465,7 @@
 
 		</div>
 
+		<!-- 订单回收站模态框 -->
 		<div class="modal fade" id="isDelModal">
 			<div class="modal-dialog" style="width: 63%">
 				<div class="modal-content">
@@ -340,7 +473,7 @@
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title">订单回收站</h4>
+						<h4 class="modal-title" style="height: 40px">订单回收站</h4>
 					</div>
 					<div class="modal-body" id="isDelOrders" style="width: 100%">
 						<div class="row" style="width: 100%;">
@@ -367,6 +500,57 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- 评价模态框 -->
+		<div class="modal fade" id="appraisesModal">
+			<div class="modal-dialog" style="width: 50%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title"><font size="5">评价</font></h4>
+					</div>
+					<div class="modal-body">
+					<input type="hidden" id="orderId_txt">
+					<input type="hidden" id="orderStatus_txt">
+					<input type="hidden" id="goodsId_txt">
+					<div class="row">
+						<div class="col-lg-4 col-sm-4"><font size="5">商品评分：</font></div>
+						<div class="col-lg-8 col-sm-8">
+							<div id="star_grade"></div><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-sm-4"><font size="5">服务评分：</font></div>
+						<div class="col-lg-8 col-sm-8">
+							<div id="star_grade1"></div><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-sm-4"><font size="5">物流评分：</font></div>
+						<div class="col-lg-8 col-sm-8">
+							<div id="star_grade2"></div><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-sm-4"><font size="5">评价内容：</font></div>
+						<div class="col-lg-8 col-sm-8">
+							<textarea id="text" cols="110" rows="9" id="content"></textarea>
+						</div>
+					</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="addAppraises()">提交评价</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
 	</center>
 </body>
 </html>
