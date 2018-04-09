@@ -282,9 +282,9 @@ public class MyTaobaoController {
 		Integer cartId = c.get(0).getCartId();
 		Integer gcId = cg.getgColor().getGcId();
 		Integer specsId = cg.getSpecs().getSpecsId();
-		System.out.println(cartId+" "+gcId+" "+specsId);
 		String s = "select * from cartgoods where gcId = "+gcId+" and specsId = "+specsId+" and cartId = "+cartId;
 		List<CartGoods> cartGoods = cgs.selectCartGoods(s);
+	
 		if (cartGoods.size() > 0) { //当购物车存在该订单商品，数量加1
 			cartGoods.get(0).setCartGoodNum(cartGoods.get(0).getCartGoodNum()+1);
 			cgs.updateCartGoods(cartGoods.get(0));
@@ -292,9 +292,7 @@ public class MyTaobaoController {
 			Date now = new Date();
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			cg.setCgDate(sf.format(now)); //添加当前时间
-			List<CartGoods> cc = new ArrayList<>();
-			cc.add(cg);
-			c.get(0).setCartGoods(cc);
+			cg.setCarts(c.get(0));
 			cgs.updateCartGoods(cg);
 		}
 		return "ok";
