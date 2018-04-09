@@ -3,6 +3,7 @@ package org.taobao.service;
 import java.util.List;
 
 import org.taobao.pojo.CartGoods;
+import org.taobao.pojo.Carts;
 import org.taobao.pojo.GoodsColor;
 import org.taobao.pojo.Specs;
 import org.taobao.util.Shopcarts;
@@ -16,5 +17,7 @@ public interface CartsService {
     List<Specs> select_specs(String sql);//根据商品的id查询商品的规格，内存
 	List<CartGoods> select_cartgoods(String sql);//根据条件查询购物车的商品，这里主要用于改变购物车的套餐时
 	void saveorupdate(CartGoods good);//用于修改购物车里的型号
+	List<Carts> selectCarts(String sql); //查询购物车
+	void addCart(Carts cart); //新建购物车
 	
 }

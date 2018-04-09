@@ -35,7 +35,7 @@ public class OrderGoods { //订单商品表
 	
 	@ManyToOne
 	@JoinColumn(name="specsId")
-	@JsonIgnoreProperties("sGoods")
+	 
 	public Specs getSpecs() {
 		return specs;
 	}
