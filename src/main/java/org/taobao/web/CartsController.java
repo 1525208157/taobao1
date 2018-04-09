@@ -128,7 +128,7 @@ public class CartsController {
 	
 		
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -166,7 +166,7 @@ public class CartsController {
 		System.out.println("添加关注");
 		HttpSession see=request.getSession();
 	    
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -280,7 +280,7 @@ public class CartsController {
 	 public String update_cartgoods(HttpServletRequest request,CartGoods good){//修改购物车里的商品型号
 		   
 			HttpSession see=request.getSession();
-			 Users user=(Users) see.getAttribute("user");
+			 Users user=(Users) see.getAttribute("users");
 			/*if(user==null){
 				user=new Users();
 				user.setUserId(1);
@@ -400,7 +400,7 @@ public class CartsController {
 	@ResponseBody
 	public String update_address(HttpServletRequest request,Address ad,ModelMap model){//修改地址栏
 		 HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -454,7 +454,7 @@ public class CartsController {
 	@ResponseBody
 	public String insert_address(HttpServletRequest request,Address ad,ModelMap model){//添加新地址 数据库里；每个人默认地址只能有一个，要么没有
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -485,7 +485,7 @@ public class CartsController {
 	@ResponseBody
 	 public String createdingdan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,Address addr,HttpServletRequest request){
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
