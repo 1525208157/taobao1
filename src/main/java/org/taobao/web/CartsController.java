@@ -482,7 +482,7 @@ public class CartsController {
 			List<Address> adds=address.selectAddress(hql);
 			if(!adds.isEmpty()){//判断是否为空！，直接  adds.get(0).setIsDefault(0);
 				
-			     adds.get(0).setIsDefault(0);
+			     adds.get(0).setIsDefault(0);//？？？？？？？？
 		}
 		}
 		 address.saveOrUpdateAddress(ad);//添加对象
@@ -598,7 +598,11 @@ public class CartsController {
 		       
 		return "{}";
 	 }
-
+	
+	@RequestMapping("/tiaozhuan_login")
+	public String tiaozhuan_login(){
+		return "redirect:/Login.jsp";
+	}
 	   
 }
 

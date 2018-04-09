@@ -30,7 +30,12 @@ border:3px solid  #FF9966;;
 </style>
 <body>
 <div id="d11" class="container">
-
+		<c:if test="${empty users}">
+		<script type="text/javascript">
+		location.href="${pageContext.request.contextPath}/carts/tiaozhuan_login";
+		</script>
+		</c:if>
+        <c:if test="${!empty users}">
 		<div  id="d2">
 		<br><br><br><br>
 		 <div class="row">
@@ -193,7 +198,8 @@ border:3px solid  #FF9966;;
 		
 		
 		
-		
+</div>	
+</c:if>	
 </div>
 
 

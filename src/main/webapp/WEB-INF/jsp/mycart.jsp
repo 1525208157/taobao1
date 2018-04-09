@@ -35,12 +35,14 @@ font-size: 19px
  
 </style>
 <script type="text/javascript">
-var user="${users}"
+var user="${users.userId}";
+
 $(function(){
-	if(user!=null){
+	if(user!=""){
 		cartsgoddss();
 	}else{
-		$("#d2").append("<h1>请先登录！！！</h1>")
+		alert("请先登录淘宝网！");
+		location.href="${pageContext.request.contextPath}/carts/tiaozhuan_login";
 	}
 	
 		})
