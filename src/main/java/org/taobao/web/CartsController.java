@@ -74,7 +74,10 @@ public class CartsController {
 	
 	@RequestMapping("/goodAll")
 	@ResponseBody
-	public List<List<Shopcarts>> getCartsGoods(Integer userId){
+	public List<List<Shopcarts>> getCartsGoods(Integer userId){//Integer user
+		
+		
+		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 					+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 				    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "

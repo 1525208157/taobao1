@@ -51,6 +51,7 @@ $(function(){
 		url:"${pageContext.request.contextPath}/carts/goodAll?userId="+userId,
 		dataType:"json",
 		success:function(data){
+			if(data.length!=0){
 			//console.log(data);
 			for(i=0;i<data.length;i++){
 				$("#d2").append("<br><div><div class='row'><div class='col-lg-12 col-md-12'><input type='checkbox' onclick='dianpu_checked(this)' name='shopId_checkbox' value='"
@@ -84,7 +85,10 @@ $(function(){
 					$(this).parent().parent().find(":button").first().attr('disabled',true)
 					// $(".colordiv div").css("background-color","#FF0000");
 				}
-			});  
+			}); 
+			}else{
+				$("#d2").append("<h1>购物车内无商品，请你先添加商品！！！</h1>")
+			}
 		}
 
 	})
