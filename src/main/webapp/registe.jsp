@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <script type="text/javascript" src="js/jquery-3.2.0.min.js" ></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/verify.css">
+   <script type="text/javascript" src="js/verify.js" ></script>
 </head>
 <body>
 <script type="text/javascript">
@@ -26,9 +28,9 @@ function check_account(){
 		dataType:"json",
 		success : function(data) {
 			
-			if(data.biaoji=='error'){
+			if(data.sign.biaoji=='error'){
 				alert("请重新输入账号，该账号已被使用！")
-				$("#account").val("");
+				$("#account").val(null);
 			}
 		}
 	})}
@@ -62,10 +64,12 @@ function fun(){
 		return false;
 	}
 	
+	if($("#mpanel1").val()==""){
+		alert("请滑动滑块验证");
+		return false;
+	}
 	return true;
 }
-
-
 
 
 
@@ -149,11 +153,22 @@ function fun(){
 		</div>
 		
 		</div>
-		<div class="form-group">
+		
+	
+	<div class="form-group">
+	<div  class="col-lg-2 col-md-2">
+		<label for="mpanel1" >验证码:</label>
+		</div>
+     <div class="col-lg-10 col-md-10">
+  <div id="mpanel1">
+        </div></div>
+         </div>
+         
+         
+         <div class="form-group">
 	<div  class="col-lg-2 col-md-2">
 	<label for="tel"></label>	
 	</div>
-	
 	<div class="col-lg-10 col-md-10">
 	<button type="submit"  class="btn btn-info">注册会员</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<button type="button" class="btn btn-info">放弃注册</button>&nbsp;
@@ -161,9 +176,34 @@ function fun(){
 	</div>
 		
 	</form>
-<div class="col-lg-3 col-md-3"></div> 
+<div class="col-lg-2 col-md-2"></div> 
 </div>
 </div>
+<script type="text/javascript">
+$('#mpanel1').slideVerify({
+	type : 1,		//类型
+	vOffset : 5,	//误差量，根据需求自行调整
+    barSize : {
+    	width : '100%',
+    	height : '40px',
+    },
+    ready : function() {
+	},
+    success : function() {
+    	alert('验证成功，添加你自己的代码！');
+    	//document.getElementById("mpanel1").innerHTML="1"; innerHTML 不能用jQuery选择器
+    	$("#mpanel1").val("1");
+    },
+    error : function() {
+//    	alert('验证失败！');
+    }
+    
+});
 
+
+
+
+
+</script>
 </body>
 </html>

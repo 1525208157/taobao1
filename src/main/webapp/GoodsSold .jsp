@@ -16,8 +16,7 @@
 			url:"odersGoods/selectordergoods",
 			dataType : "json",
 			success : function (data) {
-		$
-				.each(//循环遍历数组
+		$.each(//循环遍历数组
 						data,
 						function(i, d) {//i代表
 							$("table")

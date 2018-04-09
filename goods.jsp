@@ -28,7 +28,7 @@
 															"<tr><td>"
 														+d.goods[j].goodsId
 														+"</td><td>"
-														+"<img src='${pageContext.request.contextPath}"+d.goods[j].goodsImg+"' width='80' height='80' class='goodsImg/>'"
+														+d.goods[j].goodsImg
 														+"</td><td>"
 														+d.goods[j].goodsName
 														+"</td><td>"
@@ -72,7 +72,7 @@
  <table border="1">
  	<tr>
  		<td>商品编号</td>
- 		<td><img src="" class="Imgs" id="Imgs">图片</td>
+ 		<td>图片</td>
  		<td>商品名称</td>
  		<td>是否推荐</td>
  		<td>商品总销量</td>

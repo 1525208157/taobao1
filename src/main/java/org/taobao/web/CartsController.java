@@ -129,10 +129,10 @@ public class CartsController {
 		
 		HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
+		}*/
 		
 	   
 	    String sql="select * from favoritesgoods where userId="+user.getUserId()+" and goodsId="+good.getGoodsId();
@@ -167,10 +167,10 @@ public class CartsController {
 		HttpSession see=request.getSession();
 	    
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
+		}*/
 		 
 		Sign si=new Sign();
 		if(idList!=null){//这里在后台判断是不是空了 直接写idList.size()!=0不能这样写，如果是空时idlist就是空， 虽然前台new了一个集合
@@ -281,10 +281,10 @@ public class CartsController {
 		   
 			HttpSession see=request.getSession();
 			 Users user=(Users) see.getAttribute("user");
-			if(user==null){
+			/*if(user==null){
 				user=new Users();
 				user.setUserId(1);
-			}
+			}*/
 			
 			String sql="select ca.* from carts c ,cartgoods ca where c.cartId=ca.cartId and c.userId='"
 					+ user.getUserId()+"' and ca.specsId='"
@@ -319,10 +319,10 @@ public class CartsController {
 	public String maycart_jieshuan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,ModelMap model,HttpServletRequest request){
 		HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
+		}*/
 		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 				+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
@@ -401,11 +401,11 @@ public class CartsController {
 	public String update_address(HttpServletRequest request,Address ad,ModelMap model){//修改地址栏
 		 HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
 		}
-		
+		*/
 		ad.setUsers(user);//给前台传过来的地址添加外键用户
 		
 		//数据库里的收货地址默认地址要么只能有一个，要么没有默认地址，不能有多个默认地址
@@ -455,10 +455,10 @@ public class CartsController {
 	public String insert_address(HttpServletRequest request,Address ad,ModelMap model){//添加新地址 数据库里；每个人默认地址只能有一个，要么没有
 		HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
+		}*/
 		
 		ad.setUsers(user);//给前台传过来的地址添加外键用户
 		
@@ -486,10 +486,10 @@ public class CartsController {
 	 public String createdingdan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,Address addr,HttpServletRequest request){
 		HttpSession see=request.getSession();
 		 Users user=(Users) see.getAttribute("user");
-		if(user==null){
+		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
+		}*/
 		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 				+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "

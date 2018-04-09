@@ -1,7 +1,9 @@
 package org.taobao.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +16,7 @@ public class Brand { //品牌表
 	private Integer brandId; //品牌编号
 	private String brandName; //品牌名称
 	private String brandImg; //品牌图标路径
-	private List<Goods> goods; //商品 一对多
+	private List<Goods> goods=new ArrayList<>(); //商品 一对多
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class Brand { //品牌表
 		this.brandImg = brandImg;
 	}
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="brandId")
 	public List<Goods> getGoods() {
 		return goods;

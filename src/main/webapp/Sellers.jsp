@@ -6,25 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 </head>
-
-<!-- bootstrap的样式文件 -->
-<link rel="stylesheet" href="js/bootstarp-3.3.7/css/bootstrap.min.css" />
-<!-- 导入jquery.js,必须在导入bootstrap的js之前先导入 -->
+<link rel="stylesheet" href="css/bootstrap.min.css" />
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
-<!-- 导入bootstrap.js,必须在导入jquery.js之后导入 -->
-<script type="text/javascript"
-	src="js/bootstarp-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-<!-- bootstarp-table部分 -->
-<!-- bootstrap-table的样式文件 -->
-<link rel="stylesheet"
-	href="js/bootstarp-table-1.11.1/bootstrap-table.min.css" />
-<!-- 导入bootstrap-table.js,必须在导入bootstrap.js之后导入 -->
-<script type="text/javascript"
-	src="js/bootstarp-table-1.11.1/bootstrap-table.min.js"></script>
-<!-- bootstrap-table的汉化文件，汉化默认样式中的内容，必须在bootstarp-table.js之后导入 -->
-<script type="text/javascript"
-	src="js/bootstarp-table-1.11.1/bootstrap-table-zh-CN.min.js"></script>
 
 <style>
 #all {
@@ -158,10 +143,21 @@
 <div  class="container">
 
 	<div class="row">
-		<div class=".col-md-1">
-<table border="1" width="600" height="600" >
+		<div class="col-lg-12 col-sm-12"></div>
+		</div>
+	<div class="row">
+	
+	<div class="well well-sm">导航信息</div>
+					<ul class="nav nav-pills nav-stacked">
+						<li role="presentation" class="active"><a href="red.html" target="right">红色</a></li>
+						<li role="presentation"><a href="blue.html" target="right">蓝色</a></li>
+						<li role="presentation"><a href="green.html" target="right">绿色</a></li>
+					</ul>
+	
+	
+<!-- <table border="0" width="600" height="600" >
 <tr>
-<td>店铺管理</td>
+<td >店铺管理</td>
 </tr>
 <tr>
 <td><a href="#">我要开店</a></td>
@@ -190,7 +186,7 @@
 </tr>
 
 <tr>
-<td><a href="#">发布新商品</a></td>
+<td><a href="tianjia.jsp">发布新商品</a></td>
 </tr>
 
 <tr>
@@ -202,7 +198,7 @@
 <a href="goods.jsp">查看库存</a>
 </td>
 </tr>
-</table>
+</table> -->
 			</div>
 	</div>
 </div>
