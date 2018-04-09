@@ -54,7 +54,8 @@ $(function(){
 			//console.log(data);
 			for(i=0;i<data.length;i++){
 				$("#d2").append("<br><div><div class='row'><div class='col-lg-12 col-md-12'><input type='checkbox' onclick='dianpu_checked(this)' name='shopId_checkbox' value='"
-						+data[i][0].shopId+"'>&nbsp;"+data[i][0].shopName+"<div id='dp"+i+"' class='goods'></div></div></div></div>");
+						+data[i][0].shopId+"'>&nbsp;"+data[i][0].shopName+"&nbsp;&nbsp;&nbsp;<a onclick='openQq()'><img src='${pageContext.request.contextPath}/images/timg.jpg' width=23 height=23></a> <div id='dp"
+						+i+"' class='goods'></div></div></div></div>");
 				for(j=0;j<data[i].length;j++){
 				    $("#dp"+i).append("</br><div class='row'><div class='col-lg-2 col-md-2'>&nbsp;<input type='checkbox'"
 						 +" name='cartgoodId_checkbox'onclick='shangpin_checked(this)' value='"+data[i][j].cartGoodId+"'/>&nbsp;"
@@ -378,6 +379,11 @@ $(function(){
 		    alert("请你选择你要结算的商品！")
 		}
 	 }
+	 
+	 function openQq(){
+	    	location.href="tencent://message/?uin=807663065&Site=http://www.zjsoar.com&;Menu=yes";
+	    }
+		 
 </script>
 
 </head>

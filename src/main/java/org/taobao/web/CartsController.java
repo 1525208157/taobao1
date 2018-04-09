@@ -170,8 +170,8 @@ public class CartsController {
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
-		 */
+		}*/
+		 
 		Sign si=new Sign();
 		if(idList!=null){//这里在后台判断是不是空了 直接写idList.size()!=0不能这样写，如果是空时idlist就是空， 虽然前台new了一个集合
 		List<Integer> li=new ArrayList<>();
@@ -404,8 +404,8 @@ public class CartsController {
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}*/
-		
+		}
+		*/
 		ad.setUsers(user);//给前台传过来的地址添加外键用户
 		
 		//数据库里的收货地址默认地址要么只能有一个，要么没有默认地址，不能有多个默认地址
