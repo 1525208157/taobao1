@@ -1,23 +1,34 @@
 package org.taobao.web;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.taobao.pojo.Address;
+import org.taobao.pojo.Appraises;
+import org.taobao.pojo.CartGoods;
+import org.taobao.pojo.Carts;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.OrderGoods;
 import org.taobao.pojo.Orders;
 import org.taobao.pojo.Shops;
 import org.taobao.pojo.Specs;
 import org.taobao.pojo.Users;
 import org.taobao.service.AddressService;
+import org.taobao.service.AppraisesService;
+import org.taobao.service.CartGoodsService;
+import org.taobao.service.CartsService;
 import org.taobao.service.FavoritesGoodService;
 import org.taobao.service.FavoritesShopService;
 import org.taobao.service.GoodsService;
@@ -48,6 +59,12 @@ public class MyTaobaoController {
 	private SpecsService ss;
 	@Resource
 	private ShopsService shopsService;
+	@Resource
+	private AppraisesService apps;
+	@Resource
+	private CartsService cs;
+	@Resource
+	private CartGoodsService cgs;
 	
 	@RequestMapping("/selectAddress")
 	@ResponseBody
@@ -67,7 +84,6 @@ public class MyTaobaoController {
 	@RequestMapping("/updateIsDefault")
 	@ResponseBody
 	public String updateIsDefault(Integer addressId,Integer userId) { //设为默认地址
-		userId = 1;
 		String sql = "select * from address where userId = "+userId;
 		List<Address> addresses = as.selectAddress(sql);
 		for (Address ad: addresses) {
@@ -199,6 +215,31 @@ public class MyTaobaoController {
 		return "ok";
 	}
 	
+	@RequestMapping("/updateOrderStatus")
+	@ResponseBody
+	public String updateOrderStatus(Integer orderId,Integer orderStatus) { //修改订单状态(确认收货)
+		Orders order = os.selectOrder(orderId);
+		Date date = new Date();//获取时间
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		order.setOrderStatus(orderStatus); //修改订单状态
+		order.setReceiveTime(sf.format(date)); //确认收货时间
+		os.saveOrUpdate(order);
+		return "ok";
+	}
+	
+	@RequestMapping("/addAppraises")
+	@ResponseBody
+	public String addAppraises(Integer orderId,Integer orderStatus,Appraises appraises) { //修改订单状态(评价)
+		Orders order = os.selectOrder(orderId);
+		order.setOrderStatus(orderStatus);
+		os.saveOrUpdate(order); //修改订单状态
+		Date date = new Date();//获取时间
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		appraises.setAppraisesTime(sf.format(date));
+		apps.saveOrUpdateAddress(appraises); //添加评价
+		return "ok";
+	}
+	
 	/*@RequestMapping("/deleteOrderGoods")
 	@ResponseBody
 	public String deleteOrderGoods(int[] arrays) { //批量删除订单商品
@@ -209,23 +250,6 @@ public class MyTaobaoController {
 		}
 		return "ok";
 	}*/
-	
-	
-	@RequestMapping("/selectUser")
-	@ResponseBody
-	public String selectUser(String account,String password,HttpServletRequest request) { //修改密码
-		HttpSession session = request.getSession();
-		String sql = "select * from users where account = "+account+" and password = "+password;
-		List<Users> users = us.selectUser(sql);
-		String str = "";
-		if (users != null && users.size() != 0) {
-			str = "ok";
-			session.setAttribute("users", users.get(0));
-		} else {
-			str = "error";
-		}
-		return str;
-	}
 	
 	@RequestMapping("/selectGoods")
 	@ResponseBody
@@ -246,6 +270,51 @@ public class MyTaobaoController {
 	public Shops selectShops(Integer shopId) { //按ID查询商品
 		Shops shop = shopsService.selectShop(shopId);
 		return shop;
+	}
+	
+	//添加至购物车
+	@RequestMapping("/insertCarts")
+	@ResponseBody
+	@CacheEvict(value="good1",allEntries=true)//调用该方法时，清空缓存good1
+	public String insertCarts(Integer userId,CartGoods cg) {
+		String sql = "select * from carts where userId = "+userId;
+		List<Carts> carts = cs.selectCarts(sql);
+		if (carts.size() == 0) { //
+			Carts ca = new Carts();
+			ca.setUser(us.selectOne(userId));
+			cs.addCart(ca); //新建购物车
+		}
+		List<Carts> c = cs.selectCarts(sql); //购物车对象
+		Integer cartId = c.get(0).getCartId();
+		Integer gcId = cg.getgColor().getGcId();
+		Integer specsId = cg.getSpecs().getSpecsId();
+		String s = "select * from cartgoods where gcId = "+gcId+" and specsId = "+specsId+" and cartId = "+cartId;
+		List<CartGoods> cartGoods = cgs.selectCartGoods(s);
+	
+		if (cartGoods.size() > 0) { //当购物车存在该订单商品，数量加1
+			cartGoods.get(0).setCartGoodNum(cartGoods.get(0).getCartGoodNum()+1);
+			cgs.updateCartGoods(cartGoods.get(0));
+		} else {
+			Date now = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			cg.setCgDate(sf.format(now)); //添加当前时间
+			cg.setCarts(c.get(0));
+			cgs.updateCartGoods(cg);
+		}
+		return "ok";
+	}
+	
+	@RequestMapping("insertOrder")
+	@ResponseBody
+	public String insertOrder(Orders orders,OrderGoods og) { //添加订单
+		List<OrderGoods> orderGoods = new ArrayList<>();
+		orderGoods.add(og); //集合添加订单商品
+		Date now = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		orders.setCreateTime(sf.format(now)); //添加创建时间
+		orders.setOrderGoods(orderGoods); //订单添加订单商品
+		os.saveOrUpdate(orders);
+		return "ok";
 	}
 	
 }

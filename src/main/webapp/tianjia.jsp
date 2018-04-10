@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
-
-
-
 <html>
 	<head>
     <title>
@@ -23,6 +18,7 @@
     <script type="text/javascript" src="//g.alicdn.com/cm/old-sell-rely/1.0.2/top_v4.js"></script>
     <script type="text/javascript" src="//g.alicdn.com/cm/old-sell-rely/1.0.2/mytaobao_bc.js"></script>
     <script type="text/javascript" src="//assets.alicdn.com/s/kissy/1.2.0/kissy-min.js"></script>
+    <script src="assets/js/jquery-1.8.2.min.js"></script>
     <script type="application/javascript">
         KISSY.config({
             packages: [{
@@ -96,25 +92,8 @@
 <style media="screen" type="text/css">
     .bgt td {text-align:left;}
 </style>
-<form action="goods/insertGoods" method="post" name="open">
-<!--     <input name='_tb_token_' type='hidden' value='53134beb55f31'>
-<input type="hidden" name="pageName" value="goodsOnSale">
-<input type="hidden" name="banner" value="">
-<input type="hidden" name="page" value="1">
-<input type="hidden" id="setVal" name="setVal" value="">
-<input type="hidden" id="orderField" name="orderField" value="1" />
-<input type="hidden" id="orderBy" name="orderBy" value="0" />
-<input type="hidden" name="singleId" value="">
-<input type="hidden" name="singleIdNum" value="">
-<input type="hidden" name="singleIdMinNum" value="">
-<input type="hidden" name="distributionIds" value="">
-<input type="hidden" name="action" value="goodsmanager/GoodsManageAction">
-<input type="hidden" name="event_submit_do_recommend" value="">
-<input type="hidden" name="event_submit_do_delete" />
-<input type="hidden" name="event_submit_do_off_shelf" />
-<input type="hidden" name="event_submit_do_unrecommend" />
-<input type="hidden" name="event_submit_do_set_lighting_auction" />
-<input type="hidden" id="J_HideCateNameInShop" name="shopCatName" value=""> -->
+<form action="Goods/addGoods" method="post" name="open" id="uploadForm"  method="post"  enctype="multipart/form-data">
+
 
 <div class="hq-goods-area">
 	<div class="hq-goods-con">
@@ -175,12 +154,11 @@
             <div class="row">
                                     <label>价格：</label>
                 
-                <input type="text" value=""  class="search-price" name="specs.smoney" id="search-price-from"/>
+                <input type="text" value=""  class="search-price" name="smoney" id="search-price-from" pattern="^[0-9]*$" oninvalid="setCustomValidity('请输入正数');"/>
             </div>
                             <div class="row">
                     <label>颜色：</label>
-                    
-                    <input type="text" value="" maxlength="64" name="goodsColor.gcName" id="search-keyword1" />
+                    <input type="text" value="" maxlength="64" name="gcName" id="search-keyword1" />
                     <!-- <select id="itemConditionSet" name="itemConditionSet">
                         <option  selected  value="">无</option>
                         <option  value="discount">会员折扣</option>
@@ -192,19 +170,16 @@
 
         <div class="colum">
 
-                            <div class="row">
-                    <label for="outer-id">商品类型编号：</label>
-                    <input type="text" value="" maxlength="64" name="type.typeId" id="outer-id"/>
-                </div>
+                    
             
             <div class="row">
                 <label>库存：</label>
-                <input type="text" value=""  class="search-num" name="specs.gStock" id="search-num-from"/>
+                <input type="text" value=""  class="search-num" name="gStock" id="search-num-from"/>
             </div>
 
                             <div class="row">
                     <label>规格名称：</label>
-                    <input type="text" value="" maxlength="64" name="specs.specsName" id="outer-id"/>
+                    <input type="text" value="" maxlength="64" name="specsName" id="outer-id"/>
                     <!-- <select id="itemStepAudit" name="itemStepAudit">
                         <option  selected  value="">无</option>
                         <option  value="stepChecking">审核中</option>
@@ -215,7 +190,7 @@
                 <div class="colum">
             <div class="row">
                 <label for="first-cate-id">宝贝品牌：</label>
-                <input type="text" value="" maxlength="64" name="brand.brandId" id="outer-id"/>
+                <input type="text" value="" maxlength="64" name="brandName" id="outer-id"/>
                 
                 <!-- <select name="category" id="first-cate-id"> -->
                    <!--  <option value="" selected >全部类目</option>
@@ -226,17 +201,61 @@
                   
                         <div class="row alignright">
                 <button class="aslink" type="reset">清空条件</button>
-                <button onclick="searchItems()" class="search-btn" type="submit">搜索</button>
+                
             </div>
         </div>
 
         <div class="colum">
             <div class="row">
                 <label for="search-itemid">商品介绍：</label>
-                <input type="text" value="" maxlength="64" name="introduceId" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+                <!-- <input type="text" value="" maxlength="64" name="introduceId" id="search-itemid"  class="search-keyword" style="width: 156px;"/> -->
             </div>
-            <label for="search-itemid">商铺Id：</label>    
-            <input type="text" value="" maxlength="64" name="shop.shopId" id="outer-id"/>
+            <div class="row">
+                <label for="search-itemid">宝贝照片：</label>
+               
+                <input type="file" name="Imgs"maxlength="64"style="width: 156px;"/>
+            </div>
+           
+             <div class="row">
+                <label for="search-itemid">摄像头像素：</label>
+                <input type="text" value="" maxlength="64" name="pixel" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">屏幕尺寸：</label>
+                <input type="text" value="" maxlength="64" name="gSize" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">分辨率：</label>
+                <input type="text" value="" maxlength="64" name="resolution" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">网络4G/3G：</label>
+                <input type="text" value="" maxlength="64" name="network" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">网络模式：</label>
+                <input type="text" value="" maxlength="64" name="gModel" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+            <div class="row">
+                <label for="search-itemid">运行内存：</label>
+                <input type="text" value="" maxlength="64" name="gMemory" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">cpu品牌：</label>
+                <input type="text" value="" maxlength="64" name="cpuBrand" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">手机颜色：</label>
+                <input type="text" value="" maxlength="64" name="phoneColor" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+             <div class="row">
+                <label for="search-itemid">操作系统：</label>
+                <input type="text" value="" maxlength="64" name="gSystem" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
+            <div class="row">
+                <label for="search-itemid">核心数：</label>
+                <input type="text" value="" maxlength="64" name="gCore" id="search-itemid"  class="search-keyword" style="width: 156px;"/>
+            </div>
         </div>
         <div  class="colum">
                 </div>
@@ -244,17 +263,15 @@
     </div>
     </div>
 
+
+
+
+</script>
+
+
 </form>
 
-<!-- <form action="goods/insertGoods">
-			<input type="hidden" name="eid"> 
-			<input type="date"
-				name="saleTime"> 
-				商品类型:<input type="text" name="ename" /> 
-				商品名称:<input type="text" name="goodsName" /> 
-				<select name="dept.did"></select> 
-				<input type="submit" value="添加">
-		</form>
- -->
+
+
 </body>
 </html>

@@ -97,24 +97,31 @@
 						num++;
 						$("#Goods").append("<div class='row' id='a"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goodsImg+"'class='img-rounded' width='180px' height='180px'></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'class='img-rounded' width='200px' height='200px'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
-								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
-								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div></div>");
+								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
+								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div></div>");
 					}
 					if (i < 4) {
 						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='180px' height='180px'></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='200px' height='200px'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
-								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
-								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
+								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
+								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
 					} else if (i % 4 != 0) {
 						$("#a"+num).append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data[i].goodsImg+" class='img-rounded' width='180px' height='180px'></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+" class='img-rounded' width='200px' height='200px'></a>"
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+<<<<<<< HEAD
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
 								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
 					}				
+=======
+								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
+								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
+					}
+					
+>>>>>>> branch 'master' of https://github.com/1525208157/taobao1.git
 				}
 			}
 		})
@@ -147,8 +154,8 @@
 						id="J_MiniCart" data-name="cart" data-spm="1997525049">
 						<div class="site-nav-menu-hd">
 							<a
-								href="${pageContext.request.contextPath}/WEB-INF/jsp/mycart.jsp"
-								target="_top"> <span
+								href="${pageContext.request.contextPath}/carts/showCarts"
+								target="_blank"> <span
 								class="site-nav-icon site-nav-icon-highlight">&#xe603;</span> <span>购物车</span>
 								<strong class="h" id="J_MiniCartNum"></strong>
 							</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
@@ -282,7 +289,7 @@
 		</script>
 		<br>
 		<div id="Goods" style="width: 1180px;">
-			<div style="width: 100%;" class="row" id="firstRow"></div>
+			<div class="row" id="firstRow"></div>
 		</div>
 	</center>
 </body>

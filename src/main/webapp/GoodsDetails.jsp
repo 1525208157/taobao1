@@ -13,18 +13,23 @@
 <script type="text/javascript">
 	$(function() {
 		var goodsId = ${param.goodsId};
-		$.ajax({
+		$
+				.ajax({
 					url : "myTaobao/selectGoods",
 					data : {
 						"goodsId" : goodsId
 					},
 					dataType : "json",
 					success : function(data) {
-						$("#td_goodsImg").append("<img src="+data.goodsImg+">");
+						$("#td_goodsImg")
+								.append(
+										"<img src="+data.goodsImg+" width='400px' height='400px'>");
 						$("#td_goodsName").append(data.goodsName);
 						$("#smoney").append(data.specs[0].smoney);
 						$("#saleNum").append(data.saleNum);
-						$("#favoritesGood").append("<a href='#' onclick='insertFavoritesGood("+data.goodsId+")'>收藏商品</a>");
+						$("#favoritesGood").append(
+								"<a href='#' onclick='insertFavoritesGood("
+										+ data.goodsId + ")'>收藏商品</a>");
 						$("#appraisesNum").append(
 								"<a href='#' onclick='openAppraisesModal()'>"
 										+ data.appraises.length + "</a>");
@@ -66,48 +71,107 @@
 						for (var x = 0; x < data.specs.length; x++) {
 							$("#td_specsName")
 									.append(
-											"<label class='btn btn-default'><input type='radio' name='specsName_btn' onchange='getGStock("
+											"<label class='btn btn-default'><input type='radio' name='specsName_btn' value='"
+													+ data.specs[x].specsId
+													+ "' onchange='getGStock("
 													+ data.specs[x].specsId
 													+ ")'>"
 													+ data.specs[x].specsName
 													+ "</label>");
 						}
 						for (var y = 0; y < data.appraises.length; y++) {
-							$("#appraisesModal").append("<div class='row'><div class='col-lg-7 col-sm-7'>"+data.appraises[y].content+"</div><div class='col-lg-2 col-sm-2'>"+data.appraises[y].appraisesTime+"</div><div class='col-lg-3 col-sm-3'>"+data.appraises[y].users.nickname+"</div></div>");
+							$("#appraisesModal")
+									.append(
+											"<div class='row'><div class='col-lg-7 col-sm-7'>"
+													+ data.appraises[y].content
+													+ "</div><div class='col-lg-2 col-sm-2'>"
+													+ data.appraises[y].appraisesTime
+													+ "</div><div class='col-lg-3 col-sm-3'>"
+													+ data.appraises[y].users.nickname
+													+ "</div></div>");
 						}
 						for (var z = 0; z < data.goodsColor.length; z++) {
-							$("#td_gcName").append(
-									"<label class='btn btn-default'><input type='radio' name='gcName_btn'>"
-											+ data.goodsColor[z].gcName
-											+ "</label>");
+							$("#td_gcName")
+									.append(
+											"<label class='btn btn-default'><input type='radio' name='gcName_btn' value='"+data.goodsColor[z].gcId+"'>"
+													+ data.goodsColor[z].gcName
+													+ "</label>");
 						}
 
 						$("#shopRow")
 								.append(
-										"<div class='col-lg-2 col-sm-2'><a href=''>"
+										"<div class='col-lg-1 col-sm-1'><a target='_blank' href='ShopsDetails.jsp?shopId="
+												+ data.shop.shopId
+												+ "'><img src="+data.shop.shopImg+" width='60px' height='60px'></a></div>"
+												+ "<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="
+												+ data.shop.shopId
+												+ "'>"
 												+ data.shop.shopName
 												+ "</a></div>"
 												+ "<div class='col-lg-1 col-sm-1'>描述<br>5</div>"
 												+ "<div class='col-lg-1 col-sm-1'>服务<br>5</div>"
 												+ "<div class='col-lg-1 col-sm-1'>物流<br>5</div>"
-												+ "<div class='col-lg-2 col-sm-2'><a href=''><img src="+data.shop.shopImg+"></a></div>"
-												+ "<div class='col-lg-5 col-sm-5'><a href='#' onclick='insertFavoritesShop("+data.shop.shopId+")'>收藏店铺</a></div>");
+												+ "<div class='col-lg-5 col-sm-5'><a href='#' onclick='insertFavoritesShop("
+												+ data.shop.shopId
+												+ ")'>收藏店铺</a></div>");
 
 					}
 
 				})
+		var userId = "${users.userId }";
+		$
+				.ajax({
+					url : "myTaobao/selectAddress?userId=" + userId,
+					dataType : "json",
+					success : function(data) {
+						for (i = 0; i < data.length; i++) {
+							var str = data[i].isDefault == 1 ? "<font size='4' color='red' style='border: 1px solid red;font-family: 'microsoft yahei;'>默认地址</font>"
+									: "";
+							$("#addressBody")
+									.append(
+											"<div class='row'>"
+													+ "<input type='radio' name='addressBtn' value='"+data[i].addressId+"'>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userName
+													+ "</font></div>"
+													+ "<div class='col-lg-4 col-md-4 col-sm-4'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userAddress
+													+ "</font></div>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userPhone
+													+ "</font></div>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'>"
+													+ str + "</div>" + "</div>");
+						}
+					}
+				})
+
 	});
 
 	function addNum() {//控制数量加
-		$("#td_num").val(eval($("#td_num").val() + "+1"));
+		var gStock = $("#gStock").text();
+		var num = $("#td_num").val();
+		if (gStock != "") {
+			if (num == gStock) {
+				$("#addBtn").attr('disabled', true);
+				alert("超出库存数量！");
+			} else {
+				$("#td_num").val(eval($("#td_num").val() + "+1"));
+				$("#minusBtn").attr('disabled', false);
+			}
+		} else {
+			alert("请先选择存储容量！");
+		}
+
 	}
 
 	function minusNum() { //控制数量减
-		if ($("#td_num").val() <= 1) {
+		var num = $("#td_num").val();
+		if (num <= 1) {
 			$("#minusBtn").attr('disabled', true);
-		} else if ($("#td_num").val() > 1) {
-			$("#minusBtn").attr('disabled', false);
+		} else if (num > 1) {
 			$("#td_num").val(eval($("#td_num").val() + "-1"));
+			$("#addBtn").attr('disabled', false);
 		}
 
 	}
@@ -127,12 +191,12 @@
 			}
 		});
 	}
-	
+
 	//显示评价模态框
-	function openAppraisesModal() { 
+	function openAppraisesModal() {
 		$("#appModal").modal();
 	}
-	
+
 	//添加收藏商品
 	function insertFavoritesGood(goodsId) {
 		var userId = "${users.userId }";
@@ -142,8 +206,8 @@
 			$.ajax({
 				url : "myTaobao/insertFavoritesGood",
 				data : {
-					"goodsId":goodsId,
-					"userId":userId
+					"goodsId" : goodsId,
+					"userId" : userId
 				},
 				success : function(data) {
 					if (data == 0) {
@@ -154,9 +218,9 @@
 				}
 			});
 		}
-		
+
 	}
-	
+
 	//添加收藏店铺
 	function insertFavoritesShop(shopId) {
 		var userId = "${users.userId }";
@@ -166,8 +230,8 @@
 			$.ajax({
 				url : "myTaobao/insertFavoritesShop",
 				data : {
-					"shopId":shopId,
-					"userId":userId
+					"shopId" : shopId,
+					"userId" : userId
 				},
 				success : function(data) {
 					if (data == 0) {
@@ -178,9 +242,98 @@
 				}
 			});
 		}
-		
+
 	}
-	
+
+	//添加至购物车
+	function insertCarts() {
+		var userId = "${users.userId }"; //用户ID
+		var cartGoodNum = $("#td_num").val(); //商品数量
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ")
+				.val(); //规格
+		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
+		if (userId == "") {
+			alert("请先登录！");
+		} else {
+			if (specsId == null || gcId == null) {
+				alert("请先选择颜色和容量！");
+			} else {
+				$.ajax({
+					url : "myTaobao/insertCarts",
+					data : {
+						"userId" : userId,
+						"specs.specsId" : specsId,
+						"cartGoodNum" : cartGoodNum,
+						"gColor.gcId" : gcId
+					},
+					success : function(data) {
+						alert(data);
+					}
+				})
+			}
+		}
+	}
+
+	//提交订单
+	function insertOrder() {
+		var userId = "${users.userId }"; //用户Id
+		var smoney = $("#smoney").text(); //单价
+		var goodsNum = $("#td_num").val(); //商品数量
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ")
+				.val(); //规格
+		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
+		var addressId = $("#addressModal input[name='addressBtn']:checked ")
+				.val();
+		if (addressId == null) {
+			alert("请先选择收货地址！");
+		} else {
+			$.ajax({
+				url : "myTaobao/insertOrder",
+				data : {
+					"user.userId" : userId,
+					"totalMoney" : smoney * goodsNum, //需要转double
+					"orderStatus" : 1,
+					"isDel" : 0,
+					"address.addressId" : addressId, //收货地址
+
+					"specs.specsId" : specsId,
+					"goodsNum" : goodsNum,
+					"ogColor.gcId" : gcId
+				},
+				success : function(data) {
+					alert(data);
+				}
+			})
+		}
+
+	}
+
+	//打开结算模态框
+	function openAddressModal() {
+		var userId = "${users.userId }"; //用户Id
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ")
+				.val(); //规格
+		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
+		var smoney = $("#smoney").text(); //单价
+		var cartGoodNum = $("#td_num").val(); //商品数量
+		if (userId == "") {
+			alert("请先登录！");
+		} else {
+			if (specsId == null || gcId == null) {
+				alert("请先选择颜色和容量！");
+			} else {
+				$("#totalMoney").val(smoney * cartGoodNum);
+				$("#addressModal").modal();
+			}
+		}
+
+	}
+
+	function changeNum() {
+		if ($("#td_num").val() <= 0 || $("#td_num").val() == "") {
+			$("#td_num").val(1);
+		}
+	}
 </script>
 
 <body>
@@ -227,7 +380,8 @@
 							<button type="button" id="addBtn" class="btn btn-dafault"
 								onclick="addNum()">
 								<i class="glyphicon glyphicon-plus"></i>
-							</button> <input type="text" value="1" size="2" id="td_num">
+							</button> <input type="text" value="1" size="2" id="td_num"
+							onchange="changeNum">
 							<button type="button" id="minusBtn" class="btn btn-dafault"
 								onclick="minusNum()">
 								<i class="glyphicon glyphicon-minus"></i>
@@ -237,8 +391,10 @@
 					<tr>
 						<td align="center" id="favoritesGood"></td>
 						<td colspan="2">
-							<button type="button" class="btn btn-danger">加入购物车</button>&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-danger">购买</button>
+							<button type="button" class="btn btn-danger"
+								onclick="insertCarts()">加入购物车</button>&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-danger"
+								onclick="openAddressModal()">提交订单</button>
 						</td>
 					</tr>
 				</table>
@@ -255,39 +411,62 @@
 					<div class="panel-body" id="introducePanel"></div>
 				</div>
 			</div>
-			
+
 			<!-- 评价模态框 -->
 			<div class="modal fade" id="appModal">
 				<div class="modal-dialog" style="width: 50%">
 					<div class="modal-content">
 						<div class="modal-header">
-							
+
 							<h4 class="modal-title">
-							<div class="row">
-								<div class="col-lg-7 col-md-8 col-sm-7">评价内容</div>
-								<div class="col-lg-2 col-md-2 col-sm-2">评价时间</div>
-								<div class="col-lg-2 col-md-2 col-sm-2">评价人</div>
-								<div class="col-lg-1 col-md-1 col-sm-1"><button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-							</button></div>
-								
-							</div>
+								<div class="row">
+									<div class="col-lg-7 col-md-8 col-sm-7">评价内容</div>
+									<div class="col-lg-2 col-md-2 col-sm-2">评价时间</div>
+									<div class="col-lg-2 col-md-2 col-sm-2">评价人</div>
+									<div class="col-lg-1 col-md-1 col-sm-1">
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+										</button>
+									</div>
+
+								</div>
 							</h4>
 						</div>
-						<div class="modal-body" id="appraisesModal">
-							
-						</div>
-						
+						<div class="modal-body" id="appraisesModal"></div>
+
 					</div>
 					<!-- /.modal-content -->
 				</div>
 				<!-- /.modal-dialog -->
 			</div>
 			<!-- /.modal -->
-			
+
 		</div>
 		<!-- body结束 -->
 
+		<div class="modal fade" id="addressModal">
+			<div class="modal-dialog" style="width: 60%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">付款</h4>
+					</div>
+					<div class="modal-body" id="addressBody"></div>
+					<div class="modal-footer">
+						<div>
+							<font size="5" color="red" id="totalMoney"></font>
+						</div>
+						<button type="button" class="btn btn-primary"
+							onclick="insertOrder()">确认付款</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 
 		<div class="col-lg-3 col-md-3 col-sm-3"></div>
 	</div>
