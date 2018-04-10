@@ -160,12 +160,6 @@ public String insertFavoritesGood(MultipartFile Imgs,Brand brand,Goods goods, Go
 	goods.getSpecs().add(specs);//级联添加
 	goods.getGoodsColor().add(goodsColor);//级联添加
 	
-	Date now = new Date();//添加系统时间
-	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String now1=df.format(now);
-	goods.setSaleTime(now1);
-	
-	
 	goods.setGoodsImg(goodsImg);
 	gs.saveOrUpdate(goods);
 	gs.addBrand(brand);

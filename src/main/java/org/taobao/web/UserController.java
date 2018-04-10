@@ -27,8 +27,7 @@ public class UserController {
 	@Resource
 	private UserService ur;
 
-	@Resource
-	private GoodsService gs;
+	
 
 	/**
 	 * @param img
@@ -36,7 +35,7 @@ public class UserController {
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
-	 * 上传图片加回显图片
+	 * 上传图片加回显图片                                           
 	 */
 	@RequestMapping("/insert_user")
 	@ResponseBody//MultipartFile mfile

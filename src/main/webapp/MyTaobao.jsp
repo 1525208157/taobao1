@@ -170,8 +170,8 @@
 					id="J_MiniCart" data-name="cart" data-spm="1997525049">
 					<div class="site-nav-menu-hd">
 						<a
-							href="//cart.taobao.com/cart.htm?from=mini&ad_id=&am_id=&cm_id=&pm_id=1501036000a02c5c3739"
-							target="_top"> <span
+							href="${pageContext.request.contextPath}/carts/showCarts" 
+							target="_blank"> <span
 							class="site-nav-icon site-nav-icon-highlight">&#xe603;</span> <span>购物车</span>
 							<strong class="h" id="J_MiniCartNum"></strong>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
@@ -425,7 +425,7 @@
 				<dl class="mt-menu-item" data-spm="a2109">
 					<dt class="fs14">全部功能</dt>
 					<dd>
-						<a href="//cart.taobao.com/cart.htm?nekot=1470211439694"
+						<a href="${pageContext.request.contextPath}/carts/showCarts"
 							target="_blank" role="menuitem" data-spm="d1000367">我的购物车</a>
 					</dd>
 					<dd class="mt-menu-sub fold J_MtSideTree">

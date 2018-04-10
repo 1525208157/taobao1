@@ -20,6 +20,7 @@ import org.taobao.pojo.Carts;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.FavoritesShops;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.OrderGoods;
 import org.taobao.pojo.Orders;
 import org.taobao.pojo.Shops;
 import org.taobao.pojo.Specs;
@@ -218,7 +219,10 @@ public class MyTaobaoController {
 	@ResponseBody
 	public String updateOrderStatus(Integer orderId,Integer orderStatus) { //修改订单状态(确认收货)
 		Orders order = os.selectOrder(orderId);
-		order.setOrderStatus(orderStatus);
+		Date date = new Date();//获取时间
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		order.setOrderStatus(orderStatus); //修改订单状态
+		order.setReceiveTime(sf.format(date)); //确认收货时间
 		os.saveOrUpdate(order);
 		return "ok";
 	}
@@ -297,6 +301,19 @@ public class MyTaobaoController {
 			cg.setCarts(c.get(0));
 			cgs.updateCartGoods(cg);
 		}
+		return "ok";
+	}
+	
+	@RequestMapping("insertOrder")
+	@ResponseBody
+	public String insertOrder(Orders orders,OrderGoods og) { //添加订单
+		List<OrderGoods> orderGoods = new ArrayList<>();
+		orderGoods.add(og); //集合添加订单商品
+		Date now = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		orders.setCreateTime(sf.format(now)); //添加创建时间
+		orders.setOrderGoods(orderGoods); //订单添加订单商品
+		os.saveOrUpdate(orders);
 		return "ok";
 	}
 	

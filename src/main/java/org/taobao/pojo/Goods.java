@@ -1,6 +1,5 @@
 package org.taobao.pojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,11 +21,9 @@ public class Goods { //商品表
 	private String goodsImg; //商品图片路径
 	private Integer isRecom; //是否推荐
 	private Integer saleNum; //商品总销量
-	private String saleTime; //上架时间
 	private List<Appraises> appraises; //评价 一对多
 	private List<GoodsColor> goodsColor; //颜色，一对多
 	private GoodsIntroduce goodsIntroduce; //商品介绍
-	private List<GoodsPicture> goodsPicture; //商品图片
 	private List<Specs> specs; //一对多 规格 双向
 	private Shops shop; //多对一 店铺
 	
@@ -62,12 +59,6 @@ public class Goods { //商品表
 	public void setSaleNum(Integer saleNum) {
 		this.saleNum = saleNum;
 	}
-	public String getSaleTime() {
-		return saleTime;
-	}
-	public void setSaleTime(String saleTime) {
-		this.saleTime = saleTime;
-	}
 	
 	@OneToMany
 	@JoinColumn(name="goodsId")
@@ -97,15 +88,6 @@ public class Goods { //商品表
 	
 	public void setGoodsIntroduce(GoodsIntroduce goodsIntroduce) {
 		this.goodsIntroduce = goodsIntroduce;
-	}
-	
-	@OneToMany
-	@JoinColumn(name="goodsId")
-	public List<GoodsPicture> getGoodsPicture() {
-		return goodsPicture;
-	}
-	public void setGoodsPicture(List<GoodsPicture> goodsPicture) {
-		this.goodsPicture = goodsPicture;
 	}
 	
 	@OneToMany(cascade=CascadeType.ALL)

@@ -17,7 +17,6 @@ public class OrderGoods { //订单商品表
 	private Integer goodsNum; //商品数量  
 	private GoodsColor ogColor; //颜色
 	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getOgId() {
@@ -35,7 +34,6 @@ public class OrderGoods { //订单商品表
 	
 	@ManyToOne
 	@JoinColumn(name="specsId")
-	 
 	public Specs getSpecs() {
 		return specs;
 	}

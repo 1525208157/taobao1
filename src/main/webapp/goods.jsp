@@ -6,6 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"> </script>
 </head>
 <body>
@@ -69,8 +73,8 @@
 
 </script>
 
- <table border="1">
- 	<tr>
+ <table class="table  table-bordered table-hover table-condensed" border="0">
+ 	<tr class="info">
  		<td>商品编号</td>
  		<td><img src="" class="Imgs" id="Imgs">图片</td>
  		<td>商品名称</td>

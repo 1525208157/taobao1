@@ -20,13 +20,13 @@
 			dataType : "json",
 			success:function(data){
 				$("#shopRow").append(
-						"<div class='col-lg-2 col-sm-2'><a href=''>"
+						 "<div class='col-lg-1 col-sm-1'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shopId+"'><img src="+data.shopImg+" width='60px' height='60px'></a></div>"
+						+"<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shopId+"'>"
 								+ data.shopName
 								+ "</a></div>"
 								+ "<div class='col-lg-1 col-sm-1'>描述<br>5</div>"
 								+ "<div class='col-lg-1 col-sm-1'>服务<br>5</div>"
 								+ "<div class='col-lg-1 col-sm-1'>物流<br>5</div>"
-								+ "<div class='col-lg-2 col-sm-2'><a href=''><img src="+data.shopImg+"></a></div>"
 								+ "<div class='col-lg-5 col-sm-5'><a href='#' onclick='insertFavoritesShop("+data.shopId+")'>收藏店铺</a></div>");
 				var num = 0;
 				for (i = 0; i < data.goods.length; i++) {
@@ -34,22 +34,22 @@
 						num++;
 						$("#goodsBody").append("<div class='row' id='d"+num+"'>"
 								+"<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data.goods[i].goodsImg+"' width='180' height='160' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><img src='"+data.goods[i].goodsImg+"' width='180' height='180' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data.goods[i].specs[0].smoney+"</font>"
 								+"</div>"
 								+"</div>");
 					}
 					if (i < 4) {
 						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data.goods[i].goodsImg+"' width='180' height='160' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><img src='"+data.goods[i].goodsImg+"' width='180' height='180' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data.goods[i].specs[0].smoney+"</font>"
 								+"</div>");
 					} else if (i%4 != 0) {
 						$("#d"+num).append("<div class='col-lg-3 col-md-3'>"
-								+"<a href='#'><img src='"+data.goods[i].goodsImg+"' width='180' height='160' class='img-rounded'></a>"
-								+"<br><a href='#'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
+								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><img src='"+data.goods[i].goodsImg+"' width='180' height='180' class='img-rounded'></a>"
+								+"<br><a target='_blank' href='GoodsDetails.jsp?goodsId="+data.goods[i].goodsId+"'><font size='4'>"+data.goods[i].goodsName+"</font></a>"
 								+"<br><font size='4' color='red'>￥"+data.goods[i].specs[0].smoney+"</font>"
 								+"</div>");
 					}
@@ -87,11 +87,13 @@
 	
 </script>
 <body>
+	<br>
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-3"></div>
-		<div class="col-lg-6 col-md-6 col-sm-6" id="goodsBody" style="border: 1px solid;">
+		<div class="col-lg-6 col-md-6 col-sm-6" id="goodsBody">
 			<!-- 店铺信息 -->
 			<div class="row" id="shopRow" style="width: 100%;"></div>
+			<hr>
 			<!-- 商品详情 -->
 			<div class="row" id="firstRow"></div>
 		</div>
