@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.ShopsDao;
 import org.taobao.pojo.Goods;
 import org.taobao.pojo.Shops;
+import org.taobao.pojo.Users;
 import org.taobao.service.ShopsService;
 @Service
 @Transactional
@@ -27,11 +28,21 @@ private ShopsDao sd;
 		return shop;
 	}
 
-	@Override
-	public void saveOrUpdate(Shops o) {
+	@Override//ÃÌº”µÍ∆Ã√˚≥∆
+	public void addShops(Shops o) {
 		sd.saveOrUpdate(o);
 		
 	}
 
+	@Override
+	public List<Shops> selectShops(String sql) {
+		List<Shops> shops = sd.selectAll(sql);
+		return shops;
+	}
+
+	
+
+	
+	
 
 }

@@ -27,8 +27,7 @@ public class UserController {
 	@Resource
 	private UserService ur;
 
-	@Resource
-	private GoodsService gs;
+	
 
 	/**
 	 * @param img
@@ -36,7 +35,7 @@ public class UserController {
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
-	 * 上传图片加回显图片
+	 * 上传图片加回显图片                                           
 	 */
 	@RequestMapping("/insert_user")
 	@ResponseBody//MultipartFile mfile
@@ -82,37 +81,7 @@ public class UserController {
 		return "ok";
 	}
 	
-	@RequestMapping("/upload1")
-	@ResponseBody
-	public String upload1(MultipartFile Imgs,Goods goods,HttpServletRequest request) throws  IOException {
-		System.out.println("到这里来了");
-	       //获得文件名加后缀名
-			String filename = Imgs.getOriginalFilename(); 
-			String goodsImg="/images/touxiang.png";
-			if(!filename.equals("")&&filename!=null){
-			//获得文件后缀名的出现位置前一个
-	        int spot = filename.lastIndexOf(".");
-	        //获得后缀名
-	        String ext = filename.substring(spot);
-	        HttpSession session=request.getSession();
-		//获得文件上传的父路径
-	       String path = session.getServletContext().getRealPath("images");
-	       System.out.println("path:"+path);
-	        //获得当前时间的毫秒值和文件后缀名拼接成新的文件名
-			filename=System.currentTimeMillis()+ext;
-			//文件的保存
-			File file = new File(path,filename);
-			Imgs.transferTo(file);
-			//文件的地址回复给浏览器让其通过此地址请求服务器获得刚上传的图片显示出来
-			 goodsImg="/images/"+filename;
-		    
-			//将文件的请求地址返回
-			}
-			goods.setGoodsImg(goodsImg);
-		    gs.saveOrUpdate(goods);
-		    
-	        return "{}";
-	}
+	
         
 	@RequestMapping("check_account")
 	@ResponseBody

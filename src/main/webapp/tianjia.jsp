@@ -93,24 +93,7 @@
     .bgt td {text-align:left;}
 </style>
 <form action="Goods/addGoods" method="post" name="open" id="uploadForm"  method="post"  enctype="multipart/form-data">
-<!--     <input name='_tb_token_' type='hidden' value='53134beb55f31'>
-<input type="hidden" name="pageName" value="goodsOnSale">
-<input type="hidden" name="banner" value="">
-<input type="hidden" name="page" value="1">
-<input type="hidden" id="setVal" name="setVal" value="">
-<input type="hidden" id="orderField" name="orderField" value="1" />
-<input type="hidden" id="orderBy" name="orderBy" value="0" />
-<input type="hidden" name="singleId" value="">
-<input type="hidden" name="singleIdNum" value="">
-<input type="hidden" name="singleIdMinNum" value="">
-<input type="hidden" name="distributionIds" value="">
-<input type="hidden" name="action" value="goodsmanager/GoodsManageAction">
-<input type="hidden" name="event_submit_do_recommend" value="">
-<input type="hidden" name="event_submit_do_delete" />
-<input type="hidden" name="event_submit_do_off_shelf" />
-<input type="hidden" name="event_submit_do_unrecommend" />
-<input type="hidden" name="event_submit_do_set_lighting_auction" />
-<input type="hidden" id="J_HideCateNameInShop" name="shopCatName" value=""> -->
+
 
 <div class="hq-goods-area">
 	<div class="hq-goods-con">
@@ -171,7 +154,7 @@
             <div class="row">
                                     <label>价格：</label>
                 
-                <input type="text" value=""  class="search-price" name="smoney" id="search-price-from"/>
+                <input type="text" value=""  class="search-price" name="smoney" id="search-price-from" pattern="^[0-9]*$" oninvalid="setCustomValidity('请输入正数');"/>
             </div>
                             <div class="row">
                     <label>颜色：</label>
@@ -280,32 +263,14 @@
     </div>
     </div>
 
-<div>
-<!-- <img id = "Imgs" height = "60" width = "60" name="Imgs"/> -->
-</div>
+
+
+
+</script>
 
 
 </form>
-	<script type="text/javascript">
-		$(function aaa(){
 
-			$("button:contains('上穿')").on("click", function() {
-				var fd = new FormData($("#uploadForm")[0]);
-				$.ajax({
-					url : "${pageContext.request.contextPath}/Goods/addGoods",
-					data : fd,
-					type : "post",
-					processData : false,
-					contentType : false,
-					success : function(data) {
-						alert(data);
-						$("#userImg").attr("src", "${pageContext.request.contextPath}/"+data);
-						$("[name= 'userImg']").prop('value',data);
-					}
-				});
-			});
-		});
-	</script>
 
 
 </body>
