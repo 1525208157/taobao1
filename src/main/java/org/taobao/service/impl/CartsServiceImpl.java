@@ -8,12 +8,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.taobao.dao.CDao;
 import org.taobao.dao.CartDao;
 import org.taobao.dao.CartGood;
 import org.taobao.dao.CartGoodsDao;
 import org.taobao.dao.GoodColorDao;
 import org.taobao.dao.SpecsDao;
 import org.taobao.pojo.CartGoods;
+import org.taobao.pojo.Carts;
 import org.taobao.pojo.GoodsColor;
 import org.taobao.pojo.Specs;
 import org.taobao.service.CartsService;
@@ -36,6 +38,10 @@ public class CartsServiceImpl implements CartsService {
 	
 	@Resource
     private CartGoodsDao cs;
+	
+	@Resource
+	private CDao cd;
+	
 	@Override
 	@Cacheable(value="good1")//查询购物车商品时添加到缓存good1
 	public List<Shopcarts> getCarts(String sql) {
@@ -86,6 +92,17 @@ public class CartsServiceImpl implements CartsService {
 	public void saveorupdate(CartGoods good) {
 		cs.saveOrUpdate(good);
 		
+	}
+
+	@Override
+	public List<Carts> selectCarts(String sql) {
+		List<Carts> carts = cd.selectAll(sql);
+		return carts;
+	}
+
+	@Override
+	public void addCart(Carts cart) {
+		cd.saveOrUpdate(cart);
 	}
 
 

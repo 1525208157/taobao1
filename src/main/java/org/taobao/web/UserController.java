@@ -132,10 +132,12 @@ public class UserController {
 	@RequestMapping("/find_update_uses")
 	@ResponseBody
 	public String find_update_uses(Users user){
+		
 		String sql="select * from users where account='"+user.getAccount()+"'";
 		List<Users> use=ur.selectUser(sql);
 		use.get(0).setPassword(user.getPassword());
 		ur.saveOrUpdate(use.get(0));
+		
 		return "{}";
 		
 	}
@@ -150,7 +152,7 @@ public class UserController {
 		if(use.isEmpty()){
 			si.setBiaoji("error");
 		}else {
-			session.setAttribute("user", use.get(0));
+			session.setAttribute("users", use.get(0));
 			si.setBiaoji("ok");
 		}
 		return si;

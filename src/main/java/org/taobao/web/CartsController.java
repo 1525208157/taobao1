@@ -74,7 +74,19 @@ public class CartsController {
 	
 	@RequestMapping("/goodAll")
 	@ResponseBody
-	public List<List<Shopcarts>> getCartsGoods(Integer userId){
+	public List<List<Shopcarts>> getCartsGoods(Integer userId){//Integer user
+		
+		String sql4="select * from carts where userId="+userId;//查看是否有该用户的购物车，如果没有则添加该用户的购物车
+		List<Carts> list4=ca.selectCarts(sql4);
+		if(list4.isEmpty()){
+			Users us=new Users();
+			us.setUserId(userId);
+			Carts css=new Carts();
+			css.setUser(us);
+			ca.addCart(css);
+		}
+		
+		
 		String sql="select s.shopId,s.shopName, ca.cartGoodId,sp.specsId,sp.specsName,gc.gcId,gc.gcName,sp.smoney,g.goodsId,g.goodsImg,g.goodsName ,"
 					+"ca.cartGoodNum,ca.cgDate from carts c,cartgoods ca, specs  sp,goods g,shops s, goodscolor gc where "
 				    +"c.cartId=ca.cartId and ca.specsId=sp.specsId and sp.goodsId=g.goodsId and g.shopId=s.shopId and ca.gcId=gc.gcId "
@@ -128,7 +140,7 @@ public class CartsController {
 	
 		
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -166,12 +178,12 @@ public class CartsController {
 		System.out.println("添加关注");
 		HttpSession see=request.getSession();
 	    
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}
-		 */
+		}*/
+		 
 		Sign si=new Sign();
 		if(idList!=null){//这里在后台判断是不是空了 直接写idList.size()!=0不能这样写，如果是空时idlist就是空， 虽然前台new了一个集合
 		List<Integer> li=new ArrayList<>();
@@ -280,7 +292,7 @@ public class CartsController {
 	 public String update_cartgoods(HttpServletRequest request,CartGoods good){//修改购物车里的商品型号
 		   
 			HttpSession see=request.getSession();
-			 Users user=(Users) see.getAttribute("user");
+			 Users user=(Users) see.getAttribute("users");
 			/*if(user==null){
 				user=new Users();
 				user.setUserId(1);
@@ -400,12 +412,12 @@ public class CartsController {
 	@ResponseBody
 	public String update_address(HttpServletRequest request,Address ad,ModelMap model){//修改地址栏
 		 HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
-		}*/
-		
+		}
+		*/
 		ad.setUsers(user);//给前台传过来的地址添加外键用户
 		
 		//数据库里的收货地址默认地址要么只能有一个，要么没有默认地址，不能有多个默认地址
@@ -454,7 +466,7 @@ public class CartsController {
 	@ResponseBody
 	public String insert_address(HttpServletRequest request,Address ad,ModelMap model){//添加新地址 数据库里；每个人默认地址只能有一个，要么没有
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -470,7 +482,7 @@ public class CartsController {
 			List<Address> adds=address.selectAddress(hql);
 			if(!adds.isEmpty()){//判断是否为空！，直接  adds.get(0).setIsDefault(0);
 				
-			     adds.get(0).setIsDefault(0);
+			     adds.get(0).setIsDefault(0);//？？？？？？？？
 		}
 		}
 		 address.saveOrUpdateAddress(ad);//添加对象
@@ -485,7 +497,7 @@ public class CartsController {
 	@ResponseBody
 	 public String createdingdan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,Address addr,HttpServletRequest request){
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);
@@ -586,7 +598,11 @@ public class CartsController {
 		       
 		return "{}";
 	 }
-
+	
+	@RequestMapping("/tiaozhuan_login")
+	public String tiaozhuan_login(){
+		return "redirect:/Login.jsp";
+	}
 	   
 }
 

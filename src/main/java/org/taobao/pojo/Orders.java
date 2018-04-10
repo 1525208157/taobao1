@@ -1,7 +1,6 @@
 package org.taobao.pojo;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,6 +26,7 @@ public class Orders { //订单信息表
 	private String createTime; //下单时间
 	private Integer isDel; //是否删除  0 1
 	private List<OrderGoods> orderGoods; //一对多 订单商品
+	private Users user; //多对一
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -94,5 +94,17 @@ public class Orders { //订单信息表
 	public void setOrderGoods(List<OrderGoods> orderGoods) {
 		this.orderGoods = orderGoods;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("orders")
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	
+	
 	
 }
