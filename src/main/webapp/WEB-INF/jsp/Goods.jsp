@@ -19,7 +19,7 @@
 			location.href = "${pageContext.request.contextPath}/Goods/queryAll?goodsName="
 					+ $("#Name").val();
 		}else if(a=="d"){
-			location.href="Shops/queryAll?shopName="+$("#Name").val();
+			location.href="${pageContext.request.contextPath}/hops/queryAll?shopName="+$("#Name").val();
 		}
 	}
 </script>

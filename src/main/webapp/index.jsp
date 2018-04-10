@@ -114,8 +114,7 @@
 								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
 								+" <br/> <a href=''>"+data[i].goodsName+"</a>"
 								+"<br/><a href=''>"+data[i].shop.shopName+"</a></div>");
-					}
-					
+					}				
 				}
 			}
 		})
