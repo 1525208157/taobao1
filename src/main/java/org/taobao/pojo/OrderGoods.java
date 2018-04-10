@@ -8,13 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class OrderGoods { //订单商品表
 	private Integer ogId;
 	private Specs specs; //多对一 规格
 	private Integer goodsNum; //商品数量  
 	private GoodsColor ogColor; //颜色
-	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

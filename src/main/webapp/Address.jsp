@@ -15,6 +15,7 @@
 			position: absolute;
 			top: 10px;
 		}
+		
 	</style>
 
 <!--我的淘宝图片-->
@@ -88,19 +89,20 @@
 				dataType:"json",
 				success:function(data){
 					for (i = 0; i < data.length; i++) {
-						alert(data[i].isDefault=="1");
+						var str = data[i].isDefault==1?"<font size='4' color='red' style='border: 1px solid red;font-family: 'microsoft yahei;'>默认地址</font>" : "<a href='#' onclick='updateIsDefault("+data[i].addressId+")'><font size='4' style='font-family: 'microsoft yahei';'>设为默认</font></a>";
 						$("#addressDiv").append("<div class='row'>"
-								+"<div class='col-lg-2 col-md-2 col-sm-2'>"+data[i].userName+"</div>"
-								+"<div class='col-lg-4 col-md-4 col-sm-4'>"+data[i].userAddress+"</div>"
-								+"<div class='col-lg-2 col-md-2 col-sm-2'>"+data[i].userPhone+"</div>"
-								+"<div class='col-lg-2 col-md-2 col-sm-2'><button class='btn btn-default btn-xs' onclick='selectOneAddress("+data[i].addressId+")'>修改</button> | <button class='btn btn-default btn-xs' onclick='deleteAddress("+data[i].addressId+")'>删除</button></div>"
-								+"<div class='col-lg-2 col-md-2 col-sm-2'>${"+data[i].isDefault+"=='1' ? '默认地址' : '设为默认' }</div>"
+								+"<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userName+"</font></div>"
+								+"<div class='col-lg-4 col-md-4 col-sm-4'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userAddress+"</font></div>"
+								+"<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userPhone+"</font></div>"
+								+"<div class='col-lg-2 col-md-2 col-sm-2'><button class='btn btn-default btn-sm' onclick='selectOneAddress("+data[i].addressId+")'>修改</button> | <button class='btn btn-default btn-sm' onclick='deleteAddress("+data[i].addressId+")'>删除</button></div>"
+								+"<div class='col-lg-2 col-md-2 col-sm-2'>"+str+"</div>"
 								+"</div>");
 					}
 				}
 			})
 		});
 		
+		//添加
 		function insertAddress() {
 			$.ajax({
 				url:"myTaobao/updateAddress",
@@ -119,6 +121,7 @@
 			})
 		};
 		
+		//修改前查询
 		function selectOneAddress(addressId) {
 			$.ajax({
 				url:"myTaobao/selectOneAddress?addressId="+addressId,
@@ -133,6 +136,7 @@
 			})
 		}
 		
+		//修改地址
 		function updateAddress() {
 			$.ajax({
 				url:"myTaobao/updateAddress",
@@ -152,6 +156,7 @@
 			})
 		};
 		
+		//删除地址
 		function deleteAddress(addressId) {
 			$.ajax({
 				url:"myTaobao/deleteAddress?addressId="+addressId,
@@ -162,8 +167,26 @@
 			})
 		};
 		
+		//打开添加模态框
 		function openInsertModal() {
 			$("#insertModal").modal();
+		}
+		
+		//设为默认地址，并取消前默认地址
+		function updateIsDefault(addressId) {
+			var userId = "${users.userId }";
+			$.ajax({
+				url:"myTaobao/updateIsDefault",
+				data:{
+					"addressId":addressId,
+					"userId":userId
+				},
+				success:function(data){
+					alert(data);
+					location.reload();
+				}
+			})
+			
 		}
 		
 	</script>
@@ -203,8 +226,8 @@
 					id="J_MiniCart" data-name="cart" data-spm="1997525049">
 					<div class="site-nav-menu-hd">
 						<a
-							href="//cart.taobao.com/cart.htm?from=mini&ad_id=&am_id=&cm_id=&pm_id=1501036000a02c5c3739"
-							target="_top"> <span
+							href="${pageContext.request.contextPath}/carts/showCarts"
+							target="_blank"> <span
 							class="site-nav-icon site-nav-icon-highlight">&#xe603;</span> <span>购物车</span>
 							<strong class="h" id="J_MiniCartNum"></strong>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>

@@ -87,6 +87,7 @@ public class Users {
 	
 	@OneToMany
 	@JoinColumn(name="userId")
+	@JsonIgnoreProperties("user")
 	public List<Orders> getOrders() {
 		return orders;
 	}

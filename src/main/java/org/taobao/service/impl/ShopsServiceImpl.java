@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.taobao.dao.ShopsDao;
 import org.taobao.pojo.Goods;
 import org.taobao.pojo.Shops;
+import org.taobao.pojo.Users;
 import org.taobao.service.ShopsService;
 @Service
 @Transactional
@@ -20,15 +21,28 @@ private ShopsDao sd;
 		List<Shops> sl = sd.selectAll(sql);
 		return sl;
 	}
-	@Override
-	public void saveOrUpdate(Shops o) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public Shops selectShop(Integer id) {
 		Shops shop = sd.selectOne(id);
 		return shop;
 	}
+
+	@Override//ÃÌº”µÍ∆Ã√˚≥∆
+	public void addShops(Shops o) {
+		sd.saveOrUpdate(o);
+		
+	}
+
+	@Override
+	public List<Shops> selectShops(String sql) {
+		List<Shops> shops = sd.selectAll(sql);
+		return shops;
+	}
+
+	
+
+	
+	
 
 }

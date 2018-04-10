@@ -1,18 +1,32 @@
 package org.taobao.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
 import org.apache.tomcat.jni.Mmap;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.taobao.pojo.Address;
+import org.taobao.pojo.Appraises;
 import org.taobao.pojo.FavoritesGoods;
 import org.taobao.pojo.Brand;
 import org.taobao.pojo.Goods;
+import org.taobao.pojo.GoodsColor;
+import org.taobao.pojo.GoodsIntroduce;
+import org.taobao.pojo.Orders;
 import org.taobao.pojo.Shops;
 
 import org.taobao.pojo.Specs;
@@ -34,6 +48,7 @@ private BrandService bs;
 private SpecsService ss;
 @Resource
 private ShopsService sh;
+
 
 @RequestMapping("/queryAll")
 public String queryAll(ModelMap map,String goodsName){
@@ -109,6 +124,49 @@ public List<Goods> queryAll(){
 	String sql="select * from goods";
 	List<Goods> goods=gs.queryAll(sql);
 	return goods;
+}
+
+
+@RequestMapping("/addGoods")//添加商品
+public String insertFavoritesGood(MultipartFile Imgs,Brand brand,Goods goods, GoodsIntroduce goodsIntroduce,Specs specs,GoodsColor goodsColor,HttpServletRequest request) throws  IOException { 
+
+    //获得文件名加后缀名
+			String filename = Imgs.getOriginalFilename(); 
+			String goodsImg="/images/touxiang.png";
+			if(!filename.equals("")&&filename!=null){
+			//获得文件后缀名的出现位置前一个
+	        int spot = filename.lastIndexOf(".");
+	        //获得后缀名
+	        String ext = filename.substring(spot);
+	        HttpSession session=request.getSession();
+		//获得文件上传的父路径
+	       String path = session.getServletContext().getRealPath("images");
+	       System.out.println("path:"+path);
+	        //获得当前时间的毫秒值和文件后缀名拼接成新的文件名
+			filename=System.currentTimeMillis()+ext;
+			//文件的保存
+			File file = new File(path,filename);
+			Imgs.transferTo(file);
+			//文件的地址回复给浏览器让其通过此地址请求服务器获得刚上传的图片显示出来
+			 goodsImg="/images/"+filename;
+		    
+			//将文件的请求地址返回
+			}
+	
+	
+	
+	goods.setGoodsIntroduce(goodsIntroduce);
+	brand.getGoods().add(goods);//级联添加品牌
+	goods.getSpecs().add(specs);//级联添加
+	goods.getGoodsColor().add(goodsColor);//级联添加
+	
+	goods.setGoodsImg(goodsImg);
+	gs.saveOrUpdate(goods);
+	gs.addBrand(brand);
+	gs.addMony(specs);
+	gs.addGoodsIntroduce(goodsIntroduce);
+	gs.addGoodscolor(goodsColor);
+	return "redirect:/Sellers.jsp";
 }
 
 

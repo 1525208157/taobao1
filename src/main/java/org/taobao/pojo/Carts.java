@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Carts { //购物车表
 	private Integer cartId; //购物车ID
@@ -37,6 +39,7 @@ public class Carts { //购物车表
 	
 	@OneToMany
 	@JoinColumn(name="cartId")
+	@JsonIgnoreProperties("carts")
 	public List<CartGoods> getCartGoods() {
 		return cartGoods;
 	}

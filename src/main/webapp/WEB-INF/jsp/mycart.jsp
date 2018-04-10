@@ -35,26 +35,30 @@ font-size: 19px
  
 </style>
 <script type="text/javascript">
-var user="${user}"
+var user="${users.userId}";
+
 $(function(){
-	if(user!=null){
+	if(user!=""){
 		cartsgoddss();
 	}else{
-		$("#d2").append("<h1>请先登录！！！</h1>")
+		alert("请先登录淘宝网！");
+		location.href="${pageContext.request.contextPath}/carts/tiaozhuan_login";
 	}
 	
 		})
    
    function cartsgoddss(){
-	var userId="${user.userId}"
+	var userId="${users.userId}"
 	 $.ajax({
-		url:"${pageContext.request.contextPath}/carts/goodAll?userId=1",
+		url:"${pageContext.request.contextPath}/carts/goodAll?userId="+userId,
 		dataType:"json",
 		success:function(data){
+			if(data.length!=0){
 			//console.log(data);
 			for(i=0;i<data.length;i++){
 				$("#d2").append("<br><div><div class='row'><div class='col-lg-12 col-md-12'><input type='checkbox' onclick='dianpu_checked(this)' name='shopId_checkbox' value='"
-						+data[i][0].shopId+"'>&nbsp;"+data[i][0].shopName+"<div id='dp"+i+"' class='goods'></div></div></div></div>");
+						+data[i][0].shopId+"'>&nbsp;"+data[i][0].shopName+"&nbsp;&nbsp;&nbsp;<a onclick='openQq()'><img src='${pageContext.request.contextPath}/images/timg.jpg' width=23 height=23></a> <div id='dp"
+						+i+"' class='goods'></div></div></div></div>");
 				for(j=0;j<data[i].length;j++){
 				    $("#dp"+i).append("</br><div class='row'><div class='col-lg-2 col-md-2'>&nbsp;<input type='checkbox'"
 						 +" name='cartgoodId_checkbox'onclick='shangpin_checked(this)' value='"+data[i][j].cartGoodId+"'/>&nbsp;"
@@ -83,7 +87,10 @@ $(function(){
 					$(this).parent().parent().find(":button").first().attr('disabled',true)
 					// $(".colordiv div").css("background-color","#FF0000");
 				}
-			});  
+			}); 
+			}else{
+				$("#d2").append("<h1>购物车内无商品，请你先添加商品！！！</h1>")
+			}
 		}
 
 	})
@@ -378,6 +385,11 @@ $(function(){
 		    alert("请你选择你要结算的商品！")
 		}
 	 }
+	 
+	 function openQq(){
+	    	location.href="tencent://message/?uin=807663065&Site=http://www.zjsoar.com&;Menu=yes";
+	    }
+		 
 </script>
 
 </head>

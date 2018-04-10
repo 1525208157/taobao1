@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class GoodsIntroduce { //商品介绍
+	
 	private Integer introduceId; //ID
 	private String pixel; //摄像头像素
 	private double gSize; //屏幕尺寸
@@ -92,7 +93,7 @@ public class GoodsIntroduce { //商品介绍
 	public void setgCore(String gCore) {
 		this.gCore = gCore;
 	}
-	
+
 	@OneToOne
 	@JoinColumn(name="goodsId")
 	@JsonIgnoreProperties("goodsIntroduce")
@@ -102,5 +103,5 @@ public class GoodsIntroduce { //商品介绍
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
-	
+
 }

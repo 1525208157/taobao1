@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class CartGoods {
 	private Integer cartGoodId; //ID
@@ -15,6 +17,7 @@ public class CartGoods {
 	private Integer cartGoodNum; //物品数量
 	private String cgDate; //添加时间
 	private GoodsColor gColor; //颜色
+	private Carts carts; //购物车 一对多
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -55,6 +58,16 @@ public class CartGoods {
 	}
 	public void setgColor(GoodsColor gColor) {
 		this.gColor = gColor;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="cartId")
+	@JsonIgnoreProperties("cartGoods")
+	public Carts getCarts() {
+		return carts;
+	}
+	public void setCarts(Carts carts) {
+		this.carts = carts;
 	}
 	
 }
