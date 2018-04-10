@@ -35,7 +35,8 @@ font-size: 19px
  
 </style>
 <script type="text/javascript">
-var user="${users.userId}";
+ var user="${users.userId}"; 
+/* var a="${users}"; 这里得到的是个什么对象 */
 
 $(function(){
 	if(user!=""){
