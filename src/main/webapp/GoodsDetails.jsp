@@ -13,14 +13,17 @@
 <script type="text/javascript">
 	$(function() {
 		var goodsId = ${param.goodsId};
-		$.ajax({
+		$
+				.ajax({
 					url : "myTaobao/selectGoods",
 					data : {
 						"goodsId" : goodsId
 					},
 					dataType : "json",
 					success : function(data) {
-						$("#td_goodsImg").append("<img src="+data.goodsImg+" width='400px' height='400px'>");
+						$("#td_goodsImg")
+								.append(
+										"<img src="+data.goodsImg+" width='400px' height='400px'>");
 						$("#td_goodsName").append(data.goodsName);
 						$("#smoney").append(data.specs[0].smoney);
 						$("#saleNum").append(data.saleNum);
@@ -97,8 +100,12 @@
 
 						$("#shopRow")
 								.append(
-										 "<div class='col-lg-1 col-sm-1'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'><img src="+data.shop.shopImg+" width='60px' height='60px'></a></div>"
-										+"<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'>"
+										"<div class='col-lg-1 col-sm-1'><a target='_blank' href='ShopsDetails.jsp?shopId="
+												+ data.shop.shopId
+												+ "'><img src="+data.shop.shopImg+" width='60px' height='60px'></a></div>"
+												+ "<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="
+												+ data.shop.shopId
+												+ "'>"
 												+ data.shop.shopName
 												+ "</a></div>"
 												+ "<div class='col-lg-1 col-sm-1'>描述<br>5</div>"
@@ -111,24 +118,34 @@
 					}
 
 				})
-				var userId = "${users.userId }";
-				$.ajax({
-					url:"myTaobao/selectAddress?userId="+userId,
-					dataType:"json",
-					success:function(data){
+		var userId = "${users.userId }";
+		$
+				.ajax({
+					url : "myTaobao/selectAddress?userId=" + userId,
+					dataType : "json",
+					success : function(data) {
 						for (i = 0; i < data.length; i++) {
-							var str = data[i].isDefault==1?"<font size='4' color='red' style='border: 1px solid red;font-family: 'microsoft yahei;'>默认地址</font>" : "";
-							$("#addressBody").append("<div class='row'>"
-									+"<input type='radio' name='addressBtn' value='"+data[i].addressId+"'>"
-									+"<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userName+"</font></div>"
-									+"<div class='col-lg-4 col-md-4 col-sm-4'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userAddress+"</font></div>"
-									+"<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"+data[i].userPhone+"</font></div>"
-									+"<div class='col-lg-2 col-md-2 col-sm-2'>"+str+"</div>"
-									+"</div>");
+							var str = data[i].isDefault == 1 ? "<font size='4' color='red' style='border: 1px solid red;font-family: 'microsoft yahei;'>默认地址</font>"
+									: "";
+							$("#addressBody")
+									.append(
+											"<div class='row'>"
+													+ "<input type='radio' name='addressBtn' value='"+data[i].addressId+"'>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userName
+													+ "</font></div>"
+													+ "<div class='col-lg-4 col-md-4 col-sm-4'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userAddress
+													+ "</font></div>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'><font size='4' style='font-family: 'microsoft yahei';'>"
+													+ data[i].userPhone
+													+ "</font></div>"
+													+ "<div class='col-lg-2 col-md-2 col-sm-2'>"
+													+ str + "</div>" + "</div>");
 						}
 					}
 				})
-				
+
 	});
 
 	function addNum() {//控制数量加
@@ -262,9 +279,11 @@
 		var userId = "${users.userId }"; //用户Id
 		var smoney = $("#smoney").text(); //单价
 		var goodsNum = $("#td_num").val(); //商品数量
-		var specsId = $("#td_specsName input[name='specsName_btn']:checked ").val(); //规格
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ")
+				.val(); //规格
 		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
-		var addressId = $("#addressModal input[name='addressBtn']:checked ").val();
+		var addressId = $("#addressModal input[name='addressBtn']:checked ")
+				.val();
 		if (addressId == null) {
 			alert("请先选择收货地址！");
 		} else {
@@ -272,11 +291,11 @@
 				url : "myTaobao/insertOrder",
 				data : {
 					"user.userId" : userId,
-					"totalMoney" : smoney*goodsNum, //需要转double
+					"totalMoney" : smoney * goodsNum, //需要转double
 					"orderStatus" : 1,
 					"isDel" : 0,
 					"address.addressId" : addressId, //收货地址
-					
+
 					"specs.specsId" : specsId,
 					"goodsNum" : goodsNum,
 					"ogColor.gcId" : gcId
@@ -286,13 +305,14 @@
 				}
 			})
 		}
-		
+
 	}
-	
+
 	//打开结算模态框
 	function openAddressModal() {
 		var userId = "${users.userId }"; //用户Id
-		var specsId = $("#td_specsName input[name='specsName_btn']:checked ").val(); //规格
+		var specsId = $("#td_specsName input[name='specsName_btn']:checked ")
+				.val(); //规格
 		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
 		var smoney = $("#smoney").text(); //单价
 		var cartGoodNum = $("#td_num").val(); //商品数量
@@ -306,9 +326,14 @@
 				$("#addressModal").modal();
 			}
 		}
-		
+
 	}
-	
+
+	function changeNum() {
+		if ($("#td_num").val() <= 0 || $("#td_num").val() == "") {
+			$("#td_num").val(1);
+		}
+	}
 </script>
 
 <body>
@@ -355,7 +380,8 @@
 							<button type="button" id="addBtn" class="btn btn-dafault"
 								onclick="addNum()">
 								<i class="glyphicon glyphicon-plus"></i>
-							</button> <input type="text" value="1" size="2" id="td_num">
+							</button> <input type="text" value="1" size="2" id="td_num"
+							onchange="changeNum">
 							<button type="button" id="minusBtn" class="btn btn-dafault"
 								onclick="minusNum()">
 								<i class="glyphicon glyphicon-minus"></i>
@@ -367,7 +393,8 @@
 						<td colspan="2">
 							<button type="button" class="btn btn-danger"
 								onclick="insertCarts()">加入购物车</button>&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-danger" onclick="openAddressModal()">提交订单</button>
+							<button type="button" class="btn btn-danger"
+								onclick="openAddressModal()">提交订单</button>
 						</td>
 					</tr>
 				</table>
@@ -426,12 +453,13 @@
 						</button>
 						<h4 class="modal-title">付款</h4>
 					</div>
-					<div class="modal-body" id="addressBody">
-						
-					</div>
+					<div class="modal-body" id="addressBody"></div>
 					<div class="modal-footer">
-						<div><font size="5" color="red" id="totalMoney"></font></div>
-						<button type="button" class="btn btn-primary" onclick="insertOrder()">确认付款</button>
+						<div>
+							<font size="5" color="red" id="totalMoney"></font>
+						</div>
+						<button type="button" class="btn btn-primary"
+							onclick="insertOrder()">确认付款</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
