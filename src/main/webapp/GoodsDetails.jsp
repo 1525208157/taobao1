@@ -20,7 +20,7 @@
 					},
 					dataType : "json",
 					success : function(data) {
-						$("#td_goodsImg").append("<img src="+data.goodsImg+">");
+						$("#td_goodsImg").append("<img src="+data.goodsImg+" width='400px' height='400px'>");
 						$("#td_goodsName").append(data.goodsName);
 						$("#smoney").append(data.specs[0].smoney);
 						$("#saleNum").append(data.saleNum);
@@ -97,13 +97,13 @@
 
 						$("#shopRow")
 								.append(
-										"<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'>"
+										 "<div class='col-lg-1 col-sm-1'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'><img src="+data.shop.shopImg+" width='60px' height='60px'></a></div>"
+										+"<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'>"
 												+ data.shop.shopName
 												+ "</a></div>"
 												+ "<div class='col-lg-1 col-sm-1'>描述<br>5</div>"
 												+ "<div class='col-lg-1 col-sm-1'>服务<br>5</div>"
 												+ "<div class='col-lg-1 col-sm-1'>物流<br>5</div>"
-												+ "<div class='col-lg-2 col-sm-2'><a target='_blank' href='ShopsDetails.jsp?shopId="+data.shop.shopId+"'><img src="+data.shop.shopImg+"></a></div>"
 												+ "<div class='col-lg-5 col-sm-5'><a href='#' onclick='insertFavoritesShop("
 												+ data.shop.shopId
 												+ ")'>收藏店铺</a></div>");
