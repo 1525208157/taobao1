@@ -9,6 +9,8 @@ import org.taobao.pojo.Shops;
 public interface ShopsService {
 	List<Shops> queryAll(String sql);
 
-	void saveOrUpdate(Shops o);//添加
+	void addShops(Shops o);//添加
 	Shops selectShop(Integer id);
+
+	List<Shops> selectShops(String sql);//查询有没有店铺
 }
