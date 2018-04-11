@@ -330,7 +330,7 @@ public class CartsController {
 	@RequestMapping("/mycart_jieshuan")//如果这里不是ajax传数组参时，是url传数组参时这里要加[] 点击结算按钮
 	public String maycart_jieshuan(@RequestParam(value="cartGoodIds[]",required=false) List<Integer> idList,ModelMap model,HttpServletRequest request){
 		HttpSession see=request.getSession();
-		 Users user=(Users) see.getAttribute("user");
+		 Users user=(Users) see.getAttribute("users");
 		/*if(user==null){
 			user=new Users();
 			user.setUserId(1);

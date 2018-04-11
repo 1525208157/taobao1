@@ -209,7 +209,7 @@
 					class="site-nav-menu site-nav-seller site-nav-multi-menu J_MultiMenu"
 					id="J_SiteNavSeller" data-name="seller" data-spm="1997525073">
 					<div class="site-nav-menu-hd">
-						<a href="111.jsp" target="_top"> <span>卖家中心</span>
+						<a href="Sellers.jsp" target="_top"> <span>卖家中心</span>
 						</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
 					</div>
@@ -217,12 +217,9 @@
 					<div class="site-nav-menu-bd site-nav-menu-list">
 						<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-							<a href="//mai.taobao.com/seller_admin.htm" target="_top">免费开店</a>
+							<a href="kaidian.jsp" target="_top">免费开店</a>
 
-							<a href="//trade.taobao.com/trade/itemlist/list_sold_items.htm"
-								target="_top">已卖出的宝贝</a> <a
-								href="//sell.taobao.com/auction/goods/goods_on_sale.htm"
-								target="_top">出售中的宝贝</a>
+							
 
 						</div>
 					</div>

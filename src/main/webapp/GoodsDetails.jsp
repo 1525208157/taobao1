@@ -268,6 +268,7 @@
 					},
 					success : function(data) {
 						alert(data);
+						location.reload();
 					}
 				})
 			}
@@ -295,7 +296,6 @@
 					"orderStatus" : 1,
 					"isDel" : 0,
 					"address.addressId" : addressId, //收货地址
-
 					"specs.specsId" : specsId,
 					"goodsNum" : goodsNum,
 					"ogColor.gcId" : gcId
@@ -315,14 +315,14 @@
 				.val(); //规格
 		var gcId = $("#td_gcName input[name='gcName_btn']:checked ").val(); //颜色
 		var smoney = $("#smoney").text(); //单价
-		var cartGoodNum = $("#td_num").val(); //商品数量
+		var goodsNum = $("#td_num").val(); //商品数量
 		if (userId == "") {
 			alert("请先登录！");
 		} else {
 			if (specsId == null || gcId == null) {
 				alert("请先选择颜色和容量！");
 			} else {
-				$("#totalMoney").val(smoney * cartGoodNum);
+				$("#totalMoney").html(smoney*goodsNum);
 				$("#addressModal").modal();
 			}
 		}
@@ -381,7 +381,7 @@
 								onclick="addNum()">
 								<i class="glyphicon glyphicon-plus"></i>
 							</button> <input type="text" value="1" size="2" id="td_num"
-							onchange="changeNum">
+							onblur="changeNum()">
 							<button type="button" id="minusBtn" class="btn btn-dafault"
 								onclick="minusNum()">
 								<i class="glyphicon glyphicon-minus"></i>
@@ -456,7 +456,7 @@
 					<div class="modal-body" id="addressBody"></div>
 					<div class="modal-footer">
 						<div>
-							<font size="5" color="red" id="totalMoney"></font>
+							总金额：<font size="5" color="red" id="totalMoney"></font>
 						</div>
 						<button type="button" class="btn btn-primary"
 							onclick="insertOrder()">确认付款</button>
