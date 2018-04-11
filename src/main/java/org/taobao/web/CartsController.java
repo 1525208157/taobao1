@@ -558,6 +558,9 @@ public class CartsController {
 		       
 		        for (List<Shopcarts> list2 : listAll) {//外层循环
 		        	Orders orders=new Orders();//创建一个订单对象
+		        	orders.setUser(user);
+		        	orders.setIsDel(0);
+		        	orders.setOrderStatus(1);
 		        	
 		        	Date now = new Date();//给订单时间属性赋值
 		        	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
