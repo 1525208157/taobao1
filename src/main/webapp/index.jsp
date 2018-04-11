@@ -99,7 +99,6 @@
 							+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
 							+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
 					
-					
 				}
 			}
 		})

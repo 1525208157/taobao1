@@ -69,8 +69,12 @@
 		var a = $("input[name='b2']").get(0).checked == true ? "s" : "d";
 		if (a == "s") {
 			location.href = "${pageContext.request.contextPath}/Goods/queryAll?goodsName=" + $("#gname").val();
+
+		}else if(a=="d"){
+			location.href = "Goods/queryAll?goodsName=" + $("#gname").val();
 		} else if (a == "d") {
 			location.href = "${pageContext.request.contextPath}/shops/queryAll?shopName=" + $("#gname").val();
+			location.href = "shops/queryAll?shopName=" + $("#gname").val();
 		}
 	}
 </script>
