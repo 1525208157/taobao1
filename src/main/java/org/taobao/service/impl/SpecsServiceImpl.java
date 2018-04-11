@@ -26,4 +26,9 @@ private SpecsDao sd;
 		return specs;
 	}
 
+	@Override
+	public void saveOrUpdate(Specs specs) {
+		sd.saveOrUpdate(specs);
+	}
+
 }

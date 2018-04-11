@@ -194,6 +194,7 @@ public class MyTaobaoController {
 		if (orderStatus > 0) {
 			sql = sql + " and orderStatus = "+orderStatus;
 		}
+		sql = sql + " order by orderId desc";
 		List<Orders> orders = os.selectOrders(sql);
 		return orders;
 	}
@@ -201,7 +202,7 @@ public class MyTaobaoController {
 	@RequestMapping("/selectIsDelOrders")
 	@ResponseBody
 	public List<Orders> selectIsDelOrders(Integer userId) { //查询删除订单(订单回收站)
-		String sql = "select * from orders where userId = "+userId+" and isDel = 1";
+		String sql = "select * from orders where userId = "+userId+" and isDel = 1 order by orderId desc";
 		List<Orders> orders = os.selectOrders(sql);
 		return orders;
 	}
@@ -310,8 +311,11 @@ public class MyTaobaoController {
 		Integer num = og.getGoodsNum();
 		Integer specsId = og.getSpecs().getSpecsId();
 		Specs specs = ss.selectSpecs(specsId);
+		Integer stock = specs.getgStock(); //该规格库存
+		specs.setgStock(stock-num); //减少库存
+		ss.saveOrUpdate(specs);
 		Goods goods = specs.getsGoods();
-		Integer n = goods.getSaleNum();
+		Integer n = goods.getSaleNum(); //商品销量
 		goods.setSaleNum(n+num); //增加销量
 		gs.saveOrUpdate(goods);
 		List<OrderGoods> orderGoods = new ArrayList<>();
