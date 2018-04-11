@@ -35,7 +35,7 @@ public String queryAll(String shopName,ModelMap map){
 	}
 	List<Shops> sl=ss.queryAll(sql);
 	map.put("sl", sl);
-	return "Shops";
+	return "shop";
 }
 
 

@@ -164,6 +164,7 @@
 
 								<a href="${pageContext.request.contextPath}/kaidian.jsp" target="_top">免费开店</a>
 
+								
 
 							</div>
 						</div>
@@ -208,43 +209,16 @@
 				</div>
 			</div>
 		</div>
-		
-		<div style="width: 1180px; text-align: left;">
-			品牌：&nbsp;&nbsp;
-			<c:forEach items="${bl}" var="bl">
-				<a href="${pageContext.request.contextPath}/Goods/queryForBrandId?brandId=${bl.brandId}">${bl.brandName}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</c:forEach>
-		
-		</div>
-		<div style="width: 1180px; height: 20px"></div>
-		<div style="width: 1180px; text-align: left;">
-			<ul class="nav nav-pills" role="tablist">
-				<li class="active"><a href="#">综合排序</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/Goods/querySaleNum">销量</a></li>
-
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown"> 价格排序<span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a
-							href="${pageContext.request.contextPath}/Goods/queryDesc">由高到低</a></li>
-						
-					</ul></li>
-			</ul>
-		</div>	
-		
+		<br>
 		<div class="row" style="width: 1180px">
-			<c:forEach items="${gl}" var="gl">
+			<c:forEach items="${sl}" var="sl">
 				<div class="col-lg-3 col-md-3 col-sm-3">
-					<a target='_blank' href="${pageContext.request.contextPath}/GoodsDetails.jsp?goodsId=${gl.goodsId}"><img src="${pageContext.request.contextPath}/${gl.goodsImg}"  width='200px' height='200px'></a><br/>
-						￥&nbsp;&nbsp;<span>${gl.specs[0].smoney}</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>${gl.saleNum}人付款</span><br/>
-							<a target='_blank' href="${pageContext.request.contextPath}/GoodsDetails.jsp?goodsId=${gl.goodsId}">${gl.goodsName}</a><br/>
-							<a target='_blank' href="${pageContext.request.contextPath}/ShopsDetails.jsp?shopId=${gl.shop.shopId}">${gl.shop.shopName}</a>
+					<a href="${pageContext.request.contextPath}/ShopsDetails.jsp?shopId=${sl.shopId}"><img src="${pageContext.request.contextPath}/${sl.shopImg}" width="60px" height="60px"></a><br/>
+							<a href="${pageContext.request.contextPath}/ShopsDetails.jsp?shopId=${sl.shopId}">${sl.shopName}</a>
 				</div>
 			</c:forEach>
 		</div>
-		
+		<br>
 		
 	</center>
 </body>

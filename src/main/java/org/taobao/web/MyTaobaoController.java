@@ -307,6 +307,13 @@ public class MyTaobaoController {
 	@RequestMapping("insertOrder")
 	@ResponseBody
 	public String insertOrder(Orders orders,OrderGoods og) { //添加订单
+		Integer num = og.getGoodsNum();
+		Integer specsId = og.getSpecs().getSpecsId();
+		Specs specs = ss.selectSpecs(specsId);
+		Goods goods = specs.getsGoods();
+		Integer n = goods.getSaleNum();
+		goods.setSaleNum(n+num); //增加销量
+		gs.saveOrUpdate(goods);
 		List<OrderGoods> orderGoods = new ArrayList<>();
 		orderGoods.add(og); //集合添加订单商品
 		Date now = new Date();

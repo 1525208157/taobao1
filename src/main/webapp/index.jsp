@@ -68,9 +68,9 @@
 	function fun1() {
 		var a = $("input[name='b2']").get(0).checked == true ? "s" : "d";
 		if (a == "s") {
-			location.href = "Goods/queryAll?goodsName=" + $("#gname").val();
+			location.href = "${pageContext.request.contextPath}/Goods/queryAll?goodsName=" + $("#gname").val();
 		} else if (a == "d") {
-			location.href = "shops/queryAll?shopName=" + $("#gname").val();
+			location.href = "${pageContext.request.contextPath}/shops/queryAll?shopName=" + $("#gname").val();
 		}
 	}
 </script>
@@ -93,28 +93,12 @@
 			success : function(data) { 	
 				var num = 0;
 				for (i = 0; i < data.length; i++) {
-					if (i != 0 && i %4 == 0) {
-						num++;
-						$("#Goods").append("<div class='row' id='a"+num+"'>"
-								+"<div class='col-lg-3 col-md-3'>"
-								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'class='img-rounded' width='200px' height='200px'></a>"
-								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
-								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
-								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div></div>");
-					}
-					if (i < 4) {
-						$("#firstRow").append("<div class='col-lg-3 col-md-3'>"
-								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='200px' height='200px'></a>"
-								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
-								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
-								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
-					} else if (i % 4 != 0) {
-						$("#a"+num).append("<div class='col-lg-3 col-md-3'>"
-								+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+" class='img-rounded' width='200px' height='200px'></a>"
-								+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
-								+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
-								+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
-					}
+					$("#Goods").append("<div class='col-lg-3 col-md-3'>"
+							+"<a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'><img src='"+data[i].goodsImg+"'' class='img-rounded' width='200px' height='200px'></a>"
+							+"<br/>￥&nbsp;&nbsp;<span>"+data[i].specs[0].smoney+"</span>&nbsp;包邮&nbsp;&nbsp;&nbsp;&nbsp;<span>"+data[i].saleNum+"人付款</span>"
+							+" <br/> <a target='_blank' href='GoodsDetails.jsp?goodsId="+data[i].goodsId+"'>"+data[i].goodsName+"</a>"
+							+"<br/><a target='_blank' href='ShopsDetails.jsp?shopId="+data[i].shop.shopId+"'>"+data[i].shop.shopName+"</a></div>");
+					
 					
 				}
 			}
@@ -187,7 +171,7 @@
 						class="site-nav-menu site-nav-seller site-nav-multi-menu J_MultiMenu"
 						id="J_SiteNavSeller" data-name="seller" data-spm="1997525073">
 						<div class="site-nav-menu-hd">
-							<a href="//mai.taobao.com/seller_admin.htm" target="_top"> <span>卖家中心</span>
+							<a href="Sellers.jsp" target="_top"> <span>卖家中心</span>
 							</a> <span class="site-nav-arrow"><span class="site-nav-icon">&#xe605;</span></span>
 
 						</div>
@@ -195,12 +179,8 @@
 						<div class="site-nav-menu-bd site-nav-menu-list">
 							<div class="site-nav-menu-bd-panel menu-bd-panel">
 
-								<a href="//mai.taobao.com/seller_admin.htm" target="_top">免费开店</a>
+								<a href="kaidian.jsp" target="_top">免费开店</a>
 
-								<a href="//trade.taobao.com/trade/itemlist/list_sold_items.htm"
-									target="_top">已卖出的宝贝</a> <a
-									href="//sell.taobao.com/auction/goods/goods_on_sale.htm"
-									target="_top">出售中的宝贝</a>
 
 							</div>
 						</div>
@@ -248,16 +228,16 @@
 		<div class="layui-carousel" id="test1">
 			<div carousel-item>
 				<div>
-					<a href=""><img src="images/01.jpg"></a>
+					<a target="_blank" href="GoodsDetails.jsp?goodsId=1"><img src="images/01.jpg"></a>
 				</div>
 				<div>
-					<a href=""><img src="images/02.jpg"></a>
+					<a target="_blank" href="GoodsDetails.jsp?goodsId=2"><img src="images/02.jpg"></a>
 				</div>
 				<div>
-					<a href=""><img src="images/03.jpg"></a>
+					<a target="_blank" href="GoodsDetails.jsp?goodsId=3"><img src="images/03.jpg"></a>
 				</div>
 				<div>
-					<a href=""><img src="images/04.jpg"></a>
+					<a target="_blank" href="GoodsDetails.jsp?goodsId=4"><img src="images/04.jpg"></a>
 				</div>
 			</div>
 		</div>
@@ -282,8 +262,7 @@
 			});
 		</script>
 		<br>
-		<div id="Goods" style="width: 1180px;">
-			<div class="row" id="firstRow"></div>
+		<div id="Goods" style="width: 1180px;" class="row">
 		</div>
 	</center>
 </body>
